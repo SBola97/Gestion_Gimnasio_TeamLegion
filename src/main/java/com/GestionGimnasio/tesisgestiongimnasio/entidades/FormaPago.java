@@ -20,7 +20,6 @@ public class FormaPago {
     @NotEmpty
     private String nombre;
 
-    @OneToOne
-    @JoinColumn(name = "idPago",referencedColumnName = "idPago")
+    @OneToOne(mappedBy = "formaPago",cascade = CascadeType.ALL)
     private Pagos pagos;
 }

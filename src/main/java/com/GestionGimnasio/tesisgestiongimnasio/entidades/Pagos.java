@@ -27,7 +27,8 @@ public class Pagos {
     @JoinColumn(name = "idInscripcion",referencedColumnName = "idInscripcion")
     private Inscripciones inscripciones;
 
-    @OneToOne(mappedBy = "pagos",cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "idFormaPago",referencedColumnName = "idFormaPago")
     private FormaPago formaPago;
 
 }

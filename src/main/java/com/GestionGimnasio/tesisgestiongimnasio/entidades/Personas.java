@@ -1,6 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.entidades;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Personas")
 @Data
+@NoArgsConstructor
 public class Personas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +50,8 @@ public class Personas {
     private Usuarios usuarios;
 
 
-    @OneToOne(mappedBy = "personas",cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idRol",referencedColumnName = "idRol")
     private Roles roles;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personas")

@@ -25,8 +25,8 @@ public class Modalidades {
     @NotNull
     private float valor;
 
-    @OneToOne()
-    @JoinColumn(name = "idInscripcion",referencedColumnName = "idInscripcion")
+    @OneToOne(mappedBy = "modalidades")
+
     private Inscripciones inscripciones;
 
 }

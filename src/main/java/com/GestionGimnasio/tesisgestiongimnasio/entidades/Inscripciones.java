@@ -33,7 +33,8 @@ public class Inscripciones {
     @OneToOne(mappedBy = "inscripciones",cascade = CascadeType.ALL)
     private Pagos pagos;
 
-    @OneToOne(mappedBy = "inscripciones",cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "idModalidad",referencedColumnName = "idModalidad")
     private Modalidades modalidades;
 
 
