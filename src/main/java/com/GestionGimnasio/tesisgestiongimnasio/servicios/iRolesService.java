@@ -12,7 +12,7 @@ public interface iRolesService {
 
     void eliminarRol(int idRol);
 
-    RolesDTO buscarRol(RolesDTO rolesDTO);
+    RolesDTO buscarRol(int idRol);
 
     List<RolesDTO> obtenerRoles();
 }

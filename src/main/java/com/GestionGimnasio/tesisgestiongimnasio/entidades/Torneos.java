@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +20,12 @@ public class Torneos {
 
     @NotEmpty
     private String nombre;
+
+    @NotNull
+    private LocalDate fecha;
+
+    @NotEmpty
+    private String ciudad;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "torneos")
     private Set<Competidores_Torneo> CompetidoresTorneo = new HashSet<>();

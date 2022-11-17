@@ -9,7 +9,9 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 public class RolesDTO {
+
     private int idRol;
+
     private String nombre;
 
 }

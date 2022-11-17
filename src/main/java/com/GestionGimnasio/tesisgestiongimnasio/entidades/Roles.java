@@ -11,12 +11,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Roles {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRol;
 
     @Column(length=25,nullable = false,unique = true)
     private String nombre;
 
-    @OneToOne(mappedBy = "roles",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "roles")
     private Personas personas;
 }

@@ -50,7 +50,7 @@ public class Personas {
     private Usuarios usuarios;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "idRol",referencedColumnName = "idRol")
     private Roles roles;
 

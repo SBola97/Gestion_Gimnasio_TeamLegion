@@ -23,6 +23,7 @@ public class RolesService implements iRolesService{
     public RolesDTO ingresarRol(RolesDTO rolesDTO) {
         Roles roles = mapper.toRoles(rolesDTO);
 
+        roles.setIdRol(rolesDTO.getIdRol());
         roles.setNombre(rolesDTO.getNombre());
 
         rolesRepository.save(roles);
@@ -40,7 +41,7 @@ public class RolesService implements iRolesService{
     }
 
     @Override
-    public RolesDTO buscarRol(RolesDTO rolesDTO) {
+    public RolesDTO buscarRol(int idRol) {
         return null;
     }
 
