@@ -21,7 +21,7 @@ public interface TorneosMapper {
             @Mapping(source = "disciplinas.idDisciplina",target = "idDisciplina" ),
     })
     TorneosDTO toTorneosDTO(Torneos torneos);
-    List<TorneosDTO>toTorneosDTO(List<Torneos> torneos);
+    List<TorneosDTO>toTorneosDTO(List<Torneos> torneosList);
 
     @InheritInverseConfiguration
     Torneos toTorneos(TorneosDTO torneos);

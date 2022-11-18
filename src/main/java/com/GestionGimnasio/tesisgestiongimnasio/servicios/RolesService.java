@@ -31,7 +31,7 @@ public class RolesService implements iRolesService{
     }
 
     @Override
-    public RolesDTO modificarRol(RolesDTO rolesDTO) {
+    public RolesDTO modificarRol(int idRol, RolesDTO rolesDTO) {
         return null;
     }
 

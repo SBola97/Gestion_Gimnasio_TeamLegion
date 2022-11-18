@@ -7,8 +7,8 @@ import java.util.List;
 public interface iPersonasService {
 
     PersonasDTO ingresarPersona(PersonasDTO personasDTO);
-    PersonasDTO modificarPersona(PersonasDTO personasDTO);
+    PersonasDTO modificarPersona(int idPersona, PersonasDTO personasDTO);
     void eliminarPersona(int idPersona);
-    PersonasDTO buscarPersona(PersonasDTO personasDTO);
+    PersonasDTO buscarPersona(int idPersona);
     List<PersonasDTO> obtenerPersona();
 }

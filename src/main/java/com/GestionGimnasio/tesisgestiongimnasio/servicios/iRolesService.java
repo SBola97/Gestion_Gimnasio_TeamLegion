@@ -8,7 +8,7 @@ public interface iRolesService {
 
     RolesDTO ingresarRol(RolesDTO rolesDTO);
 
-    RolesDTO modificarRol(RolesDTO rolesDTO);
+    RolesDTO modificarRol(int idRol, RolesDTO rolesDTO);
 
     void eliminarRol(int idRol);
 

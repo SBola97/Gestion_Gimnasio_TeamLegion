@@ -26,7 +26,7 @@ public interface PersonasMapper {
             @Mapping(source = "roles.idRol", target = "idRol"),
     })
     PersonasDTO toPersonasDTO(Personas personas);
-    List<PersonasDTO> toPersonasDTO(List<Personas> personas);
+    List<PersonasDTO> toPersonasDTO(List<Personas> personasList);
     @InheritInverseConfiguration
     Personas toPersonas (PersonasDTO personas);
 

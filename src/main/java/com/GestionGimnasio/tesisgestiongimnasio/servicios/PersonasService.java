@@ -39,7 +39,7 @@ public class PersonasService implements iPersonasService {
     }
 
     @Override
-    public PersonasDTO modificarPersona(PersonasDTO personasDTO) {
+    public PersonasDTO modificarPersona(int idPersona, PersonasDTO personasDTO) {
         return null;
     }
 
@@ -49,8 +49,9 @@ public class PersonasService implements iPersonasService {
     }
 
     @Override
-    public PersonasDTO buscarPersona(PersonasDTO personasDTO) {
-        return null;
+    public PersonasDTO buscarPersona(int idPersona) {
+        return mapper.toPersonasDTO(personasRepository.findById(idPersona)
+                .orElseThrow(()-> new RuntimeException("Persona no encontrada")));
     }
 
     @Override

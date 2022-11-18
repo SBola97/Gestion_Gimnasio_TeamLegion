@@ -18,7 +18,7 @@ public interface DisciplinasMapper {
             @Mapping(source="nombre",target = "nombre"),
     })
     DisciplinasDTO toDisciplinasDTO(Disciplinas disciplinas);
-    List<DisciplinasDTO> toDisciplinasDTO(List<Disciplinas> disciplinas);
+    List<DisciplinasDTO> toDisciplinasDTO(List<Disciplinas> disciplinasList);
 
     @InheritInverseConfiguration
     Disciplinas toDisciplinas(DisciplinasDTO disciplinas);
