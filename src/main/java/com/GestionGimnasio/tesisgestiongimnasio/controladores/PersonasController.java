@@ -1,6 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
+import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +30,18 @@ public class PersonasController {
     public List<PersonasDTO> getPersonas (){
         return personasService.obtenerPersona();
     }
+
+
+    @GetMapping("/clientes")
+    public List<ClienteDTO> getClientes(){
+        return personasService.obtenerClientes();
+    }
+
+    @GetMapping("/profesores")
+    public List<ProfesorDTO> getProfesores(){
+        return personasService.obtenerProfesores();
+    }
+
+
 
 }

@@ -50,7 +50,7 @@ public class Personas {
     private Usuarios usuarios;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idRol",referencedColumnName = "idRol")
     private Roles roles;
 

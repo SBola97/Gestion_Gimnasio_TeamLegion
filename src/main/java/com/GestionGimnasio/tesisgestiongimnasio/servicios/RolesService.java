@@ -23,8 +23,9 @@ public class RolesService implements iRolesService{
     public RolesDTO ingresarRol(RolesDTO rolesDTO) {
         Roles roles = mapper.toRoles(rolesDTO);
 
+        /*
         roles.setIdRol(rolesDTO.getIdRol());
-        roles.setNombre(rolesDTO.getNombre());
+        roles.setNombre(rolesDTO.getNombre());*/
 
         rolesRepository.save(roles);
         return mapper.toRolesDTO(roles);

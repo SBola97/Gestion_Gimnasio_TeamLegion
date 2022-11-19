@@ -2,8 +2,10 @@ package com.GestionGimnasio.tesisgestiongimnasio.entidades;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Roles")
@@ -11,12 +13,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Roles {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idRol;
 
-    @Column(length=25,nullable = false,unique = true)
+    @Column(unique = true)
     private String nombre;
 
-    @OneToOne(mappedBy = "roles")
-    private Personas personas;
+    @OneToMany(mappedBy = "roles")
+    private Set<Personas> personas;
 }
