@@ -1,13 +1,11 @@
 package com.GestionGimnasio.tesisgestiongimnasio.dto;
 
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

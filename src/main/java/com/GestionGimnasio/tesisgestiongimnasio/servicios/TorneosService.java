@@ -1,8 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.TorneosDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Disciplinas;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
+import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Disciplinas;
+import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Torneos;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.TorneosMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.DisciplinasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.TorneosRepository;

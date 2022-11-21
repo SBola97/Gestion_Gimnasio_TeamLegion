@@ -3,7 +3,6 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

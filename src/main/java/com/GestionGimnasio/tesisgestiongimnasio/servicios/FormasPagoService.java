@@ -1,7 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.FormaPagoDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.FormaPago;
+import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.FormaPago;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.FormasPagoMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.FormaPagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

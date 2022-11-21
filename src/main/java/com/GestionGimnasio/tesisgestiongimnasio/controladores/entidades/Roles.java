@@ -1,8 +1,7 @@
-package com.GestionGimnasio.tesisgestiongimnasio.entidades;
+package com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.util.Set;

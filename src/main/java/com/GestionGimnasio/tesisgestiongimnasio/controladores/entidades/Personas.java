@@ -1,4 +1,4 @@
-package com.GestionGimnasio.tesisgestiongimnasio.entidades;
+package com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

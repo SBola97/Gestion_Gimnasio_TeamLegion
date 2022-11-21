@@ -2,7 +2,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.mappers;
 
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.FormaPagoDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.FormaPago;
+import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.FormaPago;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -2,7 +2,6 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ModalidadesDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Modalidades;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.ModalidadesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

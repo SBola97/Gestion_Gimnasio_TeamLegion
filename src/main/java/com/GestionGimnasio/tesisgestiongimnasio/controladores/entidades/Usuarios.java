@@ -1,16 +1,15 @@
-package com.GestionGimnasio.tesisgestiongimnasio.entidades;
+package com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "Usuarios")
 @Data
+@NoArgsConstructor
 public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

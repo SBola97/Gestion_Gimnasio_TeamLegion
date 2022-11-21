@@ -2,7 +2,6 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.FormaPagoDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.FormaPago;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.FormasPagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -2,7 +2,6 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ModalidadesDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Modalidades;
 
 import java.util.List;
 

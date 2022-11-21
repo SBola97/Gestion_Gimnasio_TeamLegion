@@ -1,8 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ModalidadesDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Disciplinas;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Modalidades;
+import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Modalidades;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.ModalidadesMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.ModalidadesRepository;
 import org.springframework.beans.factory.annotation.Autowired;

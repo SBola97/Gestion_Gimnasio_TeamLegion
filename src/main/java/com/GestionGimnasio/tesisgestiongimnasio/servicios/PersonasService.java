@@ -3,15 +3,14 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
+import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Personas;
+import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Roles;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.ClienteMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.PersonasMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.ProfesorMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

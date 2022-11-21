@@ -3,7 +3,6 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 
 import java.util.List;
 

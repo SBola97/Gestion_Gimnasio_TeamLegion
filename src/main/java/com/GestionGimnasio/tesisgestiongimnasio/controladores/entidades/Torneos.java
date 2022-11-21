@@ -1,9 +1,8 @@
-package com.GestionGimnasio.tesisgestiongimnasio.entidades;
+package com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades;
 
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;

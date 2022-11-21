@@ -2,7 +2,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.DisciplinasDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Disciplinas;
+import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Disciplinas;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.DisciplinasMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.DisciplinasRepository;
 import org.springframework.beans.factory.annotation.Autowired;

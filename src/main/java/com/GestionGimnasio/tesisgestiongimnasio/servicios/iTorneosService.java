@@ -1,7 +1,6 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.TorneosDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
 
 import java.util.List;
 

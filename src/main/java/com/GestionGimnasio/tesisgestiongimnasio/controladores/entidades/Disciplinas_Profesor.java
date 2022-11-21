@@ -1,12 +1,9 @@
-package com.GestionGimnasio.tesisgestiongimnasio.entidades;
+package com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades;
 
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
-import java.util.Set;
+
 @Entity
 @Table(name = "Disciplinas_Profesor")
 @Data
