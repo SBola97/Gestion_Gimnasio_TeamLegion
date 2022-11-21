@@ -1,7 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.mappers;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.RolesDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Roles;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

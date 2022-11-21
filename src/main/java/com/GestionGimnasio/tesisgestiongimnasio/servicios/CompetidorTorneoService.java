@@ -1,9 +1,9 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.CompetidoresTorneoDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Competidores_Torneo;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Personas;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Torneos;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.CompetidoresTorneoMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.Competidores_TorneoRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;

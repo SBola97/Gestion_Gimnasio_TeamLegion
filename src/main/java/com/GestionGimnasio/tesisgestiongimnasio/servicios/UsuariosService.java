@@ -1,8 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.UsuariosDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Personas;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Usuarios;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Usuarios;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.UsuarioMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.RolesRepository;

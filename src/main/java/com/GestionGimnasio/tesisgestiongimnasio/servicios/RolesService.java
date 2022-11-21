@@ -1,7 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.RolesDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Roles;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.RolesMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;

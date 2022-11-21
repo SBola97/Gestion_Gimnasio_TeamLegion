@@ -1,8 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PagosDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.FormaPago;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Inscripciones;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Pagos;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.FormaPago;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Pagos;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.PagosMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.FormaPagoRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.InscripcionesRepository;

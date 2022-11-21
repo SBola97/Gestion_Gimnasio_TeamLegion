@@ -2,7 +2,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.mappers;
 
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.DisciplinasDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Disciplinas;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Disciplinas;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

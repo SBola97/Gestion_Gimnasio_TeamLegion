@@ -1,9 +1,9 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.InscripcionesDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Inscripciones;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Modalidades;
-import com.GestionGimnasio.tesisgestiongimnasio.controladores.entidades.Personas;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Modalidades;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.InscripcionMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.InscripcionesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.ModalidadesRepository;
