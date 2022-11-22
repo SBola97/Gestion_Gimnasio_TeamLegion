@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+</head>
+<body class="bg-black-alt font-sans leading-normal tracking-normal">
+
+<nav th:replace="layout/layout :: header">
+</nav>
+
+<!--Contenedor-->
+<div class="container w-full mx-auto pt-20 mt-10">
+
+    <div class="w-full px-4 md:px-0 md:mt-8 mb-16 text-gray-800 leading-normal">
+
+        <div class="flex flex-wrap">
+
+            <div class="flex flex-row flex-wrap flex-grow mt-2">
+
+                <div class="w-full p-3">
+                    <!--Tabla-->
+                    <div class="bg-gray-900 border border-gray-800 rounded shadow">
+                        <div class="border-b border-gray-800 p-3">
+                            <h5 class="font-bold uppercase text-cyan-500">Tabla de Pagos - Team Legión</h5>
+                            <button type="button" class="text-white bg-gray-800 hover:bg-gray-900
+                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
+                            px-5 py-2.5 mr-2 mb-2 mt-2 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                Agregar pago</button>
+                        </div>
+                        <div class="p-5">
+                            <table class="w-full p-5 text-gray-300">
+                                <thead>
+                                <tr>
+                                    <th class="text-left text-white">ID</th>
+                                    <th class="text-left text-white">Fecha Pago</th>
+                                    <th class="text-left text-white">Estado</th>
+                                    <th class="text-left text-white">Inscripción</th>
+                                    <th class="text-left text-white">Forma de Pago</th>
+                                    <th class="text-left text-white">Acciones</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="pagos : ${listaPagos}">
+                                    <td th:text="${pagos.idPago}"></td>
+                                    <td th:text="${pagos.fechaPago}"></td>
+                                    <td th:text="${pagos.estadoPago}"></td>
+                                    <td th:text="${pagos.idInscripcion}"></td>
+                                    <td th:if="${pagos.idFormaPago == 1}">Efectivo</td>
+                                    <td th:unless="${pagos.idFormaPago == 1}">Transferencia</td>
+                                    <td><a class="text-blue-400" href="#">Editar</a>
+                                        <a class="text-red-500" href="#">  Eliminar</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <!--/table Card-->
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--/container-->
+
+<footer class="bg-gray-900 border-t border-gray-400 shadow">
+    <div class="container max-w-md mx-auto flex py-8">
+
+        <div class="w-full mx-auto flex flex-wrap">
+            <div class="flex w-full md:w-1/2 ">
+                <div class="px-8">
+                    <h3 class="font-bold font-bold text-gray-100">Acerca de</h3>
+                    <p class="py-4 text-gray-600 text-sm">Aplicación Web para el Gimnasio TeamLegion Riobamba</p>
+                    <p class="py-4 text-gray-600 text-sm">&#169 Paul Bolaños - Todos los derechos reservados</p>
+                </div>
+            </div>
+
+            <div class="flex w-full md:w-1/2">
+                <div class="px-8">
+                    <h3 class="font-bold font-bold text-gray-100">Redes Sociales</h3>
+                    <ul class="list-reset items-center text-sm pt-3">
+                        <li>
+                            <a class="inline-block text-gray-600 no-underline hover:text-gray-100 hover:text-underline py-1"
+                               href="#">Facebook</a>
+                        </li>
+                        <li>
+                            <a class="inline-block text-gray-600 no-underline hover:text-gray-100 hover:text-underline py-1"
+                               href="#">Instagram</a>
+                        </li>
+                        <li>
+                            <a class="inline-block text-gray-600 no-underline hover:text-gray-100 hover:text-underline py-1"
+                               href="#">WhatsApp</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</footer>
+
+<script>
+
+
+	/*Toggle dropdown list*/
+	/*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+	var userMenuDiv = document.getElementById("userMenu");
+	var userMenu = document.getElementById("userButton");
+
+	var navMenuDiv = document.getElementById("nav-content");
+	var navMenu = document.getElementById("nav-toggle");
+
+	document.onclick = check;
+
+	function check(e){
+	  var target = (e && e.target) || (event && event.srcElement);
+
+	  //User Menu
+	  if (!checkParent(target, userMenuDiv)) {
+		// click NOT on the menu
+		if (checkParent(target, userMenu)) {
+		  // click on the link
+		  if (userMenuDiv.classList.contains("invisible")) {
+			userMenuDiv.classList.remove("invisible");
+		  } else {userMenuDiv.classList.add("invisible");}
+		} else {
+		  // click both outside link and outside menu, hide menu
+		  userMenuDiv.classList.add("invisible");
+		}
+	  }
+
+	  //Nav Menu
+	  if (!checkParent(target, navMenuDiv)) {
+		// click NOT on the menu
+		if (checkParent(target, navMenu)) {
+		  // click on the link
+		  if (navMenuDiv.classList.contains("hidden")) {
+			navMenuDiv.classList.remove("hidden");
+		  } else {navMenuDiv.classList.add("hidden");}
+		} else {
+		  // click both outside link and outside menu, hide menu
+		  navMenuDiv.classList.add("hidden");
+		}
+	  }
+
+	}
+
+	function checkParent(t, elm) {
+	  while(t.parentNode) {
+		if( t == elm ) {return true;}
+		t = t.parentNode;
+	  }
+	  return false;
+	}
+
+
+
+</script>
+
+</body>
+</html>
