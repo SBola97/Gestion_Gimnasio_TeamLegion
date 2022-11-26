@@ -3,7 +3,7 @@
 <head th:replace="layout/layout :: head">
     <meta charset="UTF-8">
 </head>
-<body class="bg-black-alt font-sans flex">
+<body class="bg-gray-300 font-sans flex">
 
 <nav th:replace="layout/layout :: navbar"></nav>
 
@@ -14,12 +14,21 @@
 
     <div class="w-full overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-white pb-6">Tabla de Miembros</h1>
+            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Tabla de Miembros</h1>
+            <div class="flex justify-end">
+                <label for="table-search" class="sr-only">Buscar</label>
+                <div class="relative">
+                    <div class="flex absolute inset-y-0 left-0 items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-800" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                    </div>
+                    <input type="text" id="table-search" class="block p-2 mx-10 w-60 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar miembro">
+                </div>
+            </div>
 
-            <div class="w-full mt-12">
-                <button type="button" class="text-white bg-gray-800 hover:bg-gray-900
-                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
-                            px-5 py-2.5 mr-2 mb-2 mt-2 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <div class="w-full mt-12 ">
+                <button type="button" class="text-white bg-green-400 hover:bg-green-500 hover:text-black
+                            focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
+                            px-5 py-2.5 mr-2 mb-6 mt-2">
                     Agregar miembro</button>
                 <div class="bg-gray-300 overflow-auto">
                     <table class="min-w-full">
@@ -49,8 +58,15 @@
                             <td th:text="${personas.estatura}"></td>
                             <td th:if="${personas.idRol == 2}">Profesor</td>
                             <td th:unless="${personas.idRol == 2}">Cliente</td>
-                            <td><a class="text-blue-400" href="#">Editar</a>
-                                <a class="text-red-500" href="#">  Eliminar</a>
+                            <td>
+                               <button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                            focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
+                            px-3 py-2 mr-2 mb-2 mt-2">
+                                Editar</button>
+                                <button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
+                            px-3 py-2 mr-2 mb-2 mt-2">
+                                    Eliminar</button>
                             </td>
                         </tr>
                         </tbody>
@@ -64,6 +80,7 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
 
 </body>
 </html>
