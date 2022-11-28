@@ -43,6 +43,10 @@
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-cyan-200">
             <i class="fas fa-user mr-3"></i><span class="pb-1 md:pb-0 text-sm">Clientes</span>
         </a>
+        <a href="/"
+           class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-cyan-200">
+            <i class="fas fa-user-tie mr-3"></i><span class="pb-1 md:pb-0 text-sm">Profesores</span>
+        </a>
         <a th:href="@{/gym/inscripciones/listar}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-red-400">
             <i class="fas fa-calendar mr-3"></i><span class="pb-1 md:pb-0 text-sm">Inscripciones</span>
@@ -61,7 +65,7 @@
         </a>
         <a href="/"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-green-400">
-            <i class="fas fa-user-tie mr-3"></i><span class="pb-1 md:pb-0 text-sm">Usuarios</span>
+            <i class="fas fa-user-cog mr-3"></i><span class="pb-1 md:pb-0 text-sm">Usuarios</span>
         </a>
         <a href="/"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-teal-800">
@@ -76,15 +80,16 @@
 <div  class="relative w-full flex flex-col h-screen overflow-y-hidden">
 
     <!-- Desktop Header -->
-    <header th:fragment="headerdk"  class="w-full items-center bg-gray-800 py-2 px-6 hidden sm:flex">
+    <header th:fragment="headerdk"  class="w-full items-center bg-gray-600 py-2 px-6 hidden sm:flex">
         <div class="w-1/2"></div>
         <a href="/" class="text-white text-2xl font-semibold uppercase hover:text-gray-300">Panel de control</a>
         <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
-            <button @click="isOpen = !isOpen" class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
-                <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400">
+            <button @click="isOpen = !isOpen" class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+<!--                <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400">-->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm95.8 32.6L272 480l-32-136 32-56h-96l32 56-32 136-47.8-191.4C56.9 292 0 350.3 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-72.1-56.9-130.4-128.2-133.8z"/></svg>
             </button>
             <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
-            <div x-show="isOpen" class="absolute w-32 bg-gray-400 rounded-lg shadow-lg py-2 mt-16">
+            <div x-show="isOpen" class="absolute w-32 bg-gray-700 rounded-lg shadow-lg py-2 mt-16">
                 <a href="/" class="block px-4 py-2 account-link hover:text-white">Mi perfil</a>
                 <a href="/" class="block px-4 py-2 account-link hover:text-white">Salir</a>
             </div>
@@ -92,7 +97,7 @@
     </header>
 
     <!-- Header y Nav Móvil -->
-    <header th:fragment="headerm" x-data="{ isOpen: false }" class="w-full bg-black-alt py-5 px-6 sm:hidden">
+    <header th:fragment="headerm" x-data="{ isOpen: false }" class="w-full bg-gray-600 py-5 px-6 sm:hidden">
         <div class="flex items-center justify-between">
             <a href="/" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Dashboard</a>
             <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
@@ -109,7 +114,11 @@
             </a>
             <a href="/" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4">
                 <i class="fas fa-users mr-3"></i>
-                Miembros
+                Comunidad
+            </a>
+            <a href="/" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4">
+                <i class="fas fa-user-tie mr-3"></i>
+                Profesores
             </a>
             <a href="/" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4">
                 <i class="fas fa-user mr-3"></i>
@@ -132,7 +141,7 @@
                 Torneos
             </a>
             <a href="/" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4">
-                <i class="fas fa-user-tie mr-3"></i>
+                <i class="fas fa-user-cog mr-3"></i>
                 Usuarios
             </a>
             <a href="/" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4">
@@ -142,17 +151,14 @@
         </nav>
     </header>
 
-
-
 </div>
-
 
 
 <footer th:fragment="footer" class="p-4 bg-gray-300 sm:p-6">
     <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
             <a href="/" class="flex items-center">
-                <img th:src="@{/svgs/logo-gymlegion-nbg.png}" class="mr-3 h-12 w-12" alt="TeamLegion Logo" />
+                <img th:src="@{/svgs/logo-gymlegion-nbg.png}" class="mr-3 h-10 w-10" alt="TeamLegion Logo" />
                 <span class="self-center text-xl font-semibold text-black-alt  dark:text-white">Team Legión Riobamba</span>
             </a>
         </div>

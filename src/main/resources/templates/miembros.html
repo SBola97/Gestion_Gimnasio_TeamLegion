@@ -26,10 +26,10 @@
             </div>
 
             <div class="w-full mt-12 ">
-                <button type="button" class="text-white bg-green-400 hover:bg-green-500 hover:text-black
+                <a th:href="@{/gym/personas/form}"><button type="button" class="text-white bg-green-400 hover:bg-green-500 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-6 mt-2">
-                    Agregar miembro</button>
+                    Agregar miembro</button></a>
                 <div class="bg-gray-300 overflow-auto">
                     <table class="min-w-full">
                         <thead class="bg-gray-800 text-white">
@@ -59,14 +59,14 @@
                             <td th:if="${personas.idRol == 2}">Profesor</td>
                             <td th:unless="${personas.idRol == 2}">Cliente</td>
                             <td>
-                               <button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{form/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
-                                Editar</button>
-                                <button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                                Editar</button></a>
+                               <a th:href="@{eliminar/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
-                                    Eliminar</button>
+                                    Eliminar</button></a>
                             </td>
                         </tr>
                         </tbody>
