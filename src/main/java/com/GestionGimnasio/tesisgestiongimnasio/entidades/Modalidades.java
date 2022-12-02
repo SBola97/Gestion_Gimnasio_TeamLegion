@@ -4,6 +4,8 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -23,8 +25,8 @@ public class Modalidades {
     @NotNull
     private float valor;
 
-    @OneToOne(mappedBy = "modalidades")
+    @OneToMany(mappedBy = "modalidades")
 
-    private Inscripciones inscripciones;
+    private Set<Inscripciones> inscripciones;
 
 }

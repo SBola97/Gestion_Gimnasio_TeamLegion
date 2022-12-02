@@ -10,15 +10,15 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses={InscripcionMapper.class , FormasPagoMapper.class})
 public interface PagosMapper {
 
     @Mappings({
             @Mapping(source="idPago", target= "idPago"),
             @Mapping(source="fechaPago", target= "fechaPago"),
             @Mapping(source="estadoPago", target= "estadoPago"),
-            @Mapping(source="inscripciones.idInscripcion", target= "idInscripcion"),
-            @Mapping(source="formaPago.idFormaPago", target= "idFormaPago")
+            @Mapping(source="inscripciones", target= "inscripciones"),
+            @Mapping(source="formaPago", target= "formaspago")
     })
     PagosDTO toPagosDTO(Pagos pagos);
 

@@ -1,7 +1,6 @@
 package com.GestionGimnasio.tesisgestiongimnasio.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

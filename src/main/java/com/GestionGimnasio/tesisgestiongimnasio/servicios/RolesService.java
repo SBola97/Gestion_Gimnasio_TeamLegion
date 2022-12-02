@@ -50,4 +50,10 @@ public class RolesService implements iRolesService{
     public List<RolesDTO> obtenerRoles() {
         return mapper.toRolesDTO((List<Roles>)rolesRepository.findAll());
     }
+
+    @Override
+    public List<Roles> getRoles(){
+        return rolesRepository.findAll();
+    }
+
 }

@@ -24,9 +24,9 @@ public class PagosDTO {
     private String estadoPago;
 
     @NotNull(message = "El campo idInscripcion es requerido")
-    private int idInscripcion;
+    private InscripcionesDTO inscripciones;
 
     @NotNull(message = "El campo idFormaPago es requerido")
-    private int idFormaPago;
+    private FormaPagoDTO formaspago;
 
 }

@@ -1,6 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.RolesDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface iRolesService {
     RolesDTO buscarRol(int idRol);
 
     List<RolesDTO> obtenerRoles();
+
+    List<Roles> getRoles();
 }

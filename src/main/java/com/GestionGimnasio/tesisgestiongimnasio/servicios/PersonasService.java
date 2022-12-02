@@ -5,14 +5,17 @@ import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
+import com.GestionGimnasio.tesisgestiongimnasio.excepciones.gymexceptions;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.ClienteMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.PersonasMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.ProfesorMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -51,6 +54,20 @@ public class PersonasService implements iPersonasService {
     }
 
     @Override
+    @Transactional
+    public void registrarPersona(Personas personas) {
+        if(validadorDeCedula(personas.getCedula())) {
+            //Roles idRol = personas.getRoles();
+            //rolesRepository.getById(idRol).orElseThrow(() -> new RuntimeException("No encontrado"));
+            //personas.setRoles(idRol);
+            personasRepository.save(personas);
+        }
+        else{
+            throw new gymexceptions(HttpStatus.BAD_REQUEST,"Cédula no válida");
+        }
+    }
+
+    @Override
     public PersonasDTO modificarPersona(int idPersona, PersonasDTO personasDTO) {
         return null;
     }
@@ -66,11 +83,21 @@ public class PersonasService implements iPersonasService {
                 .orElseThrow(()-> new RuntimeException("Persona no encontrada")));
     }
 
+    public Personas findPersona(int idPersona)
+    {
+        return personasRepository.findById(idPersona).orElseThrow(()-> new RuntimeException("Persona no encontrada"));
+    }
+
     @Override
     public List<PersonasDTO> obtenerPersona() {
         return mapper.toPersonasDTO((List<Personas>)personasRepository.findAll());
     }
 
+    @Override
+    @Transactional
+    public List<Personas> obtenerPersonas() {
+        return personasRepository.findAll();
+    }
 
     @Override
     public List<ClienteDTO> obtenerClientes() {

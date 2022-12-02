@@ -1,7 +1,5 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PagosDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.FormaPago;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Pagos;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.PagosMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.FormaPagoRepository;
@@ -30,11 +28,12 @@ public class PagosService implements iPagosService {
     @Override
     public PagosDTO ingresarPago(PagosDTO pagosDTO) {
 
-        int idFormaP = pagosDTO.getIdFormaPago();
-        int idInsc = pagosDTO.getIdInscripcion();
+        //int idFormaP = pagosDTO.getIdFormaPago();
+        //int idInsc = pagosDTO.getIdInscripcion();
 
         Pagos pagos = mapper.toPagos(pagosDTO);
 
+/*
         Inscripciones insc = inscripcionesRepository.findById(idInsc)
                 .orElseThrow(()-> new RuntimeException("Inscripcion no encontrada"));
         pagos.setInscripciones(insc);
@@ -42,6 +41,7 @@ public class PagosService implements iPagosService {
         FormaPago fp = formaPagoRepository.findById(idFormaP)
                 .orElseThrow(()-> new RuntimeException("Forma de Pago no encontrada"));
         pagos.setFormaPago(fp);
+*/
 
 
 

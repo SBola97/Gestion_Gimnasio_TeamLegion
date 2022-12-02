@@ -27,6 +27,7 @@ public interface PersonasMapper {
     List<PersonasDTO> toPersonasDTO(List<Personas> personasList);
     @InheritInverseConfiguration
     Personas toPersonas (PersonasDTO personas);
+    List<Personas> toPersonas (List<PersonasDTO> personasDTOList);
 
 
 }

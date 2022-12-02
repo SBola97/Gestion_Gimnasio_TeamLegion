@@ -2,6 +2,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -14,17 +15,22 @@ public class InscripcionesDTO {
     private int idInscripcion;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaInicio;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaFin;
 
-    @NotEmpty
     private String estado;
 
-    private int idModalidad;
+    private ModalidadesDTO modalidades;
 
     private int idPersona;
+
+    private String nombre;
+
+    private String apellidos;
 
 
 }

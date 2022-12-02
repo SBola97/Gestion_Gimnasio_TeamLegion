@@ -14,7 +14,7 @@
 
     <div class="w-full overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Tabla de Inscripciones</h1>
+            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Inscripciones</h1>
             <!-- Div para filtrar y buscar-->
             <div class="flex justify-between">
                 <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" class="inline-flex items-center text-white bg-gray-800 border border-gray-300 focus:outline-none hover:bg-gray-700 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5" type="button">
@@ -50,14 +50,14 @@
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                         <svg class="w-5 h-5 text-gray-800" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                     </div>
-                    <input type="text" id="table-search" class="block p-2 mx-10 w-60 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar miembro">
+                    <input type="text" id="table-search" class="block p-2 mx-10 w-60 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar suscriptor">
                 </div>
             </div> <!--Fin Div para Filtrar y Buscar-->
             <div class="w-full mt-12">
-                <button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
+                <a th:href="@{/gym/inscripciones/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-2 mt-2">
-                    Agregar inscripción</button>
+                    Agregar inscripción</button></a>
                 <div class="bg-gray-300 overflow-auto">
                     <table class="w-full p-5 text-gray-300">
                         <thead class="bg-gray-800 text-white">
@@ -78,17 +78,17 @@
                             <td th:text="${inscripciones.fechaInicio}"></td>
                             <td th:text="${inscripciones.fechaFin}"></td>
                             <td th:text="${inscripciones.estado}"></td>
-                            <td th:text="${inscripciones.idModalidad}"></td>
-                            <td th:text="${inscripciones.idPersona}"></td>
+                            <td th:text="${inscripciones.modalidades.nombre}"></td>
+                            <td th:text="${inscripciones.nombre} +' '+ ${inscripciones.apellidos}+' ('+ ${inscripciones.idPersona} +')'"></td>
                             <td>
-                                <button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{guardar/} + ${inscripciones.idInscripcion}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
-                                    Editar</button>
-                                <button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                                    Editar</button></a>
+                                <a th:href="@{eliminar/} + ${inscripciones.idInscripcion}"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
-                                    Eliminar</button>
+                                    Eliminar</button></a>
                             </td>
                         </tr>
                         </tbody>

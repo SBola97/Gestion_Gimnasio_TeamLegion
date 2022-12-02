@@ -23,6 +23,6 @@ public interface ModalidadesMapper {
     List<ModalidadesDTO> toModalidadesDTO(List<Modalidades> modalidadesList);
 
     @InheritInverseConfiguration
-
     Modalidades toModalidades(ModalidadesDTO modalidades);
+    List<Modalidades> toModalidades(List<ModalidadesDTO> modalidadesDTOList);
 }

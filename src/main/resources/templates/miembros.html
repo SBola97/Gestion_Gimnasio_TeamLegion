@@ -3,7 +3,7 @@
 <head th:replace="layout/layout :: head">
     <meta charset="UTF-8">
 </head>
-<body class="bg-gray-300 font-sans flex">
+<body class="bg-gray-300 font-sans flex overflow-y-hidden">
 
 <nav th:replace="layout/layout :: navbar"></nav>
 
@@ -14,7 +14,7 @@
 
     <div class="w-full overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Tabla de Miembros</h1>
+            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Comunidad</h1>
             <div class="flex justify-end">
                 <label for="table-search" class="sr-only">Buscar</label>
                 <div class="relative">
@@ -26,10 +26,13 @@
             </div>
 
             <div class="w-full mt-12 ">
-                <a th:href="@{/gym/personas/form}"><button type="button" class="text-white bg-green-400 hover:bg-green-500 hover:text-black
+                <a th:href="@{/gym/personas/formulario}"><button type="button" class="text-white bg-green-400 hover:bg-green-500 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-6 mt-2">
                     Agregar miembro</button></a>
+                <div th:if="${sucess != null}" class="bg-red-100 rounded-lg py-5 px-6 mb-4 text-base text-red-700 mb-3" role="alert">
+                    [[${sucess}]]
+                </div>
                 <div class="bg-gray-300 overflow-auto">
                     <table class="min-w-full">
                         <thead class="bg-gray-800 text-white">
@@ -40,8 +43,8 @@
                             <th class="text-left text-white">Cédula</th>
                             <th class="text-left text-white">Email</th>
                             <th class="text-left text-white">Edad</th>
-                            <th class="text-left text-white">Peso</th>
-                            <th class="text-left text-white">Estatura</th>
+                            <th class="text-left text-white">Peso (Kg)</th>
+                            <th class="text-left text-white">Estatura (cm)</th>
                             <th class="text-left text-white">Rol</th>
                             <th class="text-left text-white">Acciones</th>
                         </tr>
@@ -56,10 +59,9 @@
                             <td th:text="${personas.edad}"></td>
                             <td th:text="${personas.peso}"></td>
                             <td th:text="${personas.estatura}"></td>
-                            <td th:if="${personas.idRol == 2}">Profesor</td>
-                            <td th:unless="${personas.idRol == 2}">Cliente</td>
+                            <td th:text="${personas.roles.nombre}"></td>
                             <td>
-                                <a th:href="@{form/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{guardar/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                 Editar</button></a>

@@ -2,13 +2,13 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.InscripcionesDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Modalidades;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
+import com.GestionGimnasio.tesisgestiongimnasio.excepciones.gymexceptions;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.InscripcionMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.InscripcionesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.ModalidadesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,24 +33,24 @@ public class InscripcionesService implements iInscripcionesService{
 
     @Override
     public InscripcionesDTO ingresarInscripcion(InscripcionesDTO inscripcionesDTO) {
-        int idMod = inscripcionesDTO.getIdModalidad();
-        int idPer = inscripcionesDTO.getIdPersona();
+        //int idMod = inscripcionesDTO.getIdModalidad();
+        //int idPer = inscripcionesDTO.getIdPersona();
 
         LocalDate fechaActual = LocalDate.now();
 
-        if(inscripcionesDTO.getFechaInicio().isBefore(fechaActual)){
-            throw new RuntimeException("Fecha no habilitada para inscripción, ingrese una fecha válida, por favor");
+        if(inscripcionesDTO.getFechaInicio().isBefore(fechaActual) || inscripcionesDTO.getFechaFin().isBefore(fechaActual)){
+            throw new gymexceptions(HttpStatus.BAD_REQUEST,"Fecha no disponible para inscripción, ingrese una fecha válida, por favor");
         }
 
         Inscripciones inscripciones = mapper.toInscripciones(inscripcionesDTO);
 
-        Modalidades mod = modalidadesRepository.findById(idMod)
+        /*Modalidades mod = modalidadesRepository.findById(idMod)
                 .orElseThrow(()-> new RuntimeException("Modalidad no encontrada"));
-        inscripciones.setModalidades(mod);
+        inscripciones.setModalidades(mod);*/
 
-        Personas per = personasRepository.findById(idPer)
+        /*Personas per = personasRepository.findById(idPer)
                 .orElseThrow(()-> new RuntimeException("Persona no encontrada"));
-        inscripciones.setPersonas(per);
+        inscripciones.setPersonas(per);*/
 
 
         inscripcionesRepository.save(inscripciones);

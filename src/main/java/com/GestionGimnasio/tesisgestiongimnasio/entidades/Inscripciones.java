@@ -22,7 +22,7 @@ public class Inscripciones {
     @NotNull
     private LocalDate fechaFin;
 
-    @NotEmpty
+
     private String estado;
 
     @ManyToOne
@@ -32,7 +32,7 @@ public class Inscripciones {
     @OneToOne(mappedBy = "inscripciones",cascade = CascadeType.ALL)
     private Pagos pagos;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idModalidad",referencedColumnName = "idModalidad")
     private Modalidades modalidades;
 

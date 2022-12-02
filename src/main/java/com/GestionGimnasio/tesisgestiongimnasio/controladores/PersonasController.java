@@ -3,8 +3,11 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.RolesDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
+import com.GestionGimnasio.tesisgestiongimnasio.servicios.RolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,9 @@ public class PersonasController {
     @Autowired
 
     private PersonasService personasService;
+
+    @Autowired
+    private RolesService rolesService;
 
     @PostMapping
     @ResponseBody
@@ -57,52 +63,60 @@ public class PersonasController {
     @GetMapping("/listar")
     public String listarPersonas(Model modelo)
     {
-        modelo.addAttribute("listaPersonas",personasService.obtenerPersona());
+        List<Personas> listaPersonas = personasService.obtenerPersonas();
+        modelo.addAttribute("listaPersonas",listaPersonas);
         return "miembros";
     }
 
-    @GetMapping("/form")
+    @GetMapping("/formulario")
     public String mostrarFormularioPersonas(Map<String,Object> modelo)
     {
-        PersonasDTO personas = new PersonasDTO();
+        Personas personas = new Personas();
+        List<Roles> listaRoles = rolesService.getRoles();
+
         modelo.put("personas",personas);
-        modelo.put("titulo","Registro de miembro");
+        modelo.put("listaRoles",listaRoles);
+        modelo.put("titulo","Registro para integrantes del gimnasio");
         return "miembros_form";
     }
-    @PostMapping("/form")
-    public String guardarPersonas(@Valid PersonasDTO personas, BindingResult result, Model modelo
-            , RedirectAttributes flash, SessionStatus status)
+    @PostMapping("/guardar")
+    public String guardarPersonas(@Valid Personas personas, BindingResult result, Model modelo, RedirectAttributes flash, SessionStatus status)
     {
         if(result.hasErrors())
         {
-            modelo.addAttribute("titulo","Registro de miembro del gimnasio");
+            modelo.addAttribute("titulo","Registro para integrantes del gimnasio");
             return "miembros_form";
         }
-        String mensaje = (Long.valueOf(personas.getIdPersona()) != null) ? "Miembro editado con éxito": "Miembro registrado con éxito";
-        personasService.ingresarPersona(personas);
+        String mensaje = Long.valueOf(personas.getIdPersona()) != null ? "Integrante editado con éxito": "Integrante registrado con éxito";
+        personasService.registrarPersona(personas);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
         return "redirect:/gym/personas/listar";
     }
 
-    @GetMapping("/form/{idPersona}")
-    public String editarMiembro(@PathVariable(value = "idPersona") int idP, Map<String,Object> modelo,RedirectAttributes flash)
+    @GetMapping("/guardar/{idPersona}")
+    public String editarPersona(@PathVariable(value = "idPersona") int idP, Map<String,Object> modelo,RedirectAttributes flash)
     {
-        PersonasDTO personas = null;
+        Personas personas = null;
+        Roles roles = new Roles();
+        List<Roles> listaRoles = rolesService.getRoles();
+
         if(idP>0) {
-            personas = personasService.buscarPersona(idP);
+            personas = personasService.findPersona(idP);
             if (personas == null) {
-                flash.addFlashAttribute("error", "Miembro no encontrado en la Base de Datos");
+                flash.addFlashAttribute("error", "Persona no encontrada en la Base de Datos");
                 return "redirect:/gym/personas/listar";
             }
         }
         else
         {
-            flash.addFlashAttribute("error","Id del miembro no puede ser 0");
+            flash.addFlashAttribute("error","Id del integrante no puede ser 0");
             return "redirect:/gym/personas/listar";
         }
         modelo.put("personas",personas);
-        modelo.put("titulo","Modificación de miembro del gimnasio");
+        //modelo.put("roles",roles);
+        modelo.put("listaRoles",listaRoles);
+        modelo.put("titulo","Modificación de integrante del gimnasio");
         return "miembros_form";
     }
 
@@ -112,7 +126,7 @@ public class PersonasController {
         if(idP > 0)
         {
             personasService.eliminarPersona(idP);
-            flash.addFlashAttribute("success","Miembro eliminado con éxito");
+            flash.addFlashAttribute("success","Integrante eliminado con éxito");
         }
         return "redirect:/gym/personas/listar";
     }
