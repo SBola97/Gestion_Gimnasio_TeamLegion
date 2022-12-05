@@ -22,13 +22,18 @@ public class InscripcionesDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaFin;
 
+
     private String estado;
+
 
     private ModalidadesDTO modalidades;
 
+
     private int idPersona;
 
+
     private String nombre;
+
 
     private String apellidos;
 

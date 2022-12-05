@@ -36,11 +36,12 @@ public class InscripcionesService implements iInscripcionesService{
         //int idMod = inscripcionesDTO.getIdModalidad();
         //int idPer = inscripcionesDTO.getIdPersona();
 
-        LocalDate fechaActual = LocalDate.now();
 
+        LocalDate fechaActual = LocalDate.now();
+        /*
         if(inscripcionesDTO.getFechaInicio().isBefore(fechaActual) || inscripcionesDTO.getFechaFin().isBefore(fechaActual)){
             throw new gymexceptions(HttpStatus.BAD_REQUEST,"Fecha no disponible para inscripción, ingrese una fecha válida, por favor");
-        }
+        }*/
 
         Inscripciones inscripciones = mapper.toInscripciones(inscripcionesDTO);
 

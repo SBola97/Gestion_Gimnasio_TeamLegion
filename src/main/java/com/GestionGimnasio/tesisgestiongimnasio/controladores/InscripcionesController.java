@@ -87,7 +87,7 @@ public class InscripcionesController {
             System.out.println("Errores:"+result.toString());
             return "inscripciones_form";
         }
-        String mensaje = Long.valueOf(inscripcionesDTO.getIdInscripcion()) != null ? "Inscripción editada con éxito": "Inscripción registrada con éxito";
+        String mensaje = "Inscripción registrada con éxito";
         inscripcionesService.ingresarInscripcion(inscripcionesDTO);
         modelo.addAttribute("inscripciones",inscripcionesDTO);
         status.setComplete();

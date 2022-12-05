@@ -12,7 +12,7 @@
     <header th:replace="layout/layout :: headerdk"></header>
     <header th:replace="layout/layout :: headerm"></header>
 
-    <div class="w-full overflow-x-hidden border-t flex flex-col">
+    <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
             <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Pagos</h1>
             <!-- Div para filtrar y buscar-->
@@ -53,11 +53,11 @@
                     <input type="text" id="table-search" class="block p-2 mx-10 w-60 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar suscriptor">
                 </div>
             </div> <!--Fin Div para Filtrar y Buscar-->
-            <div class="w-full mt-12">
-                <button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
+            <div class="w-full mt-8">
+                <a th:href="@{/gym/pagos/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-2 mt-2">
-                    Agregar pago</button>
+                    Agregar pago</button></a>
                 <div class="bg-gray-300 overflow-auto">
                     <table class="min-w-full">
                         <thead class="bg-gray-800 text-white">
@@ -68,6 +68,7 @@
                             <th class="text-left text-white"># Inscripción</th>
                             <th class="text-left text-white">Suscriptor</th>
                             <th class="text-left text-white">Forma de Pago</th>
+                            <th class="text-left text-white">Monto</th>
                             <th class="text-left text-white">Acciones</th>
                         </tr>
                         </thead>
@@ -76,15 +77,16 @@
                             <td th:text="${pagos.idPago}"></td>
                             <td th:text="${pagos.fechaPago}"></td>
                             <td th:text="${pagos.estadoPago}"></td>
-                            <td th:text="${pagos.inscripciones.idInscripcion}"></td>
-                            <td th:text="${pagos.inscripciones.nombre}+' '+${pagos.inscripciones.apellidos}"></td>
+                            <td th:text="${pagos.idInscripcion}"></td>
+                            <td th:text="${pagos.nombre}+' '+${pagos.apellidos}"></td>
                             <td th:text="${pagos.formaspago.nombre}"></td>
+                            <td th:text="${pagos.valor}"></td>
                             <td>
-                                <button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{guardar/} + ${pagos.idPago}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
-                                    Editar</button>
-                                <button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                                    Editar</button></a>
+                                <a th:href="@{eliminar/} + ${pagos.idPago}" onclick="return confirm('¿Deseas eliminar este pago?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     Eliminar</button>

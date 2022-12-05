@@ -87,7 +87,7 @@ public class PersonasController {
             modelo.addAttribute("titulo","Registro para integrantes del gimnasio");
             return "miembros_form";
         }
-        String mensaje = Long.valueOf(personas.getIdPersona()) != null ? "Integrante editado con éxito": "Integrante registrado con éxito";
+        String mensaje = Long.valueOf(personas.getIdPersona()) != null ? "Integrante editado con éxito" : "Integrante registrado con éxito";
         personasService.registrarPersona(personas);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);

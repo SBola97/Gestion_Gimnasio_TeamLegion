@@ -2,6 +2,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -16,17 +17,21 @@ public class PagosDTO {
 
     private int idPago;
 
-    @NotNull(message = "El campo fechaPago es requerido")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaPago;
 
     @NotEmpty(message = "El campo estadoPago es requerido")
     @NotBlank(message = "El campo estadoPago es requerido")
     private String estadoPago;
 
-    @NotNull(message = "El campo idInscripcion es requerido")
-    private InscripcionesDTO inscripciones;
+    private int idInscripcion;
 
-    @NotNull(message = "El campo idFormaPago es requerido")
+    private String nombre;
+
+    private String apellidos;
+
+    private String valor;
+
     private FormaPagoDTO formaspago;
 
 }

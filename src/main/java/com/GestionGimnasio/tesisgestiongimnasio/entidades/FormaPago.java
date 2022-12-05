@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Set;
 
 
 @Entity
@@ -17,6 +18,6 @@ public class FormaPago {
     @NotEmpty
     private String nombre;
 
-    @OneToOne(mappedBy = "formaPago",cascade = CascadeType.ALL)
-    private Pagos pagos;
+    @OneToMany(mappedBy = "formaPago",cascade = CascadeType.ALL)
+    private Set<Pagos> pagos;
 }

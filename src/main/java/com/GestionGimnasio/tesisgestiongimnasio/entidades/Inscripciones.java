@@ -29,7 +29,7 @@ public class Inscripciones {
     @JoinColumn(name = "idPersona", referencedColumnName = "idPersona")
     private Personas personas;
 
-    @OneToOne(mappedBy = "inscripciones",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "inscripciones")
     private Pagos pagos;
 
     @ManyToOne
