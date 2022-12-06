@@ -15,48 +15,32 @@
   <div class="w-full overflow-x-hidden border-t flex flex-col">
     <main class="w-full flex-grow p-6">
       <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6">Registro de torneos</h1>
-      <form th:action="@{/form}" th:object="${personas}" method="post">
-        <input type="hidden" th:field="*{idPersona}" th:value="${personas.idPersona}"/>
+      <form th:action="@{/gym/torneos/guardar}" th:object="${torneos}" method="post">
+        <input type="hidden" th:field="*{idTorneo}" th:value="${torneos.idTorneo}"/>
         <div class="grid gap-6 mb-6 md:grid-cols-2">
           <div>
-            <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
+            <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre del torneo</label>
             <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nombre" required>
           </div>
           <div>
-            <label for="apellidos" class="block mb-2 text-sm font-medium text-gray-900">Apellidos</label>
-            <input type="text" id="apellidos" th:field="*{apellidos}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Apellidos" required>
+            <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900">Fecha del torneo</label>
+            <input type="date" id="fecha" th:value="${torneos.fecha}" th:field="*{fecha}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" placeholder="Fecha Fin" required>
           </div>
           <div>
-            <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900">Cédula</label>
-            <input type="text" id="cedula" th:field="*{cedula}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Cédula" required>
+            <label for="ciudad" class="block mb-2 text-sm font-medium text-gray-900">Ciudad</label>
+            <input type="text" id="ciudad" th:field="*{ciudad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Cédula" required>
           </div>
           <div>
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-            <input type="email" id="email" th:field="*{email}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Correo electrónico" required>
-          </div>
-          <div>
-            <label for="edad" class="block mb-2 text-sm font-medium text-gray-900">Edad</label>
-            <input type="number" id="edad" th:field="*{edad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Edad" required>
-          </div>
-          <div>
-            <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900">Teléfono</label>
-            <input type="tel" id="telefono" th:field="*{telefono}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Número telefónico" required>
-          </div>
-          <div>
-            <label for="peso" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
-            <input type="number" id="peso" th:field="*{peso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Número telefónico" required>
-          </div>
-          <div>
-            <label for="estatura" class="block mb-2 text-sm font-medium text-gray-900">Estatura</label>
-            <input type="number" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Número telefónico" required>
-          </div>
-          <div class="mb-6">
-            <label for="rol" class="block mb-2 text-sm font-medium text-gray-900">Rol</label>
-            <select id="rol" th:field="*{idRol}" required>
-              <th:block th:each="roles : ${listaRoles}">
-                <option th:text="${roles.nombre}" th:value="${roles.idRol}"></option>
+            <label for="disciplina" class="block mb-2 text-sm font-medium text-gray-900">Disciplina</label>
+            <select class="p-1.5 bg-gray-300 focus:border-blue-500 focus:outline-none w-full" id="disciplina" th:field="*{idDisciplina}" required>
+              <th:block th:each="disciplinas : ${listaDisciplinas}">
+                <option th:text="${disciplinas.nombre}" th:value="${disciplinas.idDisciplina}"></option>
               </th:block>
             </select>
+          </div>
+          <div class="mb-6">
+            <label for="categoriaPeso" class="block mb-2 text-sm font-medium text-gray-900">Categoría de Peso</label>
+            <input type="text" id="categoriaPeso" th:field="*{categoriaPeso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Número telefónico" required>
           </div>
         </div>
 

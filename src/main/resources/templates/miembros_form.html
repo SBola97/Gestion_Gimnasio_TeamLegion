@@ -21,34 +21,42 @@
                     <div>
                         <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
                         <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nombre" required>
+                        <small th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
                     </div>
                     <div>
                         <label for="apellidos" class="block mb-2 text-sm font-medium text-gray-900">Apellidos</label>
                         <input type="text" id="apellidos" th:field="*{apellidos}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Apellidos" required>
+                        <small th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
                     </div>
                     <div>
                         <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900">Cédula</label>
                         <input type="text" id="cedula" th:field="*{cedula}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        <small th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></small>
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                         <input type="email" id="email" th:field="*{email}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Correo electrónico" required>
+                        <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
                     </div>
                     <div>
                         <label for="edad" class="block mb-2 text-sm font-medium text-gray-900">Edad</label>
                         <input type="number" id="edad" th:field="*{edad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Edad" required>
+                        <small th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></small>
                     </div>
                     <div>
                         <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900">Teléfono</label>
                         <input type="tel" id="telefono" th:field="*{telefono}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Número telefónico" required>
+                        <small th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
                     </div>
                     <div>
                         <label for="peso" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
                         <input type="number" id="peso" th:field="*{peso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Peso" required>
+                        <small th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></small>
                     </div>
                     <div>
                         <label for="estatura" class="block mb-2 text-sm font-medium text-gray-900">Estatura</label>
                         <input type="number" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Estatura" required>
+                        <small th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}"></small>
                     </div>
                     <div class="mb-6">
                         <label for="rol" class="block mb-2 text-sm font-medium text-gray-900">Rol</label>

@@ -26,6 +26,8 @@ public class Torneos {
     @NotEmpty
     private String ciudad;
 
+    private String categoriaPeso;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "torneos")
     private Set<Competidores_Torneo> CompetidoresTorneo = new HashSet<>();
 

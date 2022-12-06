@@ -17,11 +17,14 @@ public interface TorneosMapper {
             @Mapping(source = "nombre",target = "nombre" ),
             @Mapping(source = "fecha",target = "fecha" ),
             @Mapping(source = "ciudad",target = "ciudad" ),
+            @Mapping(source = "categoriaPeso",target = "categoriaPeso" ),
             @Mapping(source = "disciplinas.idDisciplina",target = "idDisciplina" ),
+            @Mapping(source = "disciplinas.nombre",target = "nombreDisciplina" )
     })
     TorneosDTO toTorneosDTO(Torneos torneos);
     List<TorneosDTO>toTorneosDTO(List<Torneos> torneosList);
 
     @InheritInverseConfiguration
     Torneos toTorneos(TorneosDTO torneos);
+    List<Torneos> toTorneos(List<TorneosDTO> torneosDTOList);
 }

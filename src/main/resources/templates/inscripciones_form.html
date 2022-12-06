@@ -21,10 +21,12 @@
                     <div>
                         <label for="fechaInicio" class="block mb-2 text-sm font-medium text-gray-900">Fecha de Inicio</label>
                         <input type="date" id="fechaInicio" th:value="${inscripciones.fechaInicio}" th:field="*{fechaInicio}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" placeholder="Fecha de Inicio" required>
+                        <small th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></small>
                     </div>
                     <div>
                         <label for="fechaFin" class="block mb-2 text-sm font-medium text-gray-900">Fecha de Fin</label>
                         <input type="date" id="fechaFin" th:value="${inscripciones.fechaFin}" th:field="*{fechaFin}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" placeholder="Fecha Fin" required>
+                        <small th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}"></small>
                     </div>
                     <div>
                         <label for="estado" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>

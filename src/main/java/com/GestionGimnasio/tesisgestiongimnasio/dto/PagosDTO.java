@@ -17,6 +17,7 @@ public class PagosDTO {
 
     private int idPago;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaPago;
 

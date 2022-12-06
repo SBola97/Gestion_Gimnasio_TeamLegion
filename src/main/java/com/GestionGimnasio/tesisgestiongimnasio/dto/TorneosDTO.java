@@ -2,7 +2,9 @@ package com.GestionGimnasio.tesisgestiongimnasio.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -13,9 +15,15 @@ public class TorneosDTO {
 
     private String nombre;
 
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha;
 
     private String ciudad;
 
+    private String categoriaPeso;
+
     private int idDisciplina;
+
+    private String nombreDisciplina;
 }

@@ -47,7 +47,7 @@ public class PersonasController {
     }
 
 
-    @GetMapping("/clientes")
+/*    @GetMapping("/clientes")
     @ResponseBody
     public List<ClienteDTO> getClientes(){
         return personasService.obtenerClientes();
@@ -57,7 +57,7 @@ public class PersonasController {
     @ResponseBody
     public List<ProfesorDTO> getProfesores(){
         return personasService.obtenerProfesores();
-    }
+    }*/
 
     //Controladores para vistas (Front-End)
     @GetMapping("/listar")
@@ -130,4 +130,22 @@ public class PersonasController {
         }
         return "redirect:/gym/personas/listar";
     }
+
+    @GetMapping("/clientes")
+    public String listarClientes(Model modelo)
+    {
+        List<ClienteDTO> listaClientes = personasService.obtenerClientes();
+        modelo.addAttribute("listaClientes",listaClientes);
+        return "clientes";
+    }
+
+    @GetMapping("/profesores")
+    public String listarProfesores(Model modelo)
+    {
+        List<ProfesorDTO> listaProfesores = personasService.obtenerProfesores();
+        modelo.addAttribute("listaProfesores",listaProfesores);
+        return "profesores";
+    }
+
+
 }

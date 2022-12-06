@@ -48,7 +48,8 @@ public class TorneosService implements iTorneosService {
 
     @Override
     public TorneosDTO buscarTorneo(int idTorneo) {
-        return null;
+        return mapper.toTorneosDTO(torneosRepository.findById(idTorneo)
+                .orElseThrow(()-> new RuntimeException("Torneo no encontrado")));
     }
 
     @Override
