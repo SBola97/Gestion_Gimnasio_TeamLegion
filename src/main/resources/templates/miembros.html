@@ -26,7 +26,7 @@
             </div>
 
             <div class="w-full mt-8">
-                <a th:href="@{/gym/personas/formulario}"><button type="button" class="text-white bg-green-400 hover:bg-green-500 hover:text-black
+                <a th:href="@{/gym/personas/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-500 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-6 mt-2">
                     Agregar miembro</button></a>
@@ -82,10 +82,12 @@
                                 <a th:href="@{guardar/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
+                                    <i class="far fa-edit"></i>
                                 Editar</button></a>
                                <a th:href="@{eliminar/} + ${personas.idPersona}" onclick="return confirm('¿Deseas eliminar a este miembro del gimnasio?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
+                                   <i class="fas fa-trash-alt"></i>
                                     Eliminar</button></a>
                             </td>
                         </tr>
