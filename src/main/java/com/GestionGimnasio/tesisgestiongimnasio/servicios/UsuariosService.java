@@ -8,6 +8,8 @@ import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.RolesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,10 +29,14 @@ public class UsuariosService implements iUsuariosService{
     @Autowired
     private UsuarioMapper mapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public UsuariosDTO ingresarUsuario(UsuariosDTO usuariosDTO) {
         int idPersona = usuariosDTO.getIdPersona();
+        usuariosDTO.setContraseña(passwordEncoder.encode(usuariosDTO.getContraseña()));
         Usuarios usuarios = mapper.toUsuarios(usuariosDTO);
 
         Personas personaId = personasRepository.findById(idPersona)
