@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link th:href="@{/style.css}" rel="stylesheet"/>
+</head>
+<div class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat">
+  <div class="rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
+    <div class="text-white">
+      <div class="mb-8 flex flex-col items-center">
+        <img th:src="@{/svgs/logo-gymlegion-nbg.png}" class="mx-4 mb-4 mt-2 h-14 w-14 flex items-center justify-center" alt="TeamLegion Logo" />
+        <h1 class="mb-2 text-2xl">Team Legión Riobamba</h1>
+        <span class="text-gray-300">Ingresa tus credenciales</span>
+      </div>
+      <form th:action="@{/autenticar}" method="post">
+        <div class="mb-4 text-lg">
+          <label class="block mb-2 text-sm font-medium text-gray-400">Username</label>
+          <input class="rounded-3xl border-none bg-blue-400 bg-opacity-50 px-6 py-2 text-center shadow-lg outline-none backdrop-blur-md" type="text" name="name" placeholder="Nombre de Usuario" />
+        </div>
+
+        <div class="mb-4 text-lg">
+          <label class="block mb-2 text-sm font-medium text-gray-400">Contraseña</label>
+          <input class="rounded-3xl border-none bg-blue-400 bg-opacity-50 px-6 py-2 text-center shadow-lg outline-none backdrop-blur-md" type="Password" name="contraseña" placeholder="*********" />
+        </div>
+        <div class="mt-8 flex justify-center text-lg text-black">
+          <button type="submit" class="rounded-3xl bg-blue-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-red-500">Ingresar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</html>

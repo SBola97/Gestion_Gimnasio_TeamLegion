@@ -21,5 +21,9 @@ public class UsuariosDTO {
 
     private int idPersona;
 
+    private String nombre;
+
+    private String apellidos;
+
     //private RolesDTO nombreRol;
 }

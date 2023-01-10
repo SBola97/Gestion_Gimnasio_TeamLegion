@@ -29,13 +29,38 @@ public class WebSecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
+
+        /*
         http
+                .authorizeRequests().antMatchers("/*.css", "/*.js", "/svgs/**").permitAll()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/gym/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
+        return http.build();
+
+        http
+                .authorizeRequests().antMatchers("/*.css", "/*.js", "/svgs/**").permitAll()
+                .and()
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/gym/auth/**").permitAll()
+                .and().formLogin().loginPage("/gym/auth/login").permitAll().defaultSuccessUrl("/index.html");
+
+        return http.build(); */
+
+        http
+                .authorizeRequests().antMatchers("/*.css", "/*.js", "/svgs/**").permitAll()
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
+                .and().formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/autenticar")
+                .usernameParameter("name").passwordParameter("contraseña")
+                .defaultSuccessUrl("/index",true).permitAll();
         return http.build();
     }
 /*
