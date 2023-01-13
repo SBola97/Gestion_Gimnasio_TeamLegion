@@ -24,14 +24,14 @@
           </div>
           <div>
             <label for="estado" class="block mb-2 text-sm font-medium text-gray-900">Estado de Pago</label>
-            <select class="p-1.5 bg-gray-300 focus:border-blue-500 focus:outline-none w-full" th:field="*{estadoPago}" id="estado">
+            <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" th:field="*{estadoPago}" id="estado">
               <option value="Pagado">Pagado</option>
               <option value="Pendiente">Pendiente</option>
             </select>
           </div>
           <div>
             <label for="suscriptor" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor</label>
-            <select class="p-1.5 bg-gray-300 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idInscripcion}" required>
+            <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idInscripcion}" required>
               <th:block th:each="inscripciones : ${listaInscripciones}">
                 <option th:text="${inscripciones.nombre}+' '+${inscripciones.apellidos}" th:value="${inscripciones.idInscripcion}"></option>
               </th:block>
@@ -39,7 +39,7 @@
           </div>
           <div class="mb-6">
             <label for="formaPago" class="block mb-2 text-sm font-medium text-gray-900">Forma de Pago</label>
-            <select class="p-1.5 w-full bg-gray-300 focus:border-blue-500 focus:outline-none" id="formaPago" th:field="*{formaspago.idFormaPago}" required>
+            <select class="p-1.5 w-full bg-gray-400 focus:border-blue-500 focus:outline-none" id="formaPago" th:field="*{formaspago.idFormaPago}" required>
               <th:block th:each="formaPago : ${listaFormaPago}">
                 <option th:text="${formaPago.nombre}" th:value="${formaPago.idFormaPago}"></option>
               </th:block>

@@ -54,7 +54,7 @@
                 </div>
             </div> <!--Fin Div para Filtrar y Buscar-->
             <div class="w-full mt-8">
-                <a href="#"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
+                <a th:href="@{/gym/usuarios/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-2 mt-2">
                     Agregar usuario</button></a>
@@ -86,6 +86,7 @@
                             <th class="text-left text-white">ID</th>
                             <th class="text-left text-white">Nombre de Usuario</th>
                             <th class="text-left text-white">Suscriptor</th>
+                            <th class="text-left text-white">Email</th>
                             <th class="text-left text-white">Acciones</th>
                         </tr>
                         </thead>
@@ -94,6 +95,7 @@
                             <td th:text="${usuarios.idUsuario}"></td>
                             <td th:text="${usuarios.nombreUsuario}"></td>
                             <td th:text="${usuarios.nombre}+' '+${usuarios.apellidos}"></td>
+                            <td th:text="${usuarios.email}"></td>
                             <td>
                                 <a th:href="@{guardar/} + ${usuarios.idUsuario}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm

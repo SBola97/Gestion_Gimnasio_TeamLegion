@@ -17,7 +17,8 @@ public interface UsuarioMapper {
         @Mapping(source="contraseña", target="contraseña"),
         @Mapping(source="usuarios.personas.idPersona", target="idPersona"),
         @Mapping(source="usuarios.personas.nombre", target="nombre"),
-        @Mapping(source="usuarios.personas.apellidos", target="apellidos")
+        @Mapping(source="usuarios.personas.apellidos", target="apellidos"),
+        @Mapping(source="usuarios.personas.email", target="email")
     })
     UsuariosDTO toUsuariosDTO(Usuarios usuarios);
     List<UsuariosDTO> toUsuariosDTO(List<Usuarios> usuariosList);

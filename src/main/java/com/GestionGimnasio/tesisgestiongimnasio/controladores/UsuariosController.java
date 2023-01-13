@@ -1,16 +1,21 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
-import com.GestionGimnasio.tesisgestiongimnasio.dto.UsuariosDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
+import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/gym/usuarios")
@@ -19,6 +24,9 @@ public class UsuariosController {
 
     @Autowired
     private UsuariosService usuariosService;
+
+    @Autowired
+    private PersonasService personasService;
 
     @PostMapping
     @ResponseBody
@@ -41,4 +49,66 @@ public class UsuariosController {
         return "usuarios";
     }
 
+    @GetMapping("/formulario")
+    public String mostrarFormularioUsuarios(Map<String,Object> modelo)
+    {
+        UsuariosDTO usuariosDTO = new UsuariosDTO();
+        List<PersonasDTO> listaPersonas = personasService.obtenerPersona();
+        modelo.put("titulo","Registro de usuarios");
+        modelo.put("listaPersonas",listaPersonas);
+        modelo.put("usuarios",usuariosDTO);
+        return "usuarios_form";
+    }
+
+    @PostMapping("/guardar")
+    public String guardarUsuarios(@Valid @ModelAttribute("usuarios") UsuariosDTO usuariosDTO, BindingResult result,
+                                  Model modelo, RedirectAttributes flash, SessionStatus status)
+    {
+        if(result.hasErrors())
+        {
+            modelo.addAttribute("titulo","Registro de usuarios");
+            System.out.println("Errores:"+result.toString());
+            return "usuarios_form";
+        }
+        String mensaje = "Usuario registrado con éxito";
+        usuariosService.ingresarUsuario(usuariosDTO);
+        modelo.addAttribute("usuarios",usuariosDTO);
+        status.setComplete();
+        flash.addFlashAttribute("success", mensaje);
+        return "redirect:/gym/usuarios/listar";
+    }
+    @GetMapping("/guardar/{idUsuario}")
+    public String editarUsuario(@PathVariable(value = "idUsuario") int idU, Map<String,Object> modelo,RedirectAttributes flash)
+    {
+        UsuariosDTO usuariosDTO = null;
+        List<PersonasDTO> listaPersonas = personasService.obtenerPersona();
+
+        if(idU>0) {
+            usuariosDTO = usuariosService.buscarUsuario(idU);
+            if (usuariosDTO == null) {
+                flash.addFlashAttribute("error", "Usuario no encontrado en la Base de Datos");
+                return "redirect:/gym/usuarios/listar";
+            }
+        }
+        else
+        {
+            flash.addFlashAttribute("error","Id de usuario no puede ser 0");
+            return "redirect:/gym/usuarios/listar";
+        }
+        modelo.put("titulo","Modificación de usuario");
+        modelo.put("listaPersonas",listaPersonas);
+        modelo.put("usuarios",usuariosDTO);
+        return "usuarios_form";
+
+    }
+    @GetMapping("/eliminar/{idUsuario}")
+    public String eliminarUsuario(@PathVariable(value ="idUsuario") int idU, RedirectAttributes flash)
+    {
+        if(idU>0)
+        {
+            usuariosService.eliminarUsuario(idU);
+            flash.addFlashAttribute("success","Usuario eliminado con éxito");
+        }
+        return "redirect:/gym/usuarios/listar";
+    }
 }

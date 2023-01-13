@@ -30,14 +30,14 @@
                     </div>
                     <div>
                         <label for="estado" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
-                         <select class="p-1.5 bg-gray-300 focus:border-blue-500 focus:outline-none w-full" th:field="*{estado}" id="estado">
+                         <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" th:field="*{estado}" id="estado">
                              <option value="Activa">Activa</option>
                              <option value="Vencida">Vencida</option>
                          </select>
                     </div>
                     <div>
                         <label for="suscriptor" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor</label>
-                        <select class="p-1.5 bg-gray-300 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idPersona}" required>
+                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idPersona}" required>
                             <th:block th:each="personas : ${listaPersonas}">
                                 <option th:text="${personas.nombre}+' '+${personas.apellidos}" th:value="${personas.idPersona}"></option>
                             </th:block>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="modalidad" class="block mb-2 text-sm font-medium text-gray-900">Modalidad</label>
-                        <select class="p-1.5 w-full bg-gray-300 focus:border-blue-500 focus:outline-none" id="modalidad" th:field="*{modalidades.idModalidad}" required>
+                        <select class="p-1.5 w-full bg-gray-400 focus:border-blue-500 focus:outline-none" id="modalidad" th:field="*{modalidades.idModalidad}" required>
                             <th:block th:each="modalidades : ${listaModalidades}">
                                 <option th:text="${modalidades.nombre}" th:value="${modalidades.idModalidad}"></option>
                             </th:block>

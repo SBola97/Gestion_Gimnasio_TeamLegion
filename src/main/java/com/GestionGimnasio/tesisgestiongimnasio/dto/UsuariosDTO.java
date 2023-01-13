@@ -25,5 +25,6 @@ public class UsuariosDTO {
 
     private String apellidos;
 
-    //private RolesDTO nombreRol;
+    @Email
+    private String email;
 }

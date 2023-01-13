@@ -20,47 +20,47 @@
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
                         <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-                        <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nombre" required>
+                        <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Nombre" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
                     </div>
                     <div>
                         <label for="apellidos" class="block mb-2 text-sm font-medium text-gray-900">Apellidos</label>
-                        <input type="text" id="apellidos" th:field="*{apellidos}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Apellidos" required>
+                        <input type="text" id="apellidos" th:field="*{apellidos}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Apellidos" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"  th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
                     </div>
                     <div>
                         <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900">Cédula</label>
-                        <input type="text" id="cedula" th:field="*{cedula}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        <input type="text" id="cedula" th:field="*{cedula}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Cédula" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></small>
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                        <input type="email" id="email" th:field="*{email}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Correo electrónico" required>
+                        <input type="email" id="email" th:field="*{email}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Correo electrónico" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
                     </div>
                     <div>
                         <label for="edad" class="block mb-2 text-sm font-medium text-gray-900">Edad</label>
-                        <input type="number" id="edad" th:field="*{edad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Edad" required>
+                        <input type="number" id="edad" th:field="*{edad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Edad" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></small>
                     </div>
                     <div>
                         <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900">Teléfono</label>
-                        <input type="tel" id="telefono" th:field="*{telefono}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Número telefónico" required>
+                        <input type="tel" id="telefono" th:field="*{telefono}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Número telefónico" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
                     </div>
                     <div>
                         <label for="peso" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
-                        <input type="number" id="peso" th:field="*{peso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Peso" required>
+                        <input type="number" id="peso" th:field="*{peso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Peso" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></small>
                     </div>
                     <div>
                         <label for="estatura" class="block mb-2 text-sm font-medium text-gray-900">Estatura</label>
-                        <input type="number" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Estatura" required>
+                        <input type="number" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Estatura" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}"></small>
                     </div>
                     <div class="mb-6">
                         <label for="rol" class="block mb-2 text-sm font-medium text-gray-900">Rol</label>
-                        <select class="p-1.5 bg-gray-300 focus:border-blue-500 focus:outline-none w-full" id="rol" th:field="*{roles.idRol}" required>
+                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="rol" th:field="*{roles.idRol}" required>
                         <th:block th:each="roles : ${listaRoles}">
                             <option th:text="${roles.nombre}" th:value="${roles.idRol}"></option>
                         </th:block>

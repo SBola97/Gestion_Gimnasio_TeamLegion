@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+</head>
+<body class="bg-gray-300 font-sans flex">
+
+<nav th:replace="layout/layout :: navbar"></nav>
+
+<!--Contenedor-->
+<div class="w-full flex flex-col h-screen overflow-y-hidden">
+    <header th:replace="layout/layout :: headerdk"></header>
+    <header th:replace="layout/layout :: headerm"></header>
+
+    <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
+        <main class="w-full flex-grow p-6">
+            <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6"></h1>
+            <form th:action="@{/gym/usuarios/guardar}" th:object="${usuarios}" method="post">
+                <input type="hidden" th:field="*{idUsuario}" th:value="${usuarios.idUsuario}"/>
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                        <label for="nombreUsuario" class="block mb-2 text-sm font-medium text-gray-900">Nombre de Usuario</label>
+                        <input type="text" id="nombreUsuario" th:field="*{nombreUsuario}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 placeholder:text-gray-500" placeholder="Nombre de Usuario" required>
+                        <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></small>
+                    </div>
+                    <div>
+                        <label for="contraseña" class="block mb-2 text-sm font-medium text-gray-900">Contraseña</label>
+                        <input type="password" id="contraseña" th:field="*{contraseña}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 placeholder:text-gray-500" placeholder="Contraseña" required>
+                        <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('contraseña')}" th:errors="*{contraseña}"></small>
+                    </div>
+                    <div>
+                        <label for="idPersona" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor</label>
+                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="idPersona" th:field="*{idPersona}" required>
+                            <th:block th:each="personas : ${listaPersonas}">
+                                <option th:text="${personas.nombre}+' '+${personas.apellidos}" th:value="${personas.idPersona}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="text-white bg-green-400 hover:bg-green-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Registrar</button>
+            </form>
+        </main>
+        <footer th:replace="layout/layout :: footer"></footer>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
+</body>
+
+</html>

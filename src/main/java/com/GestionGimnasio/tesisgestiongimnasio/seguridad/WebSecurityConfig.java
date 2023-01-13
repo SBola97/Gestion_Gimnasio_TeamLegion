@@ -60,7 +60,13 @@ public class WebSecurityConfig{
                 .loginPage("/login")
                 .loginProcessingUrl("/autenticar")
                 .usernameParameter("name").passwordParameter("contraseña")
-                .defaultSuccessUrl("/index",true).permitAll();
+                .defaultSuccessUrl("/index",true).permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID");
         return http.build();
     }
 /*

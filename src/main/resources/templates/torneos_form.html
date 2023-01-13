@@ -20,7 +20,7 @@
         <div class="grid gap-6 mb-6 md:grid-cols-2">
           <div>
             <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre del torneo</label>
-            <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nombre" required>
+            <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Nombre" required>
           </div>
           <div>
             <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900">Fecha del torneo</label>
@@ -28,11 +28,11 @@
           </div>
           <div>
             <label for="ciudad" class="block mb-2 text-sm font-medium text-gray-900">Ciudad</label>
-            <input type="text" id="ciudad" th:field="*{ciudad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Cédula" required>
+            <input type="text" id="ciudad" th:field="*{ciudad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Cédula" required>
           </div>
           <div>
             <label for="disciplina" class="block mb-2 text-sm font-medium text-gray-900">Disciplina</label>
-            <select class="p-1.5 bg-gray-300 focus:border-blue-500 focus:outline-none w-full" id="disciplina" th:field="*{idDisciplina}" required>
+            <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="disciplina" th:field="*{idDisciplina}" required>
               <th:block th:each="disciplinas : ${listaDisciplinas}">
                 <option th:text="${disciplinas.nombre}" th:value="${disciplinas.idDisciplina}"></option>
               </th:block>
