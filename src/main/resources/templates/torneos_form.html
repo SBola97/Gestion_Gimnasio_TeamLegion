@@ -12,7 +12,7 @@
   <header th:replace="layout/layout :: headerdk"></header>
   <header th:replace="layout/layout :: headerm"></header>
 
-  <div class="w-full overflow-x-hidden border-t flex flex-col">
+  <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
     <main class="w-full flex-grow p-6">
       <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6">Registro de torneos</h1>
       <form th:action="@{/gym/torneos/guardar}" th:object="${torneos}" method="post">
@@ -20,15 +20,15 @@
         <div class="grid gap-6 mb-6 md:grid-cols-2">
           <div>
             <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre del torneo</label>
-            <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Nombre" required>
+            <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese el nombre del torneo" required>
           </div>
           <div>
             <label for="fecha" class="block mb-2 text-sm font-medium text-gray-900">Fecha del torneo</label>
-            <input type="date" id="fecha" th:value="${torneos.fecha}" th:field="*{fecha}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" placeholder="Fecha Fin" required>
+            <input type="date" id="fecha" th:value="${torneos.fecha}" th:field="*{fecha}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" required>
           </div>
           <div>
             <label for="ciudad" class="block mb-2 text-sm font-medium text-gray-900">Ciudad</label>
-            <input type="text" id="ciudad" th:field="*{ciudad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Cédula" required>
+            <input type="text" id="ciudad" th:field="*{ciudad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese la ciudad" required>
           </div>
           <div>
             <label for="disciplina" class="block mb-2 text-sm font-medium text-gray-900">Disciplina</label>
@@ -40,11 +40,13 @@
           </div>
           <div class="mb-6">
             <label for="categoriaPeso" class="block mb-2 text-sm font-medium text-gray-900">Categoría de Peso</label>
-            <input type="text" id="categoriaPeso" th:field="*{categoriaPeso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Número telefónico" required>
+            <input type="text" id="categoriaPeso" th:field="*{categoriaPeso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese la categoría de peso" required>
           </div>
         </div>
 
-        <button type="submit" class="text-white bg-green-400 hover:bg-green-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Registrar</button>
+        <button type="submit" class="text-white bg-green-500 hover:bg-green-600 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Registrar
+          <i class="fas fa-chevron-circle-right pl-2"></i>
+        </button>
       </form>
     </main>
     <footer th:replace="layout/layout :: footer"></footer>

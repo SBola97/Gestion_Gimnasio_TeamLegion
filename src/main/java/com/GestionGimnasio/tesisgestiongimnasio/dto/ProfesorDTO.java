@@ -33,11 +33,6 @@ public class ProfesorDTO {
     @NotEmpty(message = "El campo telefono es requerido")
     private String telefono;
 
-    @NotNull(message = "El campo peso es requerido")
-    private float peso;
-
-    @NotNull(message = "El campo estatura es requerido")
-    private float estatura;
 
 
 

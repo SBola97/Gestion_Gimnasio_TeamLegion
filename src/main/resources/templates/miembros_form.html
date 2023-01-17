@@ -20,27 +20,27 @@
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
                         <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-                        <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Nombre" required>
+                        <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese su nombre" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
                     </div>
                     <div>
                         <label for="apellidos" class="block mb-2 text-sm font-medium text-gray-900">Apellidos</label>
-                        <input type="text" id="apellidos" th:field="*{apellidos}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Apellidos" required>
+                        <input type="text" id="apellidos" th:field="*{apellidos}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese sus apellidos" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"  th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
                     </div>
                     <div>
                         <label for="cedula" class="block mb-2 text-sm font-medium text-gray-900">Cédula</label>
-                        <input type="text" id="cedula" th:field="*{cedula}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Cédula" required>
+                        <input type="text" id="cedula" th:field="*{cedula}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese su cédula" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}"></small>
                     </div>
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                        <input type="email" id="email" th:field="*{email}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Correo electrónico" required>
+                        <input type="email" id="email" th:field="*{email}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese su correo electrónico" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
                     </div>
                     <div>
                         <label for="edad" class="block mb-2 text-sm font-medium text-gray-900">Edad</label>
-                        <input type="number" id="edad" th:field="*{edad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Edad" required>
+                        <input type="number" id="edad" th:field="*{edad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></small>
                     </div>
                     <div>
@@ -50,12 +50,12 @@
                     </div>
                     <div>
                         <label for="peso" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
-                        <input type="number" id="peso" th:field="*{peso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Peso" required>
+                        <input type="number" step="0.1" min="30" max="250"  id="peso" th:field="*{peso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Peso" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></small>
                     </div>
                     <div>
                         <label for="estatura" class="block mb-2 text-sm font-medium text-gray-900">Estatura</label>
-                        <input type="number" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Estatura" required>
+                        <input type="number" step="0.1" min="120" max="210" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Estatura" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}"></small>
                     </div>
                     <div class="mb-6">
@@ -67,7 +67,9 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="text-white bg-green-400 hover:bg-green-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center">Registrar</button>
+                <button type="submit" class="text-white bg-green-500 hover:bg-green-600 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Registrar
+                    <i class="fas fa-chevron-circle-right pl-2"></i>
+                </button>
             </form>
         </main>
         <footer th:replace="layout/layout :: footer"></footer>

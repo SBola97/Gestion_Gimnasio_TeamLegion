@@ -16,35 +16,7 @@
         <main class="w-full flex-grow p-6">
             <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Usuarios</h1>
             <!-- Div para filtrar y buscar-->
-            <div class="flex justify-between">
-                <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" class="inline-flex items-center text-white bg-gray-800 border border-gray-300 focus:outline-none hover:bg-gray-700 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5" type="button">
-                    <svg class="mr-2 w-4 h-4 text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
-                    Filtrar
-                    <svg class="ml-2 w-3 h-3" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <!-- Despliegue de filtros -->
-                <div id="dropdownRadio" class="hidden w-30 bg-gray-400 rounded">
-                    <ul class="p-3 space-y-1 text-sm text-gray-700" aria-labelledby="dropdownRadioButton">
-                        <li>
-                            <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                <input id="filter-radio-example-1" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="filter-radio-example-1" class="ml-2 w-full text-sm font-medium text-gray-900 rounded">Último día</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                <input checked="" id="filter-radio-example-2" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="filter-radio-example-2" class="ml-2 w-full text-sm font-medium text-gray-900 rounded">Últimos 7 días</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                <input id="filter-radio-example-4" type="radio" value="" name="filter-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="filter-radio-example-4" class="ml-2 w-full text-sm font-medium text-gray-900 rounded">Último mes</label>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+            <div class="flex justify-end">
                 <label for="table-search" class="sr-only">Buscar</label>
                 <div class="relative">
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -57,7 +29,9 @@
                 <a th:href="@{/gym/usuarios/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-2 mt-2">
-                    Agregar usuario</button></a>
+                    Agregar usuario
+                    <i class="fas fa-plus pl-2"></i>
+                </button></a>
                 <div th:text="${error}" th:if="${error}" id="alert-2" class="flex p-4 mb-4 bg-red-100 rounded-lg dark:bg-red-200" role="alert">
                     <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-red-700 dark:text-red-800" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
                     <span class="sr-only">Info</span>
@@ -87,6 +61,7 @@
                             <th class="text-left text-white">Nombre de Usuario</th>
                             <th class="text-left text-white">Suscriptor</th>
                             <th class="text-left text-white">Email</th>
+                            <th class="text-left text-white">Rol</th>
                             <th class="text-left text-white">Acciones</th>
                         </tr>
                         </thead>
@@ -96,6 +71,7 @@
                             <td th:text="${usuarios.nombreUsuario}"></td>
                             <td th:text="${usuarios.nombre}+' '+${usuarios.apellidos}"></td>
                             <td th:text="${usuarios.email}"></td>
+                            <td th:text="${usuarios.idRol}"></td>
                             <td>
                                 <a th:href="@{guardar/} + ${usuarios.idUsuario}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm

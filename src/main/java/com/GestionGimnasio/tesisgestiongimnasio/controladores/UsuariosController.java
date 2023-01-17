@@ -96,8 +96,8 @@ public class UsuariosController {
             return "redirect:/gym/usuarios/listar";
         }
         modelo.put("titulo","Modificación de usuario");
-        modelo.put("listaPersonas",listaPersonas);
         modelo.put("usuarios",usuariosDTO);
+        modelo.put("listaPersonas",listaPersonas);
         return "usuarios_form";
 
     }

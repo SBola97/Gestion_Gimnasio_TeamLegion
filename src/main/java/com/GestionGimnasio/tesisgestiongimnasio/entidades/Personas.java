@@ -53,7 +53,7 @@ public class Personas {
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="personas")
     private Set<Competidores_Torneo> CompetidoresTorneo = new HashSet<>();
 
-    @OneToOne(mappedBy = "personas",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "personas")
     private Usuarios usuarios;
 
 

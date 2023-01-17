@@ -25,6 +25,8 @@ public class UsuariosDTO {
 
     private String apellidos;
 
+    private String idRol;
+
     @Email
     private String email;
 }
