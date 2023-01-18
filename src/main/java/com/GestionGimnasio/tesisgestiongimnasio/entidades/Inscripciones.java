@@ -1,6 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.entidades;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -10,7 +12,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "Inscripciones")
-@Data
+@Getter
+@Setter
 public class Inscripciones {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

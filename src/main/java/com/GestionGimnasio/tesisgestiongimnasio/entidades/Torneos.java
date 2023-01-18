@@ -1,6 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.entidades;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,8 +13,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Torneos")
-@Data
+@Getter
+@Setter
 public class Torneos {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTorneo;
@@ -26,7 +30,6 @@ public class Torneos {
     @NotEmpty
     private String ciudad;
 
-    private String categoriaPeso;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "torneos")
     private Set<Competidores_Torneo> CompetidoresTorneo = new HashSet<>();

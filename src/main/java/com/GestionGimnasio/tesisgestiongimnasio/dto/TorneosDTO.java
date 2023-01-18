@@ -21,7 +21,6 @@ public class TorneosDTO {
 
     private String ciudad;
 
-    private String categoriaPeso;
 
     private int idDisciplina;
 

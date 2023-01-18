@@ -50,7 +50,7 @@ public class Personas {
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="personas")
     private Set<Disciplinas_Profesor> DisciplinasProfesor = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="personas")
+    @OneToMany(mappedBy ="personas")
     private Set<Competidores_Torneo> CompetidoresTorneo = new HashSet<>();
 
     @OneToOne(mappedBy = "personas")

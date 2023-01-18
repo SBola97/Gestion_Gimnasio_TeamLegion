@@ -61,7 +61,6 @@
               <th class="text-left text-white">Fecha</th>
               <th class="text-left text-white">Ciudad</th>
               <th class="text-left text-white">Disciplina</th>
-              <th class="text-left text-white">Categoría de Peso</th>
               <th class="text-left text-white">Acciones</th>
             </tr>
             </thead>
@@ -72,7 +71,6 @@
               <td th:text="${torneos.fecha}"></td>
               <td th:text="${torneos.ciudad}"></td>
               <td th:text="${torneos.nombreDisciplina}"></td>
-              <td th:text="${torneos.categoriaPeso}"></td>
               <td>
                 <a th:href="@{guardar/} + ${torneos.idTorneo}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm

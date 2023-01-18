@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CompetidoresTorneoDTO {
 
-    private int idCompetidorTorneo;
-
     private int idPersona;
 
     private int idTorneo;
+
+    private String categoriaPeso;
 
 }
