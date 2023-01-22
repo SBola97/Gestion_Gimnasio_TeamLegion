@@ -5,6 +5,7 @@ import lombok.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -38,6 +39,8 @@ public class PersonasDTO {
     private float estatura;
 
     private int idRol;
+
+    private Set<CompetidoresTorneoDTO> competidoresTorneo;
 
 
 

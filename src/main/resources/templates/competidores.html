@@ -14,7 +14,7 @@
 
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Torneos</h1>
+            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Competidores</h1>
             <div class="flex justify-end">
                 <label for="table-search" class="sr-only">Buscar</label>
                 <div class="relative">
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="w-full mt-8">
-                <a href="#"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
+                <a th:href="@{/gym/competidores/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-2 mt-2">
                     Agregar competidor
@@ -53,36 +53,84 @@
                     </button>
                 </div>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="min-w-full">
-                        <thead class="bg-gray-800 text-white">
-                        <tr>
-                            <th class="text-left text-white">ID Torneo</th>
-                            <th class="text-left text-white">ID Suscriptor</th>
-                            <th class="text-left text-white">Categoria de Peso</th>
-                            <th class="text-left text-white">Acciones</th>
+                    <table class="min-w-full text-center">
+                        <thead class="bg-gray-800 text-white text-center">
+                        <tr class="divide-x">
+                            <th class="text-center text-white ">ID</th>
+                            <th class="text-center text-white">Suscriptor</th>
+                            <th class="text-center text-white">Torneo</th>
+                            <th class="text-center text-white">Peso de competencia</th>
+                            <th class="text-center text-white">Categoría de Peso</th>
+                            <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-700">
-                        <tr th:each="Competidores_Torneo: ${listaCompetidores}">
-                            <td th:text="${Competidores_Torneo.idTorneo}"></td>
-                            <td th:text="${Competidores_Torneo.idPersona}"></td>
-                            <td th:text="${Competidores_Torneo.categoriaPeso}"></td>
+                        <tr th:each="competidores_torneo: ${listaCompetidores}">
+                            <td th:text="${competidores_torneo.idPersona} +' '+${competidores_torneo.idTorneo}"></td>
+                            <td th:text="${competidores_torneo.nombrep} +' '+${competidores_torneo.apellidos}"></td>
+                            <td th:text="${competidores_torneo.nombret}"></td>
+                            <td th:text="${competidores_torneo.pesoc}"></td>
+                            <td th:text="${competidores_torneo.categoriaPeso}"></td>
                             <td>
-                                <a href="#"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{guardar/} + ${competidores_torneo.idCompetidorTorneo}" ><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="far fa-edit"></i>
                                     Editar</button></a>
-                                <a href="#" onclick="return confirm('¿Deseas eliminar este competidor?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                                <a th:href="@{eliminar/} + ${competidores_torneo.idCompetidorTorneo}" onclick="return confirm('¿Deseas eliminar este competidor?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="fas fa-trash-alt"></i>
                                     Eliminar</button></a>
+                                <a href="#" data-modal-target="fichacompetidor" data-modal-show="fichacompetidor"><button type="button"
+                                                    class="text-black-alt bg-yellow-400 hover:bg-yellow-500 hover:text-white
+                            focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
+                            px-3 py-2 mr-2 mb-2 mt-2">
+                                    <i class="far fa-edit"></i>
+                                    Ficha de competidor</button></a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <div id="fichacompetidor" tabindex="-1" aria-hidden="true" class="fixed rounded-md top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+                        <div class="relative rounded-md bg-gray-300 w-full h-full max-w-xl md:h-auto items-center justify-center">
+                            <!-- Modal content -->
+                                <!-- Modal header -->
+                                <div class="flex items-start justify-between p-4 border-b-2 border-gray-700 rounded-t text-center items-center self-center justify-center">
+                                    <h3 class="text-xl font-semibold text-gray-900">
+                                        Ficha de competidor
+                                    </h3>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-6 space-y-6 flex items-center justify-center">
+                                    <img class="flex border-2 border-gray-900 border-solid rounded-t-lg object-fill h-48 w-66 items-center justify-center"  th:src="@{/svgs/competidores-fondo.png}"  alt="competidores-fondo" />
+                                    <div class="grid grid-cols-1 ml-10">
+                                        <div class="col-span-6 sm:col-span-2">
+                                            <label class="block mb-2 text-md font-bold text-gray-900">
+                                                Nombre</label>
+                                            <p>Alan Escobar</p>
+                                        </div>
+                                        <div class="col-span-6 sm:col-span-2">
+                                            <label class="block mt-2 mb-2 text-md font-bold text-gray-900">Competencias</label>
+                                           <p>Circuito Ecuatoriano</p>
+                                               <p>Quito</p>
+                                               <p>2020-02-18</p>
+                                               <p>Peso mosca</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Modal footer -->
+                                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
+                                    focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5
+                                    items-center text-center">
+                                        <i class="fas fa-print"></i>
+                                        Imprimir</button>
+                                </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </main>
         <footer th:replace="layout/layout :: footer"></footer>
@@ -91,7 +139,7 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.js"></script>
 
 </body>
 </html>

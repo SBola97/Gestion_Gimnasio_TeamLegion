@@ -12,7 +12,7 @@
   <header th:replace="layout/layout :: headerdk"></header>
   <header th:replace="layout/layout :: headerm"></header>
 
-  <div class="w-full overflow-x-hidden border-t flex flex-col">
+  <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
     <main class="w-full flex-grow p-6">
       <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6"></h1>
       <form th:action="@{/gym/pagos/guardar}" th:object="${pagos}" method="post">
@@ -33,7 +33,7 @@
             <label for="suscriptor" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor</label>
             <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idInscripcion}" required>
               <th:block th:each="inscripciones : ${listaInscripciones}">
-                <option th:text="${inscripciones.nombre}+' '+${inscripciones.apellidos}" th:value="${inscripciones.idInscripcion}"></option>
+                <option th:text="${inscripciones.nombre}+' '+${inscripciones.apellidos}+'('+${inscripciones.fechaFin}+')'" th:value="${inscripciones.idInscripcion}"></option>
               </th:block>
             </select>
           </div>

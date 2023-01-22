@@ -3,9 +3,11 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 
 import java.util.List;
+import java.util.Set;
 
 public interface iPersonasService {
 
@@ -22,4 +24,6 @@ public interface iPersonasService {
     List<ClienteDTO> obtenerClientes();
 
     List<ProfesorDTO> obtenerProfesores();
+
+    //Set<Competidores_Torneo> createListaCompetidores(Personas personas);
 }

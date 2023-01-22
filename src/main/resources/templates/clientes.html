@@ -54,18 +54,18 @@
                     </button>
                 </div>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="min-w-full">
+                    <table class="min-w-full text-center">
                         <thead class="bg-gray-800 text-white">
-                        <tr>
-                            <th class="text-left text-white">ID</th>
-                            <th class="text-left text-white">Nombre</th>
-                            <th class="text-left text-white">Apellidos</th>
-                            <th class="text-left text-white">Cédula</th>
-                            <th class="text-left text-white">Email</th>
-                            <th class="text-left text-white">Edad</th>
-                            <th class="text-left text-white">Peso (Kg)</th>
-                            <th class="text-left text-white">Estatura (cm)</th>
-                            <th class="text-left text-white">Acciones</th>
+                        <tr class="divide-x">
+                            <th class="text-center text-white">ID</th>
+                            <th class="text-center text-white">Nombre</th>
+                            <th class="text-center text-white">Apellidos</th>
+                            <th class="text-center text-white">Cédula</th>
+                            <th class="text-center text-white">Email</th>
+                            <th class="text-center text-white">Edad</th>
+                            <th class="text-center text-white">Peso (Kg)</th>
+                            <th class="text-center text-white">Estatura (cm)</th>
+                            <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-700">
@@ -82,10 +82,12 @@
                                 <a th:href="@{guardar/} + ${personas.idCliente}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
+                                    <i class="far fa-edit"></i>
                                     Editar</button></a>
                                 <a th:href="@{eliminar/} + ${personas.idCliente}" onclick="return confirm('¿Deseas eliminar a este miembro del gimnasio?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
+                                    <i class="fas fa-trash-alt"></i>
                                     Eliminar</button></a>
                             </td>
                         </tr>

@@ -47,7 +47,7 @@ public class Personas {
     @Max(210)
     private float estatura;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy ="personas")
+    @OneToMany(mappedBy ="personas")
     private Set<Disciplinas_Profesor> DisciplinasProfesor = new HashSet<>();
 
     @OneToMany(mappedBy ="personas")

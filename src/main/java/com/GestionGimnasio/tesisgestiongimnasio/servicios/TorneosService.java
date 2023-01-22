@@ -56,4 +56,7 @@ public class TorneosService implements iTorneosService {
     public List<TorneosDTO> obtenerTorneos() {
         return mapper.toTorneosDTO((List<Torneos>)torneosRepository.findAll());
     }
+
+
+
 }

@@ -12,8 +12,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CompetidoresTorneoMapper {
     @Mappings({
-            @Mapping(source="id.idPersona",target = "idPersona"),
-            @Mapping(source="id.idTorneo",target = "idTorneo"),
+            @Mapping(source="idCompetidorTorneo",target = "idCompetidorTorneo"),
+            @Mapping(source="personas.idPersona",target = "idPersona"),
+            @Mapping(source="torneos.idTorneo",target = "idTorneo"),
+            @Mapping(source="torneos.nombre",target = "nombret"),
+            @Mapping(source="personas.nombre",target = "nombrep"),
+            @Mapping(source="personas.apellidos",target = "apellidos"),
+            @Mapping(source="pesoc",target = "pesoc"),
             @Mapping(source="categoriaPeso",target = "categoriaPeso")
     })
     CompetidoresTorneoDTO toCompetidoresTorneoDTO(Competidores_Torneo competidores_torneo);

@@ -67,7 +67,8 @@ public class PagosController {
     }
 
     @PostMapping("/guardar")
-    public String guardarPagos(@Valid @ModelAttribute("pagos") PagosDTO pagosDTO, BindingResult result, Model modelo, RedirectAttributes flash, SessionStatus status)
+    public String guardarPagos(@Valid @ModelAttribute("pagos") PagosDTO pagosDTO, BindingResult result,
+                               Model modelo, RedirectAttributes flash, SessionStatus status)
     {
         if(result.hasErrors())
         {
