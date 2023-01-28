@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+</head>
+<body class="bg-gray-300 font-sans flex overflow-y-hidden">
+
+<nav th:replace="layout/layout :: navbar"></nav>
+
+
+<div class="w-full flex flex-col h-screen overflow-y-hidden">
+    <header th:replace="layout/layout :: headerdk"></header>
+    <header th:replace="layout/layout :: headerm"></header>
+
+    <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
+        <main class="w-full flex-grow p-6">
+            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Reporte de ganancias mensuales</h1>
+            <div class="w-full mt-8">
+                <form th:action="@{/gym/reportes/mes}" th:object="${reporteGanancias}" method="post">
+                <div class="text-center items-center justify-center">
+<!--                    <input type="number" id="mes" th:field="*{mes}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese el mes" required>-->
+                    <select id="mes" class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-1/5"
+                            th:field="*{mes}">
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                    <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 hover:text-black
+                    focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm w-full
+                    sm:w-auto px-5 py-2.5 text-center">Generar reporte
+                        <i class="fas fa-chevron-circle-right pl-2"></i>
+                    </button>
+
+                </div>
+                </form>
+                <a href="#"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
+                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
+                            px-5 py-2.5 mr-2 mb-2 mt-2">
+                    Imprimir reporte
+                    <i class="fas fa-print"></i>
+                </button></a>
+                <div class="bg-gray-300 overflow-auto">
+                    <table class="min-w-full text-center">
+                        <thead class="bg-gray-800 text-white text-center">
+                        <tr class="divide-x">
+                            <th class="text-center text-white">Suscriptor</th>
+                            <th class="text-center text-white">Fecha del Pago</th>
+                            <th class="text-center text-white">Valor($)</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                        <tr th:each="reporteGanancias : ${listaPagosM}">
+                            <td th:text="${reporteGanancias.nombrePersona} +' '+${reporteGanancias.apellidos}"></td>
+                            <td th:text="${reporteGanancias.fecha}"></td>
+                            <td th:text="${reporteGanancias.valorp}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <span th:if="${listaPagosM != null}" class="font-semibold text-2xl"
+                          th:text="'Total del mes: '+ ${reporteGanancias.total} +' $'"></span>
+                    <span th:unless="${listaPagosM == null}"></span>
+                </div>
+            </div>
+
+        </main>
+        <footer th:replace="layout/layout :: footer"></footer>
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+
+</body>
+</html>

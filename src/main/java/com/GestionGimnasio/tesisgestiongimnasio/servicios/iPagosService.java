@@ -2,6 +2,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PagosDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 public interface iPagosService {
 
@@ -14,4 +15,5 @@ public interface iPagosService {
     PagosDTO buscarPago(int idPago);
 
     List<PagosDTO> obtenerPagos();
+
 }

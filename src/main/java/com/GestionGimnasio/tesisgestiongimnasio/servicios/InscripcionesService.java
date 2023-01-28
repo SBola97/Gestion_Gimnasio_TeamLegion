@@ -2,16 +2,17 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.InscripcionesDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
-import com.GestionGimnasio.tesisgestiongimnasio.excepciones.gymexceptions;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.InscripcionMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.InscripcionesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.ModalidadesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,7 +35,8 @@ public class InscripcionesService implements iInscripcionesService{
     @Override
     public InscripcionesDTO ingresarInscripcion(InscripcionesDTO inscripcionesDTO) {
         //int idMod = inscripcionesDTO.getIdModalidad();
-        //int idPer = inscripcionesDTO.getIdPersona();
+        int idPer = inscripcionesDTO.getIdPersona();
+
 
 
         //System.out.println("IDPERSONAAAA:   "+idPer);
@@ -42,7 +44,10 @@ public class InscripcionesService implements iInscripcionesService{
         LocalDate fechaActual = LocalDate.now();
 
         if(inscripcionesDTO.getIdInscripcion() == 0) {
-
+            if(inscripcionesRepository.findInscripcionesByPersonas_IdPersona(idPer).isPresent())
+            {
+                throw new RuntimeException("Esta persona ya cuenta con una suscripción registrada");
+            }
             if (inscripcionesDTO.getFechaInicio().isBefore(fechaActual) || inscripcionesDTO.getFechaFin().isBefore(fechaActual)) {
                 throw new RuntimeException("Fecha no disponible para inscripción, ingrese una fecha válida, por favor");
             }
@@ -81,5 +86,28 @@ public class InscripcionesService implements iInscripcionesService{
     @Override
     public List<InscripcionesDTO> obtenerInscripcion() {
         return mapper.toInscripcionesDTO((List<Inscripciones>)inscripcionesRepository.findAll());
+    }
+
+    @Override
+    public void verificarInscripcionesVencidas()
+    {
+        List<Inscripciones> listI = inscripcionesRepository.findAll();
+        LocalDate date = LocalDate.now();
+        for(Inscripciones i : listI)
+        {
+           if(i.getFechaFin().isEqual(date)||i.getFechaFin().isBefore(date))
+           {
+               i.setEstado("Vencida");
+           }
+           else {
+               i.setEstado("Activa");
+           }
+        }
+    }
+
+    @Override
+    public List<InscripcionesDTO> obtenerInscripcionesPorVencer()
+    {
+        return mapper.toInscripcionesDTO((List<Inscripciones>)inscripcionesRepository.findInscripcionesByFechaFin());
     }
 }

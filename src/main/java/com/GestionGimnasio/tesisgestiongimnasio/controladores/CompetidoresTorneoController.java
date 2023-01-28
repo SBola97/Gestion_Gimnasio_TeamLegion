@@ -5,6 +5,7 @@ import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo_Key;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
+import com.GestionGimnasio.tesisgestiongimnasio.mappers.FichaMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.CompetidorTorneoService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.TorneosService;
@@ -55,11 +56,26 @@ public class CompetidoresTorneoController {
         return "competidores";
     }
 
-    @GetMapping("/ficha/{idCompetidorTorneo}")
-    public String fichaCompetidor(@PathVariable(value ="idCompetidorTorneo") int idCt,Model modelo )
+    @GetMapping("/ficha/{idPersona}")
+    public String fichaCompetidor(@PathVariable(value ="idPersona") int idP,Model modelo, RedirectAttributes flash)
     {
-        modelo.addAttribute("fichaCompetidor",competidorTorneoService.buscarCompetidorTorneo(idCt));
-        return "competidores";
+        try {
+            PersonasDTO competidor = personasService.buscarPersona(idP);
+            List<FichaDTO> fichaCompetidor = competidorTorneoService.obtenerFichaCompetidor(idP);
+            List<PersonasDTO> listaPersonas = personasService.obtenerPersona();
+            List<TorneosDTO> listaTorneos = torneosService.obtenerTorneos();
+            modelo.addAttribute("fichaCompetidor",fichaCompetidor);
+            modelo.addAttribute("competidor",competidor);
+            modelo.addAttribute("listaPersonas",listaPersonas);
+            modelo.addAttribute("listaTorneos",listaTorneos);
+            return "ficha_competidor";
+        }
+        catch (RuntimeException e)
+        {
+            flash.addFlashAttribute("error",e.toString());
+            return "competidores";
+        }
+
     }
 
 

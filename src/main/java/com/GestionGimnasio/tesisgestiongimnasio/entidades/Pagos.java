@@ -34,4 +34,6 @@ public class Pagos {
     @JoinColumn(name = "idFormaPago",referencedColumnName = "idFormaPago")
     private FormaPago formaPago;
 
+    private float valorp;
+
 }

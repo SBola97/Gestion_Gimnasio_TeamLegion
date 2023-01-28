@@ -26,12 +26,12 @@
 <!-- Navbar -->
 <aside th:fragment="navbar" class="relative bg-black-alt h-screen w-64 hidden sm:block shadow-xl">
     <div class="p-6">
-        <a href="/" class="text-white font-bold text-2xl flex text-center items-center justify-center">Team Legión Riobamba
+        <a th:href="@{/index}" class="text-white font-bold text-2xl flex text-center items-center justify-center">Team Legión Riobamba
         <img th:src="@{/svgs/logo-gymlegion-nbg.png}" class="mx-4 mt-2 h-14 w-14 flex items-center justify-center" alt="TeamLegion Logo" />
         </a>
     </div>
     <nav class="text-white text-base pt-3">
-        <a href="/" class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-blue-400">
+        <a th:href="@{/index}" class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-blue-400">
             <i class="fas fa-home fa-fw mr-3 text-blue-400"></i>
             Inicio
         </a>
@@ -99,7 +99,7 @@
     <!-- Header y Nav Móvil -->
     <header th:fragment="headerm" x-data="{ isOpen: false }" class="w-full bg-gray-600 py-5 px-6 sm:hidden">
         <div class="flex items-center justify-between">
-            <a href="/" class="text-white text-2xl font-bold uppercase hover:text-gray-300">Panel de control</a>
+            <a th:href="@{/index}" class="text-white text-2xl font-bold uppercase hover:text-gray-300">Panel de control</a>
             <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
                 <i x-show="!isOpen" class="fas fa-bars"></i>
                 <i x-show="isOpen" class="fas fa-times"></i>

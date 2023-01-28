@@ -28,11 +28,11 @@ public class Inscripciones {
 
     private String estado;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idPersona", referencedColumnName = "idPersona")
     private Personas personas;
 
-    @OneToOne(mappedBy = "inscripciones")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "inscripciones")
     private Pagos pagos;
 
     @ManyToOne

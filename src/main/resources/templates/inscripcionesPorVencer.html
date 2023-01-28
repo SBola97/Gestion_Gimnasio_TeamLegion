@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+    <meta charset="UTF-8">
+</head>
+<body class="bg-gray-300 font-sans flex overflow-y-hidden">
+
+<nav th:replace="layout/layout :: navbar"></nav>
+
+
+<div class="w-full flex flex-col h-screen overflow-y-hidden">
+    <header th:replace="layout/layout :: headerdk"></header>
+    <header th:replace="layout/layout :: headerm"></header>
+
+    <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
+        <main class="w-full flex-grow p-6">
+            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Mensualidades por Vencer</h1>
+            <div class="w-full mt-8">
+                <div class="bg-gray-300 overflow-auto">
+                    <table class="min-w-full text-center">
+                        <thead class="bg-gray-800 text-white text-center">
+                        <tr class="divide-x">
+                            <th class="text-center text-white">Suscriptor</th>
+                            <th class="text-center text-white">Fecha de Inicio</th>
+                            <th class="text-center text-white">Fecha de Fin</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-gray-700 bg-yellow-200 divide-y">
+                        <tr th:each="inscripciones : ${listaInscripcionesPV}">
+                            <td th:text="${inscripciones.nombre} +' '+${inscripciones.apellidos}"></td>
+                            <td th:text="${inscripciones.fechaInicio}"></td>
+                            <td th:text="${inscripciones.fechaFin}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+        <footer th:replace="layout/layout :: footer"></footer>
+
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+
+</body>
+</html>

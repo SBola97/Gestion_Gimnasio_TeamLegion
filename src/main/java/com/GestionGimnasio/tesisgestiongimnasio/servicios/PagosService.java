@@ -1,13 +1,17 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PagosDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Pagos;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.PagosMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.FormaPagoRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.InscripcionesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PagosRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -29,7 +33,7 @@ public class PagosService implements iPagosService {
     public PagosDTO ingresarPago(PagosDTO pagosDTO) {
 
         //int idFormaP = pagosDTO.getIdFormaPago();
-        //int idInsc = pagosDTO.getIdInscripcion();
+        int idInsc = pagosDTO.getIdInscripcion();
 
         Pagos pagos = mapper.toPagos(pagosDTO);
 
@@ -41,8 +45,14 @@ public class PagosService implements iPagosService {
         FormaPago fp = formaPagoRepository.findById(idFormaP)
                 .orElseThrow(()-> new RuntimeException("Forma de Pago no encontrada"));
         pagos.setFormaPago(fp);
-*/
 
+*/
+        Inscripciones insc = inscripcionesRepository.findById(idInsc)
+                .orElseThrow(()-> new RuntimeException("Inscripcion no encontrada"));
+
+        float valorp = insc.getModalidades().getValor();
+
+        pagos.setValorp(valorp);
 
 
         pagosRepository.save(pagos);
@@ -65,8 +75,10 @@ public class PagosService implements iPagosService {
                 .orElseThrow(()-> new RuntimeException("Pago no encontrado")));
     }
 
+
     @Override
     public List<PagosDTO> obtenerPagos() {
         return mapper.toPagosDTO((List<Pagos>)pagosRepository.findAll());
     }
+
 }

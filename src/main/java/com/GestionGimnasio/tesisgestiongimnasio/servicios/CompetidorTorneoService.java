@@ -1,11 +1,13 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.CompetidoresTorneoDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.FichaDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo_Key;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.CompetidoresTorneoMapper;
+import com.GestionGimnasio.tesisgestiongimnasio.mappers.FichaMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.Competidores_TorneoRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.TorneosRepository;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CompetidorTorneoService implements iCompetidoresTorneoService{
@@ -30,6 +34,9 @@ public class CompetidorTorneoService implements iCompetidoresTorneoService{
     @Autowired
     private CompetidoresTorneoMapper mapper;
 
+    @Autowired
+    private FichaMapper mapperc;
+
     @Override
     public CompetidoresTorneoDTO ingresarCompetidorTorneo(CompetidoresTorneoDTO competidoresTorneoDTO) {
 
@@ -42,6 +49,11 @@ public class CompetidorTorneoService implements iCompetidoresTorneoService{
         competidores_torneoRepository.save(competidores_torneo);
 
         return mapper.toCompetidoresTorneoDTO(competidores_torneo);
+    }
+
+    @Override
+    public List<FichaDTO> obtenerFichaCompetidor(int idP) {
+       return mapperc.toFichaDTO(competidores_torneoRepository.findCompetidores_TorneoByPersonasIdPersona(idP));
     }
 
     @Override

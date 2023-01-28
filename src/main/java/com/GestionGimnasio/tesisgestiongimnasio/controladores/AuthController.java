@@ -2,8 +2,8 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.LoginDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.UsuariosDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.repositorios.RolesRepository;
-import com.GestionGimnasio.tesisgestiongimnasio.repositorios.UsuariosRepository;
+import com.GestionGimnasio.tesisgestiongimnasio.repositorios.*;
+import com.GestionGimnasio.tesisgestiongimnasio.servicios.InscripcionesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Controller
 @CrossOrigin(origins = "*")
@@ -34,7 +36,21 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    InscripcionesRepository inscripcionesRepository;
+
+    @Autowired
+    Competidores_TorneoRepository competidores_torneoRepository;
+
+    @Autowired
+    PersonasRepository personasRepository;
+
+    @Autowired
+    PagosRepository pagosRepository;
+    @Autowired
     private UsuariosService usuariosService;
+
+    @Autowired
+    private InscripcionesService inscripcionesService;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UsuariosRepository usuariosRepository, RolesRepository rolesRepository, PasswordEncoder passwordEncoder) {
@@ -62,8 +78,16 @@ public class AuthController {
     }
 
     @GetMapping("/index")
-    public String index()
+    public String index(Model modelo)
     {
+        int day = LocalDate.now().getDayOfMonth();
+        BigDecimal diario = pagosRepository.sumValorpByDia(day);
+        int numCompetidores = competidores_torneoRepository.countCompetidores();
+        modelo.addAttribute("gananciaDiaria",diario);
+        modelo.addAttribute("numCompetidores",numCompetidores);
+        modelo.addAttribute("mensualidadesVencidas",inscripcionesRepository.countMensualidadesPorVencer());
+        modelo.addAttribute("numeroClientes",personasRepository.countPersonasByRolesNombre("Cliente"));
+        //inscripcionesService.verificarInscripcionesVencidas();
         return "index";
     }
 

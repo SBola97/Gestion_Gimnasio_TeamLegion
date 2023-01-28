@@ -2,6 +2,26 @@ package com.GestionGimnasio.tesisgestiongimnasio.repositorios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 public interface InscripcionesRepository extends JpaRepository<Inscripciones,Integer> {
+    @Query(value="SELECT count(datediff(i.fecha_fin,CURRENT_DATE)) from inscripciones as i where " +
+            "datediff(i.fecha_fin,CURRENT_DATE) <= 3 and datediff(i.fecha_fin,CURRENT_DATE) > 0",nativeQuery = true)
+    public int countMensualidadesPorVencer(); // número de mensualidades por vencer
+
+    @Query(value="SELECT * from inscripciones as i " +
+            "inner join personas as p on i.id_persona = p.id_persona where datediff(i.fecha_fin,CURRENT_DATE) <= 3 " +
+            "and datediff(i.fecha_fin,CURRENT_DATE) > 0", nativeQuery = true)
+    public List<Inscripciones> findInscripcionesByFechaFin();
+
+/*    @Query(value="SELECT datediff(:fecha,CURRENT_DATE) from inscripciones as i " +
+            "where datediff(:fecha,CURRENT_DATE) <= 0",nativeQuery = true)
+    public int verificarInscripciones(@Param("fecha") LocalDate fecha);*/
+    public Optional<Inscripciones> findInscripcionesByPersonas_IdPersona(int idP);
 }

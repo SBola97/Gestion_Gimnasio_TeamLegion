@@ -12,4 +12,5 @@ public interface PersonasRepository extends JpaRepository<Personas,Integer> {
             nativeQuery = true)
     List<Personas> findPersonasByRoles_Nombre(@Param("nombre")String nombreRol);
 
+    public int countPersonasByRolesNombre(String nombreRol);
 }

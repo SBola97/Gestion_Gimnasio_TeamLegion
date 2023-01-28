@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class CompetidoresTorneoDTO implements Serializable {
+public class CompetidoresTorneoDTO {
 
     private int idCompetidorTorneo;
 
@@ -20,6 +20,8 @@ public class CompetidoresTorneoDTO implements Serializable {
     private int idTorneo;
 
     private String nombret;
+
+    private String ciudadt;
 
     private String nombrep;
 

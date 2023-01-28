@@ -16,54 +16,58 @@
         <main class="w-full flex-grow p-6">
             <h1 class="text-2xl text-gray-700 font-bold pb-6">Bienvenido, [[${#httpServletRequest.remoteUser}]]</h1>
             <div class="flex flex-wrap mt-6">
-                <div class="w-full md:w-1/2 xl:w-1/2 p-3">
-                <div class="bg-green-600 border border-gray-800 rounded shadow p-2">
+                <div class="w-full p-3">
+                <div class="bg-green-600 border border-gray-800 rounded shadow p-2 hover:border-green-700 hover:border-4">
                     <div class="flex flex-row items-center">
                         <div class="flex-shrink pr-4">
                             <div class="rounded p-3 bg-green-600"><i class="fas fa-money-check-alt fa-2x fa-inverse"></i></i></div>
                         </div>
-                        <div class="flex-1 text-right md:text-center">
+                        <div class="flex-1 text-center">
                             <h5 class="font-bold uppercase text-white">Ingresos del día</h5>
-                            <h3 class="font-bold text-3xl text-white">$50.50</h3>
+                            <h3 class="font-bold text-3xl text-white" th:text="${gananciaDiaria}+' $'"></h3>
                         </div>
                     </div>
                 </div>
                 </div>
-                <div class="w-full md:w-1/2 xl:w-1/2 p-3">
-                    <div class="bg-blue-600 border border-gray-800 rounded shadow p-2">
+                <div class="w-full p-3">
+                    <div class="bg-red-700 border border-gray-800 rounded shadow p-2 hover:border-red-800
+                    hover:border-4">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded p-3 bg-red-700"><i class="fas fa-exclamation-circle fa-2x fa-inverse"></i></div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h5 class="font-bold uppercase text-white">Número de suscripciones próximas a terminar</h5>
+                                <a th:href="@{/gym/inscripciones/porvencer}" ><h3
+                                        th:text="${mensualidadesVencidas}" class="font-bold text-3xl text-white"></h3></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full p-3">
+                    <div class="bg-blue-600 border border-gray-800 rounded shadow p-2 hover:border-blue-700
+                    hover:border-4">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
                                 <div class="rounded p-3 bg-blue-600"><i class="fas fa-users fa-2x fa-inverse"></i></div>
                             </div>
                             <div class="flex-1 text-right md:text-center">
-                                <h5 class="font-bold uppercase text-white">Número de suscriptores</h5>
-                                <h3 class="font-bold text-3xl text-white">150</h3>
+                                <h5 class="font-bold uppercase text-white">Número de clientes registrados</h5>
+                                <h3 class="font-bold text-3xl text-white" th:text="${numeroClientes}"></h3>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 xl:w-1/2 p-3">
-                    <div class="bg-orange-500 border border-gray-800 rounded shadow p-2">
+                <div class="w-full p-3">
+                    <div class="bg-amber-500 border border-gray-800 rounded shadow p-2 hover:border-amber-600
+                    hover:border-4">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink pr-4">
-                                <div class="rounded p-3 bg-orange-500"><i class="fas fa-exclamation-circle fa-2x fa-inverse"></i></div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center">
-                                <h5 class="font-bold uppercase text-white">Número de suscripciones próximas a terminar</h5>
-                                <h3 class="font-bold text-3xl text-white">35</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full md:w-1/2 xl:w-1/2 p-3">
-                    <div class="bg-indigo-600 border border-gray-800 rounded shadow p-2">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink pr-4">
-                                <div class="rounded p-3 bg-indigo-600"><i class="fas fa-medal fa-2x fa-inverse"></i></div>
+                                <div class="rounded p-3 bg-amber-500"><i class="fas fa-medal fa-2x fa-inverse"></i></div>
                             </div>
                             <div class="flex-1 text-right md:text-center">
                                 <h5 class="font-bold uppercase text-white">Número de Competidores</h5>
-                                <h3 class="font-bold text-3xl text-white">35</h3>
+                                <h3 class="font-bold text-3xl text-white" th:text="${numCompetidores}"></h3>
                             </div>
                         </div>
                     </div>

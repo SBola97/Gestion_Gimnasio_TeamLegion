@@ -50,7 +50,7 @@ public class Personas {
     @OneToMany(mappedBy ="personas")
     private Set<Disciplinas_Profesor> DisciplinasProfesor = new HashSet<>();
 
-    @OneToMany(mappedBy ="personas")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy ="personas")
     private Set<Competidores_Torneo> CompetidoresTorneo = new HashSet<>();
 
     @OneToOne(mappedBy = "personas")
@@ -61,9 +61,9 @@ public class Personas {
     @JoinColumn(name = "idRol",referencedColumnName = "idRol")
     private Roles roles;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personas")
-    private Set<Inscripciones> Inscripciones = new HashSet<>();
-
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "personas")
+    //private Set<Inscripciones> Inscripciones = new HashSet<>();
+    private Inscripciones inscripciones;
 
 
 }

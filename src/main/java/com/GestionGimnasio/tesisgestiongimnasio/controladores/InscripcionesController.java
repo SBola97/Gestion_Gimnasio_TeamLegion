@@ -59,11 +59,24 @@ public class InscripcionesController {
     {
 
         //List<Inscripciones> listaInscripciones = mapper.toInscripciones((List<InscripcionesDTO>)inscripcionesService.obtenerInscripcion());
+        inscripcionesService.verificarInscripcionesVencidas();
         List<InscripcionesDTO> listaInscripciones = inscripcionesService.obtenerInscripcion();
         //modelo.addAttribute("personas",personas);
         modelo.addAttribute("listaInscripciones",listaInscripciones);
 
         return "inscripciones";
+    }
+
+    @GetMapping("/porvencer")
+    public String listarInscripcionesPV(Model modelo)
+    {
+
+        //List<Inscripciones> listaInscripciones = mapper.toInscripciones((List<InscripcionesDTO>)inscripcionesService.obtenerInscripcion());
+        List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
+        //modelo.addAttribute("personas",personas);
+        modelo.addAttribute("listaInscripcionesPV",listaInscripcionesPV);
+
+        return "inscripcionesPorVencer";
     }
     @GetMapping("/formulario")
     public String mostrarFormularioInscripciones(Map<String,Object> modelo)

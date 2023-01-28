@@ -31,7 +31,7 @@ public class PagosDTO {
 
     private String apellidos;
 
-    private String valor;
+    private float valorp;
 
     private FormaPagoDTO formaspago;
 

@@ -20,7 +20,7 @@ public interface PagosMapper {
             @Mapping(source="inscripciones.idInscripcion", target= "idInscripcion"),
             @Mapping(source="inscripciones.personas.nombre", target= "nombre"),
             @Mapping(source="inscripciones.personas.apellidos", target= "apellidos"),
-            @Mapping(source="inscripciones.modalidades.valor", target= "valor"),
+            @Mapping(source="valorp", target= "valorp"),
             @Mapping(source="formaPago", target= "formaspago")
     })
     PagosDTO toPagosDTO(Pagos pagos);

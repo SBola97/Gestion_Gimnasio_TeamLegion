@@ -3,7 +3,7 @@
 <head th:replace="layout/layout :: head">
     <meta charset="UTF-8">
 </head>
-<body class="bg-gray-300 font-sans flex">
+<body class="bg-gray-300 font-sans flex overflow-y-hidden">
 
 <nav th:replace="layout/layout :: navbar"></nav>
 
@@ -68,7 +68,7 @@
                         <tr th:each="competidores_torneo: ${listaCompetidores}">
                             <td th:text="${competidores_torneo.idPersona} +' '+${competidores_torneo.idTorneo}"></td>
                             <td th:text="${competidores_torneo.nombrep} +' '+${competidores_torneo.apellidos}"></td>
-                            <td th:text="${competidores_torneo.nombret}"></td>
+                            <td th:text="${competidores_torneo.nombret}+' ('+${competidores_torneo.ciudadt}+')'"></td>
                             <td th:text="${competidores_torneo.pesoc}"></td>
                             <td th:text="${competidores_torneo.categoriaPeso}"></td>
                             <td>
@@ -82,7 +82,7 @@
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="fas fa-trash-alt"></i>
                                     Eliminar</button></a>
-                                <a href="#" data-modal-target="fichacompetidor" data-modal-show="fichacompetidor"><button type="button"
+                                <a th:href="@{ficha/} + ${competidores_torneo.idPersona}"><button type="button"
                                                     class="text-black-alt bg-yellow-400 hover:bg-yellow-500 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
@@ -106,16 +106,17 @@
                                     <img class="flex border-2 border-gray-900 border-solid rounded-t-lg object-fill h-48 w-66 items-center justify-center"  th:src="@{/svgs/competidores-fondo.png}"  alt="competidores-fondo" />
                                     <div class="grid grid-cols-1 ml-10">
                                         <div class="col-span-6 sm:col-span-2">
-                                            <label class="block mb-2 text-md font-bold text-gray-900">
-                                                Nombre</label>
-                                            <p>Alan Escobar</p>
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-2">
-                                            <label class="block mt-2 mb-2 text-md font-bold text-gray-900">Competencias</label>
-                                           <p>Circuito Ecuatoriano</p>
-                                               <p>Quito</p>
-                                               <p>2020-02-18</p>
-                                               <p>Peso mosca</p>
+                                            <ol class="max-w-md space-y-1 text-gray-500 list-decimal list-inside">
+                                                <li>
+                                                    <span class="font-semibold text-gray-900">Bonnie Green</span> with <span class="font-semibold text-gray-900">70</span> points
+                                                </li>
+                                                <li>
+                                                    <span class="font-semibold text-gray-900">Jese Leos</span> with <span class="font-semibold text-gray-900 ">63</span> points
+                                                </li>
+                                                <li>
+                                                    <span class="font-semibold text-gray-900">Leslie Livingston</span> with <span class="font-semibold text-gray-900">57</span> points
+                                                </li>
+                                            </ol>
                                         </div>
                                     </div>
                                 </div>
