@@ -61,7 +61,7 @@
               <th class="text-center text-white">Nombre</th>
               <th class="text-center text-white">Apellidos</th>
               <th class="text-center text-white">Cédula</th>
-              <th class="text-center text-white">Edad</th>
+              <th class="text-center text-white">Teléfono</th>
               <th class="text-center text-white">Email</th>
               <th class="text-center text-white">Disciplinas</th>
               <th class="text-center text-white">Acciones</th>
@@ -73,9 +73,9 @@
               <td th:text="${personas.nombre}"></td>
               <td th:text="${personas.apellidos}"></td>
               <td th:text="${personas.cedula}"></td>
-              <td th:text="${personas.edad}"></td>
+              <td th:text="${personas.telefono}"></td>
               <td th:text="${personas.email}"></td>
-              <td>""</td>
+              <td th:text="${personas.disciplina}"></td>
               <td>
                 <a th:href="@{guardar/} + ${personas.idProfesor}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
@@ -91,6 +91,7 @@
             </tr>
             </tbody>
           </table>
+          <nav th:replace="layout/pag-nav ::paginator"></nav>
         </div>
       </div>
     </main>

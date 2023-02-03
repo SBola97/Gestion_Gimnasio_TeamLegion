@@ -4,12 +4,14 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.InscripcionesDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ModalidadesDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.InscripcionesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.ModalidadesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -54,15 +56,21 @@ public class InscripcionesController {
         return inscripcionesService.obtenerInscripcion();
     }
 
-    @GetMapping("/listar")
-    public String listarInscripciones(Model modelo)
+    @GetMapping("/listar/page/{pageNumber}")
+    public String listarInscripciones(@PathVariable("pageNumber") int currentPage,Model modelo)
     {
-
+        Page<Inscripciones> page = inscripcionesService.obtenerInscripciones(currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Inscripciones> inscripciones = page.getContent();
         //List<Inscripciones> listaInscripciones = mapper.toInscripciones((List<InscripcionesDTO>)inscripcionesService.obtenerInscripcion());
         inscripcionesService.verificarInscripcionesVencidas();
-        List<InscripcionesDTO> listaInscripciones = inscripcionesService.obtenerInscripcion();
+        //List<InscripcionesDTO> listaInscripciones = inscripcionesService.obtenerInscripcion();
         //modelo.addAttribute("personas",personas);
-        modelo.addAttribute("listaInscripciones",listaInscripciones);
+        modelo.addAttribute("listaInscripciones",inscripciones);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
 
         return "inscripciones";
     }
@@ -105,7 +113,7 @@ public class InscripcionesController {
         modelo.addAttribute("inscripciones",inscripcionesDTO);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/inscripciones/listar";
+        return "redirect:/gym/inscripciones/listar/page/1";
     }
 
     @GetMapping("/guardar/{idInscripcion}")
@@ -142,7 +150,7 @@ public class InscripcionesController {
             inscripcionesService.eliminarInscripcion(idI);
             flash.addFlashAttribute("success","Inscripción eliminada con éxito");
         }
-        return "redirect:/gym/inscripciones/listar";
+        return "redirect:/gym/inscripciones/listar/page/1";
     }
 
 }

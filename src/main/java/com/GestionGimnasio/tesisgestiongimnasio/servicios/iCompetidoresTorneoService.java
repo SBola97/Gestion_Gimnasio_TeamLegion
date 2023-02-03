@@ -4,6 +4,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.CompetidoresTorneoDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.FichaDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -24,4 +25,5 @@ public interface iCompetidoresTorneoService {
     List<FichaDTO> obtenerFichaCompetidor(int idP);
 
 
+    Page<Competidores_Torneo> listarCompetidoresTorneo(int pageNumber);
 }

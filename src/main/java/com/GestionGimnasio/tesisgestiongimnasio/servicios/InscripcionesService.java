@@ -6,13 +6,13 @@ import com.GestionGimnasio.tesisgestiongimnasio.mappers.InscripcionMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.InscripcionesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.ModalidadesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -86,6 +86,15 @@ public class InscripcionesService implements iInscripcionesService{
     @Override
     public List<InscripcionesDTO> obtenerInscripcion() {
         return mapper.toInscripcionesDTO((List<Inscripciones>)inscripcionesRepository.findAll());
+    }
+
+
+    @Override
+    public Page<Inscripciones> obtenerInscripciones(int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        Page<Inscripciones> inscripciones = inscripcionesRepository.findAll(pageable);
+        return inscripciones;
     }
 
     @Override

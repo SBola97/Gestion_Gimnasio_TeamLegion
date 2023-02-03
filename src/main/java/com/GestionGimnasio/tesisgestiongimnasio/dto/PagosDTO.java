@@ -1,5 +1,6 @@
 package com.GestionGimnasio.tesisgestiongimnasio.dto;
 
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Pagos;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +22,7 @@ public class PagosDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaPago;
 
+    @NotNull
     @NotEmpty(message = "El campo estadoPago es requerido")
     @NotBlank(message = "El campo estadoPago es requerido")
     private String estadoPago;

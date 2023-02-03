@@ -22,8 +22,9 @@ public class Disciplinas {
     @NotEmpty
     private String nombre;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplinas")
-    private Set<Disciplinas_Profesor> DisciplinasProfesor = new HashSet<>();
+    @OneToOne(mappedBy= "disciplinas")
+    private Personas personas;
+
 
     @OneToMany(mappedBy= "disciplinas")
     private Set<Torneos> torneos = new HashSet<>();

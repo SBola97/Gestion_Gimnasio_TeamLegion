@@ -69,16 +69,16 @@
                         <tr th:each="usuarios : ${listaUsuarios}">
                             <td th:text="${usuarios.idUsuario}"></td>
                             <td th:text="${usuarios.nombreUsuario}"></td>
-                            <td th:text="${usuarios.nombre}+' '+${usuarios.apellidos}"></td>
-                            <td th:text="${usuarios.email}"></td>
-                            <td th:text="${usuarios.idRol}"></td>
+                            <td th:text="${usuarios.personas.nombre}+' '+${usuarios.personas.apellidos}"></td>
+                            <td th:text="${usuarios.personas.email}"></td>
+                            <td th:text="${usuarios.personas.roles.nombre}"></td>
                             <td>
-                                <a th:href="@{guardar/} + ${usuarios.idUsuario}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{/gym/usuarios/guardar/} + ${usuarios.idUsuario}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="far fa-edit"></i>
                                     Editar</button></a>
-                                <a th:href="@{eliminar/} + ${usuarios.idUsuario}" onclick="return confirm('¿Deseas eliminar este usuario?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                                <a th:href="@{/gym/usuarios/eliminar/} + ${usuarios.idUsuario}" onclick="return confirm('¿Deseas eliminar este usuario?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="fas fa-trash-alt"></i>
@@ -87,11 +87,11 @@
                         </tr>
                         </tbody>
                     </table>
+                    <nav th:replace="layout/pag-nav ::paginator"></nav>
                 </div>
             </div>
         </main>
         <footer th:replace="layout/layout :: footer"></footer>
-
     </div>
 
 </div>

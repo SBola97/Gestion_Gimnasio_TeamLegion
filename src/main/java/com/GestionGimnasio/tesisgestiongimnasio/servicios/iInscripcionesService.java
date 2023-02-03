@@ -2,6 +2,8 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.InscripcionesDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 public interface iInscripcionesService {
@@ -15,6 +17,8 @@ public interface iInscripcionesService {
     void eliminarInscripcion(int idInscripcion);
 
     List<InscripcionesDTO> obtenerInscripcion();
+
+    Page<Inscripciones> obtenerInscripciones(int pageNumber);
 
     void verificarInscripcionesVencidas();
 

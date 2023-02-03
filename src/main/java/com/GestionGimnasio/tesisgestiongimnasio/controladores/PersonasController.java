@@ -3,12 +3,15 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.dto.RolesDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.RolesService;
+import com.GestionGimnasio.tesisgestiongimnasio.util.paginacion.PageRender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -60,11 +63,20 @@ public class PersonasController {
     }*/
 
     //Controladores para vistas (Front-End)
-    @GetMapping("/listar")
-    public String listarPersonas(Model modelo)
+    @GetMapping("/listar/page/{pageNumber}")
+    public String listarPersonas(@PathVariable("pageNumber") int currentPage,Model modelo)
     {
-        List<Personas> listaPersonas = personasService.obtenerPersonas();
-        modelo.addAttribute("listaPersonas",listaPersonas);
+        Page<Personas> page = personasService.obtenerSuscriptores(currentPage);
+        //PageRender<Personas> pageRender = new PageRender<>("/listar",personas);
+        //List<Personas> listaPersonas = personasService.obtenerPersonas();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Personas> personas = page.getContent();
+        modelo.addAttribute("listaPersonas",personas);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+        //modelo.addAttribute("page",pageRender);
         return "miembros";
     }
 
@@ -128,7 +140,7 @@ public class PersonasController {
             personasService.eliminarPersona(idP);
             flash.addFlashAttribute("success","Integrante eliminado con éxito");
         }
-        return "redirect:/gym/personas/listar";
+        return "redirect:/gym/personas/listar/page/1";
     }
 
     @GetMapping("/clientes")

@@ -14,26 +14,21 @@ public class ProfesorDTO {
 
     private int idProfesor;
 
-    @NotEmpty(message = "El campo nombre es requerido")
+    @NotNull(message = "El campo nombre es requerido")
     private String nombre;
 
-    @NotEmpty(message = "El campo apellidos es requerido")
+    @NotNull(message = "El campo apellidos es requerido")
     private String apellidos;
 
-    @NotEmpty(message = "El campo cedula es requerido")
+    @NotNull(message = "El campo cedula es requerido")
     private String cedula;
 
-    @NotEmpty(message = "El campo email es requerido")
     @Email
     private String email;
 
-    @NotNull(message = "El campo edad es requerido")
-    private int edad;
+    private String disciplina;
 
-    @NotEmpty(message = "El campo telefono es requerido")
+    @NotNull(message = "El campo telefono es requerido")
     private String telefono;
-
-
-
 
 }

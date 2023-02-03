@@ -20,13 +20,14 @@ public class Personas {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPersona;
 
-    @NotEmpty
+    @NotNull
     private String nombre;
 
-    @NotEmpty
+    @NotNull
     private String apellidos;
 
-    @Column(unique = true)
+    @NotNull
+    @Column(unique = true, length = 10)
     private String cedula;
 
     @Column(unique = true)
@@ -37,6 +38,8 @@ public class Personas {
     @Max(100)
     private int edad;
 
+    @NotNull
+    @Column(length=10)
     private String telefono;
 
     @Min(30)
@@ -47,8 +50,9 @@ public class Personas {
     @Max(210)
     private float estatura;
 
-    @OneToMany(mappedBy ="personas")
-    private Set<Disciplinas_Profesor> DisciplinasProfesor = new HashSet<>();
+    @OneToOne
+    @JoinColumn(name = "idDisciplina", referencedColumnName = "idDisciplina")
+    private Disciplinas disciplinas;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy ="personas")
     private Set<Competidores_Torneo> CompetidoresTorneo = new HashSet<>();

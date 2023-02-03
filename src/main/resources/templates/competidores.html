@@ -56,8 +56,7 @@
                     <table class="min-w-full text-center">
                         <thead class="bg-gray-800 text-white text-center">
                         <tr class="divide-x">
-                            <th class="text-center text-white ">ID</th>
-                            <th class="text-center text-white">Suscriptor</th>
+                            <th class="text-center text-white">Competidor</th>
                             <th class="text-center text-white">Torneo</th>
                             <th class="text-center text-white">Peso de competencia</th>
                             <th class="text-center text-white">Categoría de Peso</th>
@@ -66,23 +65,22 @@
                         </thead>
                         <tbody class="text-gray-700">
                         <tr th:each="competidores_torneo: ${listaCompetidores}">
-                            <td th:text="${competidores_torneo.idPersona} +' '+${competidores_torneo.idTorneo}"></td>
-                            <td th:text="${competidores_torneo.nombrep} +' '+${competidores_torneo.apellidos}"></td>
-                            <td th:text="${competidores_torneo.nombret}+' ('+${competidores_torneo.ciudadt}+')'"></td>
+                            <td th:text="${competidores_torneo.personas.nombre} +' '+${competidores_torneo.personas.apellidos}"></td>
+                            <td th:text="${competidores_torneo.torneos.nombre}+' ('+${competidores_torneo.torneos.ciudad}+')'"></td>
                             <td th:text="${competidores_torneo.pesoc}"></td>
                             <td th:text="${competidores_torneo.categoriaPeso}"></td>
                             <td>
-                                <a th:href="@{guardar/} + ${competidores_torneo.idCompetidorTorneo}" ><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{/gym/competidores/guardar/} + ${competidores_torneo.idCompetidorTorneo}" ><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="far fa-edit"></i>
                                     Editar</button></a>
-                                <a th:href="@{eliminar/} + ${competidores_torneo.idCompetidorTorneo}" onclick="return confirm('¿Deseas eliminar este competidor?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                                <a th:href="@{/gym/competidores/eliminar/} + ${competidores_torneo.idCompetidorTorneo}" onclick="return confirm('¿Deseas eliminar este competidor?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="fas fa-trash-alt"></i>
                                     Eliminar</button></a>
-                                <a th:href="@{ficha/} + ${competidores_torneo.idPersona}"><button type="button"
+                                <a th:href="@{/gym/competidores/ficha/} + ${competidores_torneo.personas.idPersona}"><button type="button"
                                                     class="text-black-alt bg-yellow-400 hover:bg-yellow-500 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
@@ -92,44 +90,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div id="fichacompetidor" tabindex="-1" aria-hidden="true" class="fixed rounded-md top-0 left-0 right-0 z-50 items-center justify-center hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                        <div class="relative rounded-md bg-gray-300 w-full h-full max-w-xl md:h-auto items-center justify-center">
-                            <!-- Modal content -->
-                                <!-- Modal header -->
-                                <div class="flex items-start justify-between p-4 border-b-2 border-gray-700 rounded-t text-center items-center self-center justify-center">
-                                    <h3 class="text-xl font-semibold text-gray-900">
-                                        Ficha de competidor
-                                    </h3>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="p-6 space-y-6 flex items-center justify-center">
-                                    <img class="flex border-2 border-gray-900 border-solid rounded-t-lg object-fill h-48 w-66 items-center justify-center"  th:src="@{/svgs/competidores-fondo.png}"  alt="competidores-fondo" />
-                                    <div class="grid grid-cols-1 ml-10">
-                                        <div class="col-span-6 sm:col-span-2">
-                                            <ol class="max-w-md space-y-1 text-gray-500 list-decimal list-inside">
-                                                <li>
-                                                    <span class="font-semibold text-gray-900">Bonnie Green</span> with <span class="font-semibold text-gray-900">70</span> points
-                                                </li>
-                                                <li>
-                                                    <span class="font-semibold text-gray-900">Jese Leos</span> with <span class="font-semibold text-gray-900 ">63</span> points
-                                                </li>
-                                                <li>
-                                                    <span class="font-semibold text-gray-900">Leslie Livingston</span> with <span class="font-semibold text-gray-900">57</span> points
-                                                </li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Modal footer -->
-                                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
-                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
-                                    focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5
-                                    items-center text-center">
-                                        <i class="fas fa-print"></i>
-                                        Imprimir</button>
-                                </div>
-                        </div>
-                    </div>
+                    <nav th:replace="layout/pag-nav ::paginator"></nav>
                 </div>
 
             </div>

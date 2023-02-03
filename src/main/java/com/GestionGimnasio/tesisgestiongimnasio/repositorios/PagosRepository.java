@@ -29,4 +29,11 @@ public interface PagosRepository extends JpaRepository<Pagos,Integer> {
             ,nativeQuery = true)
     public List<Object> findPagosByEstadoPagoAndFechaPago(@Param("mes") int mes);
 
+
+    @Query(value="SELECT monthname(p.fecha_pago) as mes, sum(p.valorp) from pagos as p " +
+            "where year(p.fecha_pago) = year(CURRENT_DATE) group by mes order by month(p.fecha_pago) asc",nativeQuery = true)
+    public List<Object> findPagosAnuales();
+
+
+
 }

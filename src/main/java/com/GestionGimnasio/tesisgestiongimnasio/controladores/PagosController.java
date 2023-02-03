@@ -1,10 +1,15 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Pagos;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.FormasPagoService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.InscripcionesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PagosService;
+import com.GestionGimnasio.tesisgestiongimnasio.util.paginacion.PageRender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -46,10 +51,18 @@ public class PagosController {
         return pagosService.obtenerPagos();
 
     }
-    @GetMapping("/listar")
-    public String listarPagos(Model modelo)
+    @GetMapping("/listar/page/{pageNumber}")
+    public String listarPagos(@PathVariable("pageNumber") int currentPage, Model modelo)
     {
-        modelo.addAttribute("listaPagos",pagosService.obtenerPagos());
+        Page<Pagos> page = pagosService.findPagos(currentPage);
+        List<Pagos> pagos = page.getContent();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        //modelo.addAttribute("listaPagos",pagosService.obtenerPagos());
+        modelo.addAttribute("listaPagos",pagos);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
         return "pagos";
     }
 
@@ -81,7 +94,7 @@ public class PagosController {
         modelo.addAttribute("pagos",pagosDTO);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/pagos/listar";
+        return "redirect:/gym/pagos/listar/page/1";
     }
     @GetMapping("/guardar/{idPago}")
     public String editarPago(@PathVariable(value = "idPago") int idP, Map<String,Object> modelo,RedirectAttributes flash)
@@ -117,7 +130,7 @@ public class PagosController {
             pagosService.eliminarPago(idP);
             flash.addFlashAttribute("success","Pago eliminado con éxito");
         }
-        return "redirect:/gym/pagos/listar";
+        return "redirect:/gym/pagos/listar/page/1";
     }
 
 }

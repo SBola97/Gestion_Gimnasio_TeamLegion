@@ -35,35 +35,35 @@
             <i class="fas fa-home fa-fw mr-3 text-blue-400"></i>
             Inicio
         </a>
-        <a th:href="@{/gym/personas/listar}"
+        <a th:href="@{/gym/personas/listar/page/1}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-purple-400">
             <i class="fas fa-users mr-3"></i><span class="pb-1 md:pb-0 text-sm">Comunidad</span>
         </a>
-        <a th:href="@{/gym/personas/clientes}"
+        <a th:href="@{/gym/personas/clientes/page/1}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-cyan-200">
             <i class="fas fa-user mr-3"></i><span class="pb-1 md:pb-0 text-sm">Clientes</span>
         </a>
-        <a th:href="@{/gym/personas/profesores}"
+        <a th:href="@{/gym/personas/profesores/page/1}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-rose-400">
             <i class="fas fa-user-tie mr-3"></i><span class="pb-1 md:pb-0 text-sm">Profesores</span>
         </a>
-        <a th:href="@{/gym/inscripciones/listar}"
+        <a th:href="@{/gym/inscripciones/listar/page/1}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-indigo-400">
             <i class="fas fa-calendar mr-3"></i><span class="pb-1 md:pb-0 text-sm">Inscripciones</span>
         </a>
-        <a th:href="@{/gym/pagos/listar}"
+        <a th:href="@{/gym/pagos/listar/page/1}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-fuchsia-500">
             <i class="fas fa-file-invoice-dollar mr-3"></i><span class="pb-1 md:pb-0 text-sm">Pagos</span>
         </a>
-        <a th:href="@{/gym/competidores/listar}"
+        <a th:href="@{/gym/competidores/listar/page/1}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6  hover:border-lime-400">
             <i class="fas fa-medal mr-3"></i><span class="pb-1 md:pb-0 text-sm">Competidores</span>
         </a>
-        <a th:href="@{/gym/torneos/listar}"
+        <a th:href="@{/gym/torneos/listar/page/1}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-yellow-500">
             <i class="fas fa-trophy mr-3"></i><span class="pb-1 md:pb-0 text-sm">Torneos</span>
         </a>
-        <a th:href="@{/gym/usuarios/listar}"
+        <a th:href="@{/gym/usuarios/listar/page/1}"
            class="flex items-center text-white border-b-2 border-gray-900 opacity-75 hover:opacity-100 py-4 pl-6 hover:border-green-400">
             <i class="fas fa-user-cog mr-3"></i><span class="pb-1 md:pb-0 text-sm">Usuarios</span>
         </a>
@@ -82,7 +82,7 @@
     <!-- Desktop Header -->
     <header th:fragment="headerdk"  class="w-full items-center bg-gray-600 py-2 px-6 hidden sm:flex">
         <div class="w-1/2"></div>
-        <a href="/" class="text-white text-2xl font-bold uppercase hover:text-gray-300">Panel de control</a>
+        <a href="#" class="text-white text-2xl font-bold uppercase hover:text-gray-300">Panel de control</a>
         <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
             <button @click="isOpen = !isOpen" class="relative z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
 <!--                <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400">-->
@@ -90,7 +90,7 @@
             </button>
             <button x-show="isOpen" @click="isOpen = false" class="h-full w-full fixed inset-0 cursor-default"></button>
             <div x-show="isOpen" class="absolute w-32 bg-gray-600 rounded-lg shadow-lg py-2 mt-16">
-                <a href="/" class="block px-4 py-2 account-link hover:text-white">Mi perfil</a>
+                <a th:href="@{/fichaPersonal}" class="block px-4 py-2 account-link hover:text-white">Mi perfil</a>
                 <a th:href="@{/logout}" class="block px-4 py-2 account-link hover:text-white">Salir</a>
             </div>
         </div>

@@ -17,55 +17,55 @@
             <h1 class="text-2xl text-gray-700 font-bold pb-2">Ficha de Competidor</h1>
             <div class="flex flex-wrap mt-1">
                 <div class="w-full md:w-1/2 xl:w-1/2">
-                            <!-- Modal body -->
-                            <div class="p-6 space-y-1 flex">
-                                <img class="flex border-2 border-gray-900 border-solid rounded-t-lg object-fill h-44 w-66"
-                                     th:src="@{/svgs/competidores-fondo.png}"  alt="competidores-fondo" />
-                                <div class="grid grid-cols-1 ml-10">
-                                    <div class="col-auto">
-                                        <ul class="max-w-md space-y-0 text-gray-900 list-inside">
-                                            <li  th:each="competidor : ${competidor}">
+                    <!-- Modal body -->
+                    <div class="p-6 space-y-1 flex">
+                        <img class="flex border-2 border-gray-900 border-solid rounded-t-lg object-fill h-44 w-66"
+                             th:src="@{/svgs/competidores-fondo.png}" alt="competidores-fondo"/>
+                        <div class="grid grid-cols-1 ml-10">
+                            <div class="col-auto">
+                                <ul class="max-w-md space-y-0 text-gray-900 list-inside">
+                                    <li th:each="competidor : ${competidor}">
                                                 <span class="font-bold" th:object="${competidor}"
-                                                    th:text="'Competidor/a: '+${competidor.nombre}+' '+${competidor.apellidos}"></span>
-                                                <br>
-                                                <span th:text="'Edad: '+ ${competidor.edad} +' | '+'Estatura: '+ ${competidor.estatura}+' cm'"></span>
-                                            </li>
-                                        </ul>
-                                        <ol class="max-w-md space-y-1 text-gray-900 list-decimal list-inside">
-                                            <li  th:each="fichaCompetidor : ${fichaCompetidor}">
+                                                      th:text="'Competidor/a: '+${competidor.nombre}+' '+${competidor.apellidos}"></span>
+                                        <br>
+                                        <span th:text="'Edad: '+ ${competidor.edad} +' | '+'Estatura: '+ ${competidor.estatura}+' cm'"></span>
+                                    </li>
+                                </ul>
+                                <ol class="max-w-md space-y-1 text-gray-900 list-decimal list-inside">
+                                    <li th:each="fichaCompetidor : ${fichaCompetidor}">
                                                     <span class="font-semibold" th:text="'Torneo: '+
                                                     ${fichaCompetidor.nombret} +' ('+ ${fichaCompetidor.nombreD}+')'"></span>
-                                                <br>
-                                                <span th:text="'Fecha: '+ ${fichaCompetidor.fechat}"></span>
-                                                <br>
-                                                <span th:text="'Ciudad: '+ ${fichaCompetidor.ciudadt}"></span>
-                                                <br>
-                                                <span th:text="'Peso: '+ ${fichaCompetidor.pesoc}
+                                        <br>
+                                        <span th:text="'Fecha: '+ ${fichaCompetidor.fechat}"></span>
+                                        <br>
+                                        <span th:text="'Ciudad: '+ ${fichaCompetidor.ciudadt}"></span>
+                                        <br>
+                                        <span th:text="'Peso: '+ ${fichaCompetidor.pesoc}
                                                     +' ('+${fichaCompetidor.categoriaPeso} +')'"></span>
-                                            </li>
-                                        </ol>
-                                    </div>
-                                    <div class="col-auto">
-
-                                    </div>
-
-                                </div>
+                                    </li>
+                                </ol>
                             </div>
-                            <!-- Modal footer -->
-                            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
-                                    focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5
-                                    items-center text-center">
-                                    <i class="fas fa-print"></i>
-                                    Imprimir</button>
+                            <div class="col-auto">
+
                             </div>
+
                         </div>
                     </div>
+                    <!-- Modal footer -->
+                    <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
+                                    focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5
+                                    items-center text-center">
+                            <i class="fas fa-print"></i>
+                            Imprimir
+                        </button>
+                    </div>
+                </div>
             </div>
-        </main>
-        <footer th:replace="layout/layout :: footer"></footer>
+    </main>
+    <footer th:replace="layout/layout :: footer"></footer>
 
-    </div>
+</div>
 
 </div>
 

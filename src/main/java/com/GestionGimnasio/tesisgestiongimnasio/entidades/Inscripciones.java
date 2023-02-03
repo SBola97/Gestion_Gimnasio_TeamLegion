@@ -25,7 +25,7 @@ public class Inscripciones {
     @NotNull
     private LocalDate fechaFin;
 
-
+    @NotNull
     private String estado;
 
     @OneToOne

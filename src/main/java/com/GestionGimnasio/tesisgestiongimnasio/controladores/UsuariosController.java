@@ -1,9 +1,11 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Usuarios;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -42,10 +44,18 @@ public class UsuariosController {
     }
 
 
-    @GetMapping("/listar")
-    public String listarUsuarios(Model modelo)
+    @GetMapping("/listar/page/{pageNumber}")
+    public String listarUsuarios(@PathVariable("pageNumber") int currentPage,Model modelo)
     {
-        modelo.addAttribute("listaUsuarios",usuariosService.obtenerUsuarios());
+        Page<Usuarios> page = usuariosService.listarUsuarios(currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Usuarios> usuarios = page.getContent();
+        modelo.addAttribute("listaUsuarios",usuarios);
+        //modelo.addAttribute("listaUsuarios",usuariosService.obtenerUsuarios());
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
         return "usuarios";
     }
 
@@ -75,7 +85,7 @@ public class UsuariosController {
         modelo.addAttribute("usuarios",usuariosDTO);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/usuarios/listar";
+        return "redirect:/gym/usuarios/listar/page/1";
     }
     @GetMapping("/guardar/{idUsuario}")
     public String editarUsuario(@PathVariable(value = "idUsuario") int idU, Map<String,Object> modelo,RedirectAttributes flash)
@@ -109,6 +119,6 @@ public class UsuariosController {
             usuariosService.eliminarUsuario(idU);
             flash.addFlashAttribute("success","Usuario eliminado con éxito");
         }
-        return "redirect:/gym/usuarios/listar";
+        return "redirect:/gym/usuarios/listar/page/1";
     }
 }

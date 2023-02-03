@@ -47,7 +47,7 @@
                         <label for="modalidad" class="block mb-2 text-sm font-medium text-gray-900">Modalidad</label>
                         <select class="p-1.5 w-full bg-gray-400 focus:border-blue-500 focus:outline-none" id="modalidad" th:field="*{modalidades.idModalidad}" required>
                             <th:block th:each="modalidades : ${listaModalidades}">
-                                <option th:text="${modalidades.nombre}" th:value="${modalidades.idModalidad}"></option>
+                                <option th:text="${modalidades.nombre} +' ('+${modalidades.tipo} +')'" th:value="${modalidades.idModalidad}"></option>
                             </th:block>
                         </select>
                     </div>

@@ -1,5 +1,6 @@
 package com.GestionGimnasio.tesisgestiongimnasio.repositorios;
 
+import com.GestionGimnasio.tesisgestiongimnasio.dto.UsuariosDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Usuarios;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

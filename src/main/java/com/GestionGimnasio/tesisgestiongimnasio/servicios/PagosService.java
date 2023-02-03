@@ -6,12 +6,12 @@ import com.GestionGimnasio.tesisgestiongimnasio.mappers.PagosMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.FormaPagoRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.InscripcionesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PagosRepository;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -81,4 +81,11 @@ public class PagosService implements iPagosService {
         return mapper.toPagosDTO((List<Pagos>)pagosRepository.findAll());
     }
 
+    @Override
+    public Page<Pagos> findPagos(int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        Page<Pagos> pagos = pagosRepository.findAll(pageable);
+        return pagos;
+    }
 }

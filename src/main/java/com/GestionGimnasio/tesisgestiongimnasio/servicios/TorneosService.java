@@ -7,6 +7,9 @@ import com.GestionGimnasio.tesisgestiongimnasio.mappers.TorneosMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.DisciplinasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.TorneosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,7 +59,13 @@ public class TorneosService implements iTorneosService {
     public List<TorneosDTO> obtenerTorneos() {
         return mapper.toTorneosDTO((List<Torneos>)torneosRepository.findAll());
     }
-
+    @Override
+    public Page<Torneos> listarTorneos(int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        Page<Torneos> torneos = torneosRepository.findAll(pageable);
+        return torneos;
+    }
 
 
 }

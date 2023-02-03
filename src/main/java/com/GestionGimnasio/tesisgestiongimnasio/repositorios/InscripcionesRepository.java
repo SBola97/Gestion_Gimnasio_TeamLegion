@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface InscripcionesRepository extends JpaRepository<Inscripciones,Integer> {
     @Query(value="SELECT count(datediff(i.fecha_fin,CURRENT_DATE)) from inscripciones as i where " +
-            "datediff(i.fecha_fin,CURRENT_DATE) <= 3 and datediff(i.fecha_fin,CURRENT_DATE) > 0",nativeQuery = true)
+            "datediff(i.fecha_fin,CURRENT_DATE) <= 5 and datediff(i.fecha_fin,CURRENT_DATE) > 0",nativeQuery = true)
     public int countMensualidadesPorVencer(); // número de mensualidades por vencer
 
     @Query(value="SELECT * from inscripciones as i " +

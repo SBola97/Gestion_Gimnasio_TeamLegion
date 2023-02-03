@@ -10,6 +10,7 @@ import com.GestionGimnasio.tesisgestiongimnasio.servicios.CompetidorTorneoServic
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.TorneosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -49,10 +50,17 @@ public class CompetidoresTorneoController {
         return competidorTorneoService.obtenerCompetidoresTorneo();
     }
 
-    @GetMapping("/listar")
-    public String listarCompetidores(Model modelo)
+    @GetMapping("/listar/page/{pageNumber}")
+    public String listarCompetidores(@PathVariable("pageNumber") int currentPage,Model modelo)
     {
-        modelo.addAttribute("listaCompetidores",competidorTorneoService.obtenerCompetidoresTorneo());
+        Page<Competidores_Torneo> page = competidorTorneoService.listarCompetidoresTorneo(currentPage);
+        List<Competidores_Torneo> competidores_torneo = page.getContent();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+        modelo.addAttribute("listaCompetidores",competidores_torneo);
         return "competidores";
     }
 
@@ -123,7 +131,7 @@ public class CompetidoresTorneoController {
         modelo.addAttribute("competidores_torneo",competidoresTorneoDTO);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/competidores/listar";
+        return "redirect:/gym/competidores/listar/page/1";
     }
 
 
@@ -162,7 +170,7 @@ public class CompetidoresTorneoController {
             competidorTorneoService.eliminarCompetidorTorneo(idCt);
             flash.addFlashAttribute("success","Competidor eliminado con éxito");
         }
-        return "redirect:/gym/competidores/listar";
+        return "redirect:/gym/competidores/listar/page/1";
     }
 
 }

@@ -1,12 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
-import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
 import com.GestionGimnasio.tesisgestiongimnasio.excepciones.gymexceptions;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.ClienteMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.PersonasMapper;
@@ -16,14 +12,14 @@ import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.RolesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.TorneosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class PersonasService implements iPersonasService {
@@ -108,6 +104,7 @@ public class PersonasService implements iPersonasService {
         return mapper.toPersonasDTO((List<Personas>)personasRepository.findAll());
     }
 
+
     @Override
     @Transactional
     public List<Personas> obtenerPersonas() {
@@ -141,7 +138,13 @@ public class PersonasService implements iPersonasService {
         return listaCompetidores;
     }*/
 
-
+    @Override
+    public Page<Personas> obtenerSuscriptores(int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        Page<Personas> personas = personasRepository.findAll(pageable);
+        return personas;
+    }
 
     static boolean validadorDeCedula(String cedula) {
         boolean cedulaCorrecta = false;

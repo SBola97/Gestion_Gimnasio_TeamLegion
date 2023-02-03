@@ -3,21 +3,19 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.CompetidoresTorneoDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.FichaDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo_Key;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.CompetidoresTorneoMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.FichaMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.Competidores_TorneoRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.TorneosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class CompetidorTorneoService implements iCompetidoresTorneoService{
@@ -88,5 +86,12 @@ public class CompetidorTorneoService implements iCompetidoresTorneoService{
     @Override
     public List<CompetidoresTorneoDTO> obtenerCompetidoresTorneo() {
         return mapper.toCompetidoresTorneoDTO((List<Competidores_Torneo>)competidores_torneoRepository.findAll());
+    }
+
+    @Override
+    public Page<Competidores_Torneo> listarCompetidoresTorneo(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        Page<Competidores_Torneo> competidores_torneo = competidores_torneoRepository.findAll(pageable);
+        return competidores_torneo;
     }
 }

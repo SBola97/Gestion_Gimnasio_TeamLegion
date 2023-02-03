@@ -1,7 +1,10 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.LoginDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.UsuariosDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Usuarios;
+import com.GestionGimnasio.tesisgestiongimnasio.mappers.UsuarioMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.*;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.InscripcionesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.UsuariosService;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -52,6 +56,8 @@ public class AuthController {
     @Autowired
     private InscripcionesService inscripcionesService;
 
+    @Autowired
+    UsuarioMapper mapper;
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UsuariosRepository usuariosRepository, RolesRepository rolesRepository, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
@@ -87,8 +93,16 @@ public class AuthController {
         modelo.addAttribute("numCompetidores",numCompetidores);
         modelo.addAttribute("mensualidadesVencidas",inscripcionesRepository.countMensualidadesPorVencer());
         modelo.addAttribute("numeroClientes",personasRepository.countPersonasByRolesNombre("Cliente"));
-        //inscripcionesService.verificarInscripcionesVencidas();
         return "index";
+    }
+
+    @GetMapping("/fichaPersonal")
+    public String fichaP(Model modelo,HttpServletRequest request)
+    {
+        String name = request.getUserPrincipal().getName();
+        modelo.addAttribute("usuario",name);
+        modelo.addAttribute("personas",personasRepository.findPersonasByUsuariosNombreUsuario(name));
+        return "fichaPersonal";
     }
 
 
@@ -102,7 +116,6 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken
                 (loginDTO.getUsername(),loginDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         return "index";
     }
 

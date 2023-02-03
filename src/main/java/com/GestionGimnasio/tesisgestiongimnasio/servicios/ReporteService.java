@@ -1,6 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PagosDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.ReporteAnualDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ReporteDeudoresDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ReporteGananciasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.InscripcionesRepository;
@@ -30,6 +31,38 @@ public class ReporteService {
         reporteGananciasDTO.setTotal(total);
         return reporteGananciasDTO.getTotal();
     }
+
+    public List<ReporteAnualDTO> obtenerGananciasAnio()
+    {
+        List<Object> results = pagosRepository.findPagosAnuales();
+        List<ReporteAnualDTO> reporteAnio = new ArrayList<>();
+        int i = 0;
+
+        Iterator itr = results.iterator();
+
+        while(itr.hasNext()) {
+
+            Object[] arrObj = (Object[])itr.next();
+
+            ReporteAnualDTO e = new ReporteAnualDTO();
+
+            for(Object obj:arrObj) {
+                switch (i){
+                    case 0:
+                        e.setMes((String)obj);
+                        break;
+                    case 1:
+                        e.setTotal((Double) obj);
+                        break;
+                }
+                i++;
+            }
+            reporteAnio.add(e);
+            i=0;
+        }
+        return reporteAnio;
+    }
+
     public List<ReporteDeudoresDTO> obtenerDeudoresMes(ReporteDeudoresDTO reporteDeudoresDTO){
         List<Object> results = pagosRepository.findPagosByEstadoPagoAndFechaPago(reporteDeudoresDTO.getMes());
         List<ReporteDeudoresDTO> reporteDeudores = new ArrayList<>();

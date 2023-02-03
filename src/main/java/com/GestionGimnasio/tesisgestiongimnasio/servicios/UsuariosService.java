@@ -8,7 +8,9 @@ import com.GestionGimnasio.tesisgestiongimnasio.repositorios.PersonasRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.RolesRepository;
 import com.GestionGimnasio.tesisgestiongimnasio.repositorios.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,4 +71,27 @@ public class UsuariosService implements iUsuariosService{
 
         return mapper.toUsuariosDTO((List<Usuarios>)usuariosRepository.findAll());
     }
+
+    @Override
+    public Page<Usuarios> listarUsuarios(int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        Page<Usuarios> usuarios = usuariosRepository.findAll(pageable);
+        return usuarios;
+    }
+
+
+/*    public UsuariosDTO obtenerUserPersona(HttpServletRequest request, UsuariosDTO usuariosDTO)
+    {
+       String nombreu = request.getUserPrincipal().getName();
+       Optional<Personas> personas = personasRepository.findPersonasByUsuariosNombreUsuario(nombreu);
+
+       if(personas.isPresent())
+       {
+           usuariosDTO.setNombre(personas.get().getNombre());
+           usuariosDTO.setApellidos(personas.get().getApellidos());
+           usuariosDTO.setEmail(personas.get().getEmail());
+       }
+       return usuariosDTO;
+    }*/
 }

@@ -5,6 +5,8 @@ import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Set;
@@ -24,6 +26,9 @@ public interface iPersonasService {
     List<ClienteDTO> obtenerClientes();
 
     List<ProfesorDTO> obtenerProfesores();
+
+
+    Page<Personas> obtenerSuscriptores(int pageNumber);
 
     //Set<Competidores_Torneo> createListaCompetidores(Personas personas);
 }

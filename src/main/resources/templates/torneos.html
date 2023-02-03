@@ -70,14 +70,14 @@
               <td th:text="${torneos.nombre}"></td>
               <td th:text="${torneos.fecha}"></td>
               <td th:text="${torneos.ciudad}"></td>
-              <td th:text="${torneos.nombreDisciplina}"></td>
+              <td th:text="${torneos.disciplinas.nombre}"></td>
               <td>
-                <a th:href="@{guardar/} + ${torneos.idTorneo}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                <a th:href="@{/gym/torneos/guardar/} + ${torneos.idTorneo}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                   <i class="far fa-edit"></i>
                   Editar</button></a>
-                <a th:href="@{eliminar/} + ${torneos.idTorneo}" onclick="return confirm('¿Deseas eliminar este torneo?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                <a th:href="@{/gym/torneos/eliminar/} + ${torneos.idTorneo}" onclick="return confirm('¿Deseas eliminar este torneo?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                   <i class="fas fa-trash-alt"></i>
@@ -86,6 +86,7 @@
             </tr>
             </tbody>
           </table>
+          <nav th:replace="layout/pag-nav ::paginator"></nav>
         </div>
       </div>
     </main>

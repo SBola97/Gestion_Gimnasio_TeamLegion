@@ -90,7 +90,7 @@
                             <th class="text-center text-white">Fecha Fin</th>
                             <th class="text-center text-white">Estado</th>
                             <th class="text-center text-white">Modalidad</th>
-                            <th class="text-center text-white">Miembro</th>
+                            <th class="text-center text-white">Suscriptor</th>
                             <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
@@ -100,15 +100,17 @@
                             <td th:text="${inscripciones.idInscripcion}"></td>
                             <td th:text="${inscripciones.fechaInicio}"></td>
                             <td th:text="${inscripciones.fechaFin}"></td>
-                            <td th:text="${inscripciones.estado}"></td>
+                            <td th:if="${inscripciones.estado == 'Vencida'}" class="font-semibold text-red-500" th:text="${inscripciones.estado}"></td>
+                            <td th:unless="${inscripciones.estado == 'Vencida'}" class="font-semibold text-green-500" th:text="${inscripciones.estado}"></td>
                             <td th:text="${inscripciones.modalidades.nombre}"></td>
-                            <td th:text="${inscripciones.nombre} +' '+ ${inscripciones.apellidos}+' ('+ ${inscripciones.idPersona} +')'"></td>
+                            <td th:text="${inscripciones.personas.nombre} +' '+ ${inscripciones.personas.apellidos}
+                            +' ('+ ${inscripciones.personas.idPersona} +')'"></td>
                             <td>
-                                <a th:href="@{guardar/} + ${inscripciones.idInscripcion}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{/gym/inscripciones/guardar/} + ${inscripciones.idInscripcion}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2"><i class="far fa-edit"></i>
                                     Editar</button></a>
-                                <a th:href="@{eliminar/} + ${inscripciones.idInscripcion}" onclick="return confirm('¿Deseas eliminar esta suscripción?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                                <a th:href="@{/gym/inscripciones/eliminar/} + ${inscripciones.idInscripcion}" onclick="return confirm('¿Deseas eliminar esta suscripción?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="fas fa-trash-alt"></i>
@@ -117,6 +119,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    <nav th:replace="layout/pag-nav ::paginator"></nav>
                 </div>
             </div>
 

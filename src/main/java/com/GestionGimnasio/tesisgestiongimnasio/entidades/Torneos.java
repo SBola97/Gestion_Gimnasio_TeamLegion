@@ -21,12 +21,14 @@ public class Torneos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTorneo;
 
+    @NotNull
     @NotEmpty
     private String nombre;
 
     @NotNull
     private LocalDate fecha;
 
+    @NotNull
     @NotEmpty
     private String ciudad;
 

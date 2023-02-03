@@ -1,9 +1,12 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.DisciplinasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.TorneosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -41,10 +44,17 @@ public class TorneosController {
         return torneosService.obtenerTorneos();
     }
 
-    @GetMapping("/listar")
-    public String listarTorneos(Model modelo)
+    @GetMapping("/listar/page/{pageNumber}")
+    public String listarTorneos(@PathVariable("pageNumber") int currentPage,Model modelo)
     {
-        modelo.addAttribute("listaTorneos",torneosService.obtenerTorneos());
+        Page<Torneos> page = torneosService.listarTorneos(currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Torneos> torneos = page.getContent();
+        modelo.addAttribute("listaTorneos",torneos);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
         return "torneos";
     }
     @GetMapping("/formulario")
@@ -72,7 +82,7 @@ public class TorneosController {
         modelo.addAttribute("torneos",torneosDTO);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/torneos/listar";
+        return "redirect:/gym/torneos/listar/page/1";
     }
 
     @GetMapping("/guardar/{idTorneo}")
@@ -86,7 +96,7 @@ public class TorneosController {
 
             if (torneosDTO == null) {
                 flash.addFlashAttribute("error", "Torneo no encontrado en la Base de Datos");
-                return "redirect:/gym/torneos/listar";
+                return "redirect:/gym/torneos/listar/page/1";
             }
         }
         else
@@ -111,7 +121,7 @@ public class TorneosController {
             torneosService.eliminarTorneo(idT);
             flash.addFlashAttribute("success","Torneo eliminado con éxito");
         }
-        return "redirect:/gym/torneos/listar";
+        return "redirect:/gym/torneos/listar/page/1";
     }
 
 }

@@ -7,6 +7,8 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -27,7 +29,9 @@ public interface PagosMapper {
 
     List<PagosDTO> toPagosDTO(List<Pagos> pagosList);
 
+    
     @InheritInverseConfiguration
     Pagos toPagos(PagosDTO pagos);
     List<Pagos> toPagos(List<PagosDTO> pagosDTOList);
+
 }

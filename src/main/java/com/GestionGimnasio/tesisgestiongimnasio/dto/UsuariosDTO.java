@@ -13,9 +13,11 @@ import java.util.List;
 public class UsuariosDTO {
     private int idUsuario;
 
+    @NotNull
     @NotEmpty(message="Se requiere el campo nombre de Usuario")
     private String nombreUsuario;
 
+    @NotNull
     @NotEmpty(message="Se requiere el campo contraseña")
     private String contraseña;
 
