@@ -57,7 +57,6 @@
           <table class="min-w-full text-center">
             <thead class="bg-gray-800 text-white">
             <tr class="divide-x">
-              <th class="text-center text-white">ID</th>
               <th class="text-center text-white">Nombre</th>
               <th class="text-center text-white">Apellidos</th>
               <th class="text-center text-white">Cédula</th>
@@ -69,7 +68,6 @@
             </thead>
             <tbody class="text-gray-700">
             <tr th:each="personas : ${listaProfesores}">
-              <td th:text="${personas.idPersona}"></td>
               <td th:text="${personas.nombre}"></td>
               <td th:text="${personas.apellidos}"></td>
               <td th:text="${personas.cedula}"></td>
@@ -77,7 +75,7 @@
               <td th:text="${personas.email}"></td>
               <td th:text="${personas.disciplinas.nombre}"></td>
               <td>
-                <a th:href="@{/gym/personas/guardar/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                <a th:href="@{/gym/personas/guardarp/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                   <i class="far fa-edit"></i>

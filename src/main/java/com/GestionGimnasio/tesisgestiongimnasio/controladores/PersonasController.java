@@ -184,6 +184,34 @@ public class PersonasController {
         return "miembros_form";
     }
 
+    @GetMapping("/guardarp/{idPersona}")
+    public String editarProfesor(@PathVariable(value = "idPersona") int idP, Map<String,Object> modelo,RedirectAttributes flash)
+    {
+        Personas personas = null;
+        Roles roles = new Roles();
+        List<Roles> listaRoles = rolesService.getRoles();
+        List<DisciplinasDTO> listaDisciplinas = disciplinasService.obtenerDisciplinas();
+
+        if(idP>0) {
+            personas = personasService.findPersona(idP);
+            if (personas == null) {
+                flash.addFlashAttribute("error", "Persona no encontrada en la Base de Datos");
+                return "redirect:/gym/personas/listar";
+            }
+        }
+        else
+        {
+            flash.addFlashAttribute("error","Id del integrante no puede ser 0");
+            return "redirect:/gym/personas/listar";
+        }
+        modelo.put("personas",personas);
+        modelo.put("listaDisciplinas",listaDisciplinas);
+        //modelo.put("roles",roles);
+        modelo.put("listaRoles",listaRoles);
+        modelo.put("titulo","Modificación de profesor del gimnasio");
+        return "profesoresForm";
+    }
+
     @GetMapping("/eliminar/{idPersona}")
     public String eliminarMiembro(@PathVariable(value ="idPersona") int idP, RedirectAttributes flash)
     {

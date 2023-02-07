@@ -57,7 +57,6 @@
                     <table class="min-w-full text-center">
                         <thead class="bg-gray-800 text-white">
                         <tr class="divide-x">
-                            <th class="text-center text-white">ID</th>
                             <th class="text-center text-white">Nombre de Usuario</th>
                             <th class="text-center text-white">Suscriptor</th>
                             <th class="text-center text-white">Email</th>
@@ -67,7 +66,6 @@
                         </thead>
                         <tbody class="text-gray-700">
                         <tr th:each="usuarios : ${listaUsuarios}">
-                            <td th:text="${usuarios.idUsuario}"></td>
                             <td th:text="${usuarios.nombreUsuario}"></td>
                             <td th:text="${usuarios.personas.nombre}+' '+${usuarios.personas.apellidos}"></td>
                             <td th:text="${usuarios.personas.email}"></td>

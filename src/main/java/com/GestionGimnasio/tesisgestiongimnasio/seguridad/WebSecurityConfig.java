@@ -40,17 +40,18 @@ public class WebSecurityConfig{
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
-        return http.build();
-
+        return http.build();*/
+        /*
         http
                 .authorizeRequests().antMatchers("/*.css", "/*.js", "/svgs/**").permitAll()
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/gym/auth/**").permitAll()
-                .and().formLogin().loginPage("/gym/auth/login").permitAll().defaultSuccessUrl("/index.html");
+                .antMatchers("/gym/auth/**").permitAll();
 
-        return http.build(); */
+        return http.build();
+
+         */
 
         http
                 .authorizeRequests().antMatchers("/*.css", "/*.js", "/svgs/**").permitAll()
