@@ -112,31 +112,17 @@ public class PersonasService implements iPersonasService {
     }
 
     @Override
-    public List<ClienteDTO> obtenerClientes() {
-        return mapperc.toclienteDTO((List<Personas>)personasRepository.findPersonasByRoles_Nombre("Cliente"));
+    public Page<Personas> obtenerClientes(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        return personasRepository.findPersonasByRoles_Nombre("Cliente", pageable);
     }
 
     @Override
-    public List<ProfesorDTO> obtenerProfesores() {
-        return mapperp.toprofesorDTO((List<Personas>)personasRepository.findPersonasByRoles_Nombre("Profesor"));
+    public Page<Personas> obtenerProfesores(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        return personasRepository.findPersonasByRoles_Nombre("Profesor", pageable);
     }
 
-/*    @Override
-    public Set<Competidores_Torneo> createListaCompetidores(Personas personas)
-    {
-        Set<Competidores_Torneo> listaCompetidores = Collections.emptySet();
-        listaCompetidores = personas.getCompetidoresTorneo()
-                .stream()
-                .map(competidores_torneo -> {
-                    Torneos torneo = torneosRepository.findById(competidores_torneo.getId().getIdTorneo())
-                            .orElseThrow(() -> new RuntimeException("No encontrado"));
-                    Competidores_Torneo competidoresTorneo = new Competidores_Torneo();
-                    competidoresTorneo.setTorneos(torneo);
-                    competidoresTorneo.setPersonas(personas);
-                    return competidoresTorneo;
-                }).collect(Collectors.toSet());
-        return listaCompetidores;
-    }*/
 
     @Override
     public Page<Personas> obtenerSuscriptores(int pageNumber)

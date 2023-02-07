@@ -23,10 +23,14 @@ public interface iPersonasService {
 
     List<Personas> obtenerPersonas();
 
-    List<ClienteDTO> obtenerClientes();
+    //List<ClienteDTO> obtenerClientes();
 
-    List<ProfesorDTO> obtenerProfesores();
+    //List<ProfesorDTO> obtenerProfesores();
 
+
+    Page<Personas> obtenerClientes(int pageNumber);
+
+    Page<Personas> obtenerProfesores(int pageNumber);
 
     Page<Personas> obtenerSuscriptores(int pageNumber);
 

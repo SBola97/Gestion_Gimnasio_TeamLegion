@@ -65,9 +65,8 @@ public class Personas {
     @JoinColumn(name = "idRol",referencedColumnName = "idRol")
     private Roles roles;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "personas")
+    @OneToOne(mappedBy = "personas", cascade = CascadeType.ALL)
     //private Set<Inscripciones> Inscripciones = new HashSet<>();
     private Inscripciones inscripciones;
-
 
 }

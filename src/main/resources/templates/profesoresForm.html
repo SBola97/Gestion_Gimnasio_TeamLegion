@@ -66,6 +66,16 @@
                             </th:block>
                         </select>
                     </div>
+                    <div class="mb-6">
+                        <label for="disciplina" class="block mb-2 text-sm font-medium text-gray-900">Disciplina</label>
+                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="disciplina" th:field="*{disciplinas.idDisciplina}" required>
+                            <th:block th:each="disciplinas : ${listaDisciplinas}">
+                                <option th:text="${disciplinas.nombre}" th:value="${disciplinas.idDisciplina}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+
+
                 </div>
                 <button type="submit" class="text-white bg-green-500 hover:bg-green-600 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Registrar
                     <i class="fas fa-chevron-circle-right pl-2"></i>

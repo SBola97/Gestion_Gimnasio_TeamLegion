@@ -38,9 +38,6 @@ public class InscripcionesService implements iInscripcionesService{
         int idPer = inscripcionesDTO.getIdPersona();
 
 
-
-        //System.out.println("IDPERSONAAAA:   "+idPer);
-
         LocalDate fechaActual = LocalDate.now();
 
         if(inscripcionesDTO.getIdInscripcion() == 0) {

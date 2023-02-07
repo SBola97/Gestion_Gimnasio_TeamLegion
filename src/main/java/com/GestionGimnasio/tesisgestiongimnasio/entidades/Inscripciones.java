@@ -32,7 +32,7 @@ public class Inscripciones {
     @JoinColumn(name = "idPersona", referencedColumnName = "idPersona")
     private Personas personas;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "inscripciones")
+    @OneToOne(mappedBy = "inscripciones",cascade = {CascadeType.REFRESH,CascadeType.REMOVE})
     private Pagos pagos;
 
     @ManyToOne

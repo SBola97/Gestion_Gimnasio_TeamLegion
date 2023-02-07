@@ -5,7 +5,7 @@
 </head>
 <body>
     <nav th:fragment="paginator">
-        <ul class="inline-flex space-x-2.5 p-2 bg-gray-300 rounded-lg hover:border border-gray-400 ">
+        <ul class="inline-flex space-x-2.5 p-2 bg-gray-300">
             <li>
                 <a class="hover:text-blue-600 hover:font-semibold hover:underline" th:if="${currentPage > 1}" th:href="@{1}">Primera</a>
                 <span th:unless="${currentPage > 1}">Primera</span>

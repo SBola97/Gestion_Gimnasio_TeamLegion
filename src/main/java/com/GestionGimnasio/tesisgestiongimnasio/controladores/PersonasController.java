@@ -1,10 +1,13 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ClienteDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.DisciplinasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ProfesorDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Disciplinas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
+import com.GestionGimnasio.tesisgestiongimnasio.servicios.DisciplinasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.RolesService;
 import com.GestionGimnasio.tesisgestiongimnasio.util.paginacion.PageRender;
@@ -36,6 +39,9 @@ public class PersonasController {
 
     @Autowired
     private RolesService rolesService;
+
+    @Autowired
+    private DisciplinasService disciplinasService;
 
     @PostMapping
     @ResponseBody
@@ -80,16 +86,62 @@ public class PersonasController {
         return "miembros";
     }
 
+    @GetMapping("/clientes/page/{pageNumber}")
+    public String listarClientes(@PathVariable("pageNumber") int currentPage, Model modelo)
+    {
+        Page<Personas> page = personasService.obtenerClientes(currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Personas> listaClientes = page.getContent();
+        modelo.addAttribute("listaClientes",listaClientes);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+        return "clientes";
+    }
+
+    @GetMapping("/profesores/page/{pageNumber}")
+    public String listarProfesores(@PathVariable("pageNumber") int currentPage,Model modelo)
+    {
+        Page<Personas> page = personasService.obtenerProfesores(currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Personas> listaProfesores = page.getContent();
+        //List<ProfesorDTO> listaProfesores = personasService.obtenerProfesores();
+        modelo.addAttribute("listaProfesores",listaProfesores);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+        return "profesores";
+    }
+
+
     @GetMapping("/formulario")
     public String mostrarFormularioPersonas(Map<String,Object> modelo)
     {
         Personas personas = new Personas();
         List<Roles> listaRoles = rolesService.getRoles();
+        List<DisciplinasDTO> listaDisciplinas = disciplinasService.obtenerDisciplinas();
 
         modelo.put("personas",personas);
         modelo.put("listaRoles",listaRoles);
+        modelo.put("listaDisciplinas",listaDisciplinas);
         modelo.put("titulo","Registro para integrantes del gimnasio");
         return "miembros_form";
+    }
+
+    @GetMapping("/formulariop")
+    public String mostrarFormularioProfesores(Map<String,Object> modelo)
+    {
+        Personas personas = new Personas();
+        List<Roles> listaRoles = rolesService.getRoles();
+        List<DisciplinasDTO> listaDisciplinas = disciplinasService.obtenerDisciplinas();
+
+        modelo.put("personas",personas);
+        modelo.put("listaRoles",listaRoles);
+        modelo.put("listaDisciplinas",listaDisciplinas);
+        modelo.put("titulo","Registro para profesores del gimnasio");
+        return "profesoresForm";
     }
     @PostMapping("/guardar")
     public String guardarPersonas(@Valid Personas personas, BindingResult result, Model modelo, RedirectAttributes flash, SessionStatus status)
@@ -99,11 +151,11 @@ public class PersonasController {
             modelo.addAttribute("titulo","Registro para integrantes del gimnasio");
             return "miembros_form";
         }
-        String mensaje = Long.valueOf(personas.getIdPersona()) != null ? "Integrante editado con éxito" : "Integrante registrado con éxito";
+        String mensaje = "Integrante registrado con éxito";
         personasService.registrarPersona(personas);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/personas/listar";
+        return "redirect:/gym/personas/listar/page/1";
     }
 
     @GetMapping("/guardar/{idPersona}")
@@ -142,22 +194,5 @@ public class PersonasController {
         }
         return "redirect:/gym/personas/listar/page/1";
     }
-
-    @GetMapping("/clientes")
-    public String listarClientes(Model modelo)
-    {
-        List<ClienteDTO> listaClientes = personasService.obtenerClientes();
-        modelo.addAttribute("listaClientes",listaClientes);
-        return "clientes";
-    }
-
-    @GetMapping("/profesores")
-    public String listarProfesores(Model modelo)
-    {
-        List<ProfesorDTO> listaProfesores = personasService.obtenerProfesores();
-        modelo.addAttribute("listaProfesores",listaProfesores);
-        return "profesores";
-    }
-
-
+    
 }

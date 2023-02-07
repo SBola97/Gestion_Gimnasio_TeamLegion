@@ -70,7 +70,7 @@
                         </thead>
                         <tbody class="text-gray-700">
                         <tr th:each="personas : ${listaClientes}">
-                            <td th:text="${personas.idCliente}"></td>
+                            <td th:text="${personas.idPersona}"></td>
                             <td th:text="${personas.nombre}"></td>
                             <td th:text="${personas.apellidos}"></td>
                             <td th:text="${personas.cedula}"></td>
@@ -79,12 +79,12 @@
                             <td th:text="${personas.peso}"></td>
                             <td th:text="${personas.estatura}"></td>
                             <td>
-                                <a th:href="@{guardar/} + ${personas.idCliente}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
+                                <a th:href="@{/gym/personas/guardar/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="far fa-edit"></i>
                                     Editar</button></a>
-                                <a th:href="@{eliminar/} + ${personas.idCliente}" onclick="return confirm('¿Deseas eliminar a este miembro del gimnasio?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
+                                <a th:href="@{/gym/personas/eliminar/} + ${personas.idPersona}" onclick="return confirm('¿Deseas eliminar a este cliente del gimnasio?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="fas fa-trash-alt"></i>

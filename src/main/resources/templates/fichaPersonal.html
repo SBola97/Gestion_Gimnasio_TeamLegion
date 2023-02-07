@@ -23,12 +23,19 @@
                              th:src="@{/svgs/competidores-fondo.png}" alt="competidores-fondo"/>
                         <div class="grid grid-cols-1 ml-10">
                             <div class="col-auto">
-                                <span th:text="'Nombre de Usuario: '+${usuario}"></span>
+                                <span class="font-semibold">Nombre de Usuario: </span>
+                                <span th:text="${usuario}"></span>
                                 <br>
-                                <span th:text="'Suscriptor: '+${personas.nombre}+' '
+                                <span class="font-semibold">Suscriptor: </span>
+                                <span th:text="${personas.nombre}+' '
                                 +${personas.apellidos}"></span>
                                 <br>
-                                <span th:text="'Correo electrónico: '+${personas.email}"></span>
+                                <span class="font-semibold">Correo electrónico: </span>
+                                <span th:text="${personas.email}"></span>
+                                <br>
+                                <span class="font-semibold">Teléfono: </span>
+                                <span th:text="${personas.telefono}"></span>
+                                <span></span>
                             </div>
                         </div>
                     </div>

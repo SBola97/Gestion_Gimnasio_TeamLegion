@@ -26,7 +26,7 @@ public class Pagos {
     @NotEmpty
     private String estadoPago;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "idInscripcion",referencedColumnName = "idInscripcion")
     private Inscripciones inscripciones;
 
