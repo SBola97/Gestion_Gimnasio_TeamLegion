@@ -35,6 +35,8 @@ public class PagosService implements iPagosService {
         //int idFormaP = pagosDTO.getIdFormaPago();
         int idInsc = pagosDTO.getIdInscripcion();
 
+
+
         Pagos pagos = mapper.toPagos(pagosDTO);
 
 /*
@@ -49,6 +51,19 @@ public class PagosService implements iPagosService {
 */
         Inscripciones insc = inscripcionesRepository.findById(idInsc)
                 .orElseThrow(()-> new RuntimeException("Inscripcion no encontrada"));
+
+        int idInscr = insc.getIdInscripcion();
+
+        if(pagosDTO.getIdPago() == 0) {
+            if (pagosRepository.findPagosByInscripcionesIdInscripcion(idInscr).isPresent()) {
+                throw new RuntimeException("Inscripción ya pagada");
+            }
+        }
+
+        if(pagosDTO.getFechaPago().isBefore(insc.getFechaInicio()))
+        {
+            throw new RuntimeException("La fecha de pago no puede ser inferior a la fecha de inscripción");
+        }
 
         float valorp = insc.getModalidades().getValor();
 

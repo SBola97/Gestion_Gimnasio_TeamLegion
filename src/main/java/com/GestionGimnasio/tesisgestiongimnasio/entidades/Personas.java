@@ -1,10 +1,12 @@
 package com.GestionGimnasio.tesisgestiongimnasio.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.HashSet;
@@ -27,6 +29,7 @@ public class Personas {
     private String apellidos;
 
     @NotNull
+    @Size(min=10, max=10, message = "La cédula debe contener 10 dígitos")
     @Column(unique = true, length = 10)
     private String cedula;
 
@@ -34,23 +37,17 @@ public class Personas {
     @Email
     private String email;
 
-    @Min(5)
-    @Max(100)
     private int edad;
 
     @NotNull
     @Column(length=10)
     private String telefono;
 
-    @Min(30)
-    @Max(250)
     private float peso;
 
-    @Min(120)
-    @Max(210)
     private float estatura;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "idDisciplina", referencedColumnName = "idDisciplina")
     private Disciplinas disciplinas;
 

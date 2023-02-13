@@ -8,17 +8,25 @@ import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
 public interface iPersonasService {
 
-    PersonasDTO ingresarPersona(PersonasDTO personasDTO);
 
-    void registrarPersona(Personas personas);
+    @Transactional
+    PersonasDTO registrarPersona(PersonasDTO personasDTO);
+
+    @Transactional
+    ProfesorDTO registrarProfesor(ProfesorDTO personasDTO);
+
     PersonasDTO modificarPersona(int idPersona, PersonasDTO personasDTO);
     void eliminarPersona(int idPersona);
     PersonasDTO buscarPersona(int idPersona);
+
+    ProfesorDTO buscarProfesor(int idPersona);
+
     List<PersonasDTO> obtenerPersona();
 
     List<Personas> obtenerPersonas();
@@ -33,6 +41,10 @@ public interface iPersonasService {
     Page<Personas> obtenerProfesores(int pageNumber);
 
     Page<Personas> obtenerSuscriptores(int pageNumber);
+
+    List<PersonasDTO> obtenerPersonasSinSuscripcion();
+
+    List<PersonasDTO> obtenerPersonasSinUser();
 
     //Set<Competidores_Torneo> createListaCompetidores(Personas personas);
 }

@@ -36,7 +36,7 @@
                          </select>
                     </div>
                     <div>
-                        <label for="suscriptor" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor</label>
+                        <label for="suscriptor" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor/a</label>
                         <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idPersona}" required>
                             <th:block th:each="personas : ${listaPersonas}">
                                 <option th:text="${personas.nombre}+' '+${personas.apellidos}" th:value="${personas.idPersona}"></option>

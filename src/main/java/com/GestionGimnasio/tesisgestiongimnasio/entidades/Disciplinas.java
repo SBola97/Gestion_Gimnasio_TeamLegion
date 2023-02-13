@@ -22,8 +22,8 @@ public class Disciplinas {
     @NotEmpty
     private String nombre;
 
-    @OneToOne(mappedBy= "disciplinas")
-    private Personas personas;
+    @OneToMany(mappedBy= "disciplinas")
+    private Set<Personas> personas;
 
 
     @OneToMany(mappedBy= "disciplinas")

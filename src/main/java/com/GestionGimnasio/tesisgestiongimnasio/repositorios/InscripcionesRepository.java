@@ -24,4 +24,9 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones,Int
             "where datediff(:fecha,CURRENT_DATE) <= 0",nativeQuery = true)
     public int verificarInscripciones(@Param("fecha") LocalDate fecha);*/
     public Optional<Inscripciones> findInscripcionesByPersonas_IdPersona(int idP);
+
+
+    @Query(value="select * from inscripciones as i left join pagos as p  on p.id_inscripcion = i.id_inscripcion where p.id_inscripcion is NULL",
+            nativeQuery = true)
+    public List<Inscripciones> findInscripcionesNoPagadas();
 }

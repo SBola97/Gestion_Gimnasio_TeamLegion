@@ -63,7 +63,8 @@ public class UsuariosController {
     public String mostrarFormularioUsuarios(Map<String,Object> modelo)
     {
         UsuariosDTO usuariosDTO = new UsuariosDTO();
-        List<PersonasDTO> listaPersonas = personasService.obtenerPersona();
+        //List<PersonasDTO> listaPersonas = personasService.obtenerPersona();
+        List<PersonasDTO> listaPersonas = personasService.obtenerPersonasSinUser();
         modelo.put("titulo","Registro de usuarios");
         modelo.put("listaPersonas",listaPersonas);
         modelo.put("usuarios",usuariosDTO);
@@ -91,7 +92,7 @@ public class UsuariosController {
     public String editarUsuario(@PathVariable(value = "idUsuario") int idU, Map<String,Object> modelo,RedirectAttributes flash)
     {
         UsuariosDTO usuariosDTO = null;
-        List<PersonasDTO> listaPersonas = personasService.obtenerPersona();
+        List<PersonasDTO> listaPersonas = personasService.obtenerPersonasSinUser();
 
         if(idU>0) {
             usuariosDTO = usuariosService.buscarUsuario(idU);
@@ -105,6 +106,8 @@ public class UsuariosController {
             flash.addFlashAttribute("error","Id de usuario no puede ser 0");
             return "redirect:/gym/usuarios/listar";
         }
+        //añadir a la lista de personas sin usuario el usuario ya registrado para poder editarlo
+        listaPersonas.add(personasService.buscarPersona(usuariosDTO.getIdPersona()));
         modelo.put("titulo","Modificación de usuario");
         modelo.put("usuarios",usuariosDTO);
         modelo.put("listaPersonas",listaPersonas);

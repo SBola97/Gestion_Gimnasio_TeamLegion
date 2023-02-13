@@ -70,7 +70,8 @@ public class PagosController {
     public String mostrarFormularioPagos(Map<String,Object> modelo)
     {
         PagosDTO pagosDTO = new PagosDTO();
-        List<InscripcionesDTO> listaInscripciones = inscripcionesService.obtenerInscripcion();
+        //List<InscripcionesDTO> listaInscripciones = inscripcionesService.obtenerInscripcion();
+        List<InscripcionesDTO> listaInscripciones = inscripcionesService.obtenerInscripcionesSinPago();
         List<FormaPagoDTO> listaFormaPago = formasPagoService.obtenerFormasPago();
         modelo.put("titulo","Registro de pagos");
         modelo.put("pagos",pagosDTO);
@@ -100,7 +101,7 @@ public class PagosController {
     public String editarPago(@PathVariable(value = "idPago") int idP, Map<String,Object> modelo,RedirectAttributes flash)
     {
         PagosDTO pagosDTO = null;
-        List<InscripcionesDTO> listaInscripciones = inscripcionesService.obtenerInscripcion();
+        List<InscripcionesDTO> listaInscripciones = inscripcionesService.obtenerInscripcionesSinPago();
         List<FormaPagoDTO> listaFormaPago = formasPagoService.obtenerFormasPago();
 
         if(idP>0) {
@@ -115,6 +116,8 @@ public class PagosController {
             flash.addFlashAttribute("error","Id de pago no puede ser 0");
             return "redirect:/gym/pagos/listar";
         }
+        //añadir la inscripción previamente ingresada a la lista para poder editarla y guardarla nuevamente
+        listaInscripciones.add(inscripcionesService.buscarInscripcion(pagosDTO.getIdInscripcion()));
         modelo.put("titulo","Modificación de pago");
         modelo.put("pagos",pagosDTO);
         modelo.put("listaInscripciones",listaInscripciones);

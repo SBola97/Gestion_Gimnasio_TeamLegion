@@ -24,7 +24,8 @@
                         </div>
                         <div class="flex-1 text-center">
                             <h5 class="font-bold uppercase text-white">Ingresos del día</h5>
-                            <h3 class="font-bold text-3xl text-white" th:text="${gananciaDiaria}+' $'"></h3>
+                            <h3 th:if="${gananciaDiaria>=0}" class="font-bold text-3xl text-white" th:text="${gananciaDiaria}+' $'"></h3>
+                            <h3 th:unless="${gananciaDiaria>0}" class="font-bold text-3xl text-white" th:text="0 +'$'"></h3>
                         </div>
                     </div>
                 </div>

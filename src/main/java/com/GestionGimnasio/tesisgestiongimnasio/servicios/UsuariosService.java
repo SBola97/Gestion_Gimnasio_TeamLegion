@@ -45,6 +45,14 @@ public class UsuariosService implements iUsuariosService{
                 .orElseThrow(()-> new RuntimeException("No encontrado"));
         usuarios.setPersonas(personaId);
 
+        if(usuariosDTO.getIdUsuario() == 0) {
+            if (usuariosRepository.findUsuariosByPersonas_IdPersona(personaId.getIdPersona()).isPresent())
+            {
+                throw new RuntimeException("Suscriptor ya registrado como usuario");
+            }
+        }
+
+
         usuariosRepository.save(usuarios);
 
         return mapper.toUsuariosDTO(usuarios);

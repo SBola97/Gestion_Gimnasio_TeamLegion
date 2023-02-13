@@ -1,17 +1,20 @@
 package com.GestionGimnasio.tesisgestiongimnasio.excepciones;
+
 import org.springframework.http.HttpStatus;
-public class gymexceptions extends RuntimeException {
+
+public class cedulaException extends RuntimeException{
+
     private static final long serialVersionUID = 1L;
     private HttpStatus estado;
     private String mensaje;
 
-    public gymexceptions(HttpStatus estado, String mensaje) {
+    public cedulaException(HttpStatus estado, String mensaje) {
         super();
         this.estado = estado;
         this.mensaje = mensaje;
     }
 
-    public gymexceptions(HttpStatus estado, String mensaje, String mensajeAlt) {
+    public cedulaException(HttpStatus estado, String mensaje, String mensajeAlt) {
         super();
         this.estado = estado;
         this.mensaje = mensaje;
@@ -34,5 +37,3 @@ public class gymexceptions extends RuntimeException {
         this.mensaje = mensaje;
     }
 }
-
-
