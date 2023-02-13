@@ -23,4 +23,6 @@ public interface iInscripcionesService {
     void verificarInscripcionesVencidas();
 
     List<InscripcionesDTO> obtenerInscripcionesPorVencer();
+
+    List<InscripcionesDTO> obtenerInscripcionesSinPago();
 }

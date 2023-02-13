@@ -26,12 +26,6 @@
             </div>
 
             <div class="w-full mt-8">
-                <a th:href="@{/gym/personas/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-500 hover:text-black
-                            focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
-                            px-5 py-2.5 mr-2 mb-2 mt-2">
-                    Agregar suscriptor
-                    <i class="fas fa-plus pl-2"></i>
-                </button></a>
                 <div th:text="${error}" th:if="${error}" id="alert-2" class="flex p-4 mb-4 bg-red-100 rounded-lg dark:bg-red-200" role="alert">
                     <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-red-700 dark:text-red-800" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
                     <span class="sr-only">Info</span>
@@ -57,7 +51,6 @@
                     <table class="min-w-full text-center">
                         <thead class="bg-gray-800 text-white">
                         <tr class="divide-x">
-                            <th class="text-center text-white">ID</th>
                             <th class="text-center text-white">Nombre</th>
                             <th class="text-center text-white">Apellidos</th>
                             <th class="text-center text-white">Cédula</th>
@@ -70,7 +63,6 @@
                         </thead>
                         <tbody class="text-gray-700">
                         <tr th:each="personas : ${listaPersonas}">
-                            <td th:text="${personas.idPersona}"></td>
                             <td th:text="${personas.nombre}"></td>
                             <td th:text="${personas.apellidos}"></td>
                             <td th:text="${personas.cedula}"></td>
@@ -79,11 +71,6 @@
                             <td th:text="${personas.telefono}"></td>
                             <td th:text="${personas.roles.nombre}"></td>
                             <td>
-                                <a th:href="@{/gym/personas/guardar/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
-                            focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
-                            px-3 py-2 mr-2 mb-2 mt-2">
-                                    <i class="far fa-edit"></i>
-                                Editar</button></a>
                                <a th:href="@{/gym/personas/eliminar/} + ${personas.idPersona}" onclick="return confirm('¿Deseas eliminar a este miembro del gimnasio?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">

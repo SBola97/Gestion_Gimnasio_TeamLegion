@@ -47,7 +47,7 @@ public class PersonasController {
     @ResponseBody
     public ResponseEntity<PersonasDTO> ingresarPersona(@RequestBody @Valid PersonasDTO personasDTO)
     {
-        return new ResponseEntity<>(personasService.ingresarPersona(personasDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(personasService.registrarPersona(personasDTO), HttpStatus.CREATED);
     }
     @GetMapping
     @ResponseBody
@@ -121,11 +121,8 @@ public class PersonasController {
     {
         Personas personas = new Personas();
         List<Roles> listaRoles = rolesService.getRoles();
-        List<DisciplinasDTO> listaDisciplinas = disciplinasService.obtenerDisciplinas();
-
         modelo.put("personas",personas);
         modelo.put("listaRoles",listaRoles);
-        modelo.put("listaDisciplinas",listaDisciplinas);
         modelo.put("titulo","Registro para integrantes del gimnasio");
         return "miembros_form";
     }
@@ -133,38 +130,53 @@ public class PersonasController {
     @GetMapping("/formulariop")
     public String mostrarFormularioProfesores(Map<String,Object> modelo)
     {
-        Personas personas = new Personas();
+        ProfesorDTO profesorDTO = new ProfesorDTO();
         List<Roles> listaRoles = rolesService.getRoles();
         List<DisciplinasDTO> listaDisciplinas = disciplinasService.obtenerDisciplinas();
 
-        modelo.put("personas",personas);
+        modelo.put("personas",profesorDTO);
         modelo.put("listaRoles",listaRoles);
         modelo.put("listaDisciplinas",listaDisciplinas);
         modelo.put("titulo","Registro para profesores del gimnasio");
         return "profesoresForm";
     }
     @PostMapping("/guardar")
-    public String guardarPersonas(@Valid Personas personas, BindingResult result, Model modelo, RedirectAttributes flash, SessionStatus status)
+    public String guardarPersonas(@Valid @ModelAttribute("personas") PersonasDTO personas, BindingResult result,
+                                  Model modelo, RedirectAttributes flash, SessionStatus status)
     {
         if(result.hasErrors())
         {
-            modelo.addAttribute("titulo","Registro para integrantes del gimnasio");
+            modelo.addAttribute("titulo","Registro para clientes del gimnasio");
             return "miembros_form";
         }
-        String mensaje = "Integrante registrado con éxito";
+        String mensaje = "Cliente registrado con éxito";
         personasService.registrarPersona(personas);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/personas/listar/page/1";
+        return "redirect:/gym/personas/clientes/page/1";
+    }
+
+    @PostMapping("/guardarp")
+    public String guardarProfesores(@Valid @ModelAttribute("personas") ProfesorDTO personas, BindingResult result,
+                                    Model modelo, RedirectAttributes flash, SessionStatus status)
+    {
+        if(result.hasErrors())
+        {
+            modelo.addAttribute("titulo","Registro para profesores del gimnasio");
+            return "profesoresForm";
+        }
+        String mensaje = "Profesor registrado con éxito";
+        personasService.registrarProfesor(personas);
+        status.setComplete();
+        flash.addFlashAttribute("success", mensaje);
+        return "redirect:/gym/personas/profesores/page/1";
     }
 
     @GetMapping("/guardar/{idPersona}")
-    public String editarPersona(@PathVariable(value = "idPersona") int idP, Map<String,Object> modelo,RedirectAttributes flash)
+    public String editarPersona(@PathVariable(value = "idPersona") int idP, Map<String,Object> modelo,
+                                RedirectAttributes flash)
     {
         Personas personas = null;
-        Roles roles = new Roles();
-        List<Roles> listaRoles = rolesService.getRoles();
-
         if(idP>0) {
             personas = personasService.findPersona(idP);
             if (personas == null) {
@@ -178,25 +190,22 @@ public class PersonasController {
             return "redirect:/gym/personas/listar";
         }
         modelo.put("personas",personas);
-        //modelo.put("roles",roles);
-        modelo.put("listaRoles",listaRoles);
         modelo.put("titulo","Modificación de integrante del gimnasio");
         return "miembros_form";
     }
 
     @GetMapping("/guardarp/{idPersona}")
-    public String editarProfesor(@PathVariable(value = "idPersona") int idP, Map<String,Object> modelo,RedirectAttributes flash)
+    public String editarProfesor(@PathVariable(value = "idPersona") int idP, Map<String,Object> modelo,
+                                 RedirectAttributes flash)
     {
-        Personas personas = null;
-        Roles roles = new Roles();
-        List<Roles> listaRoles = rolesService.getRoles();
+        ProfesorDTO profesorDTO = null;
         List<DisciplinasDTO> listaDisciplinas = disciplinasService.obtenerDisciplinas();
 
         if(idP>0) {
-            personas = personasService.findPersona(idP);
-            if (personas == null) {
-                flash.addFlashAttribute("error", "Persona no encontrada en la Base de Datos");
-                return "redirect:/gym/personas/listar";
+            profesorDTO = personasService.buscarProfesor(idP);
+            if (profesorDTO == null) {
+                flash.addFlashAttribute("error", "Profesor no encontrado en la Base de Datos");
+                return "redirect:/gym/personas/profesores/page/1";
             }
         }
         else
@@ -204,10 +213,8 @@ public class PersonasController {
             flash.addFlashAttribute("error","Id del integrante no puede ser 0");
             return "redirect:/gym/personas/listar";
         }
-        modelo.put("personas",personas);
+        modelo.put("personas",profesorDTO);
         modelo.put("listaDisciplinas",listaDisciplinas);
-        //modelo.put("roles",roles);
-        modelo.put("listaRoles",listaRoles);
         modelo.put("titulo","Modificación de profesor del gimnasio");
         return "profesoresForm";
     }

@@ -32,15 +32,11 @@ public class PersonasDTO {
     @NotNull(message = "El campo telefono es requerido")
     private String telefono;
 
-
     private float peso;
-
 
     private float estatura;
 
     private int idRol;
-
-    private Set<CompetidoresTorneoDTO> competidoresTorneo;
 
 
 

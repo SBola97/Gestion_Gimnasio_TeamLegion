@@ -26,7 +26,9 @@ public class ProfesorDTO {
     @Email
     private String email;
 
-    private String disciplina;
+    private int idRol;
+
+    private int idDisciplina;
 
     @NotNull(message = "El campo telefono es requerido")
     private String telefono;

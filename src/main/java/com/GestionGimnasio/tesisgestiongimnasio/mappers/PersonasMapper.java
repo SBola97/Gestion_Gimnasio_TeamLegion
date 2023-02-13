@@ -21,7 +21,7 @@ public interface PersonasMapper {
             @Mapping(source = "telefono", target = "telefono"),
             @Mapping(source = "peso", target = "peso"),
             @Mapping(source = "estatura", target = "estatura"),
-            @Mapping(source = "roles.idRol", target = "idRol"),
+            @Mapping(source = "roles.idRol", target = "idRol")
     })
     PersonasDTO toPersonasDTO(Personas personas);
     List<PersonasDTO> toPersonasDTO(List<Personas> personasList);

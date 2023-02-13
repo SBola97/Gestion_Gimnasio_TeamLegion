@@ -91,7 +91,8 @@ public class InscripcionesController {
     {
         InscripcionesDTO inscripcionesDTO = new InscripcionesDTO();
         //PersonasDTO personas = new PersonasDTO();
-        List<PersonasDTO> listaPersonasi = personasService.obtenerPersona();
+        //List<PersonasDTO> listaPersonasi = personasService.obtenerPersona();
+        List<PersonasDTO> listaPersonasi = personasService.obtenerPersonasSinSuscripcion();
         List<ModalidadesDTO> listaModalidades = modalidadesService.obtenerModalidades();
         modelo.put("titulo","Registro de inscripciones");
         modelo.put("inscripciones",inscripcionesDTO);
@@ -120,9 +121,8 @@ public class InscripcionesController {
     public String editarInscripcion(@PathVariable(value = "idInscripcion") int idI, Map<String,Object> modelo,RedirectAttributes flash)
     {
         InscripcionesDTO inscripciones = null;
-        List<PersonasDTO> listaPersonas = personasService.obtenerPersona();
+        List<PersonasDTO> listaPersonas = personasService.obtenerPersonasSinSuscripcion();
         List<ModalidadesDTO> listaModalidades = modalidadesService.obtenerModalidades();
-
         if(idI>0) {
             inscripciones = inscripcionesService.buscarInscripcion(idI);
             if (inscripciones == null) {
@@ -135,6 +135,8 @@ public class InscripcionesController {
             flash.addFlashAttribute("error","Id de la inscripción no puede ser 0");
             return "redirect:/gym/inscripciones/listar";
         }
+        //añadir a la lista de personas sin suscripción el cliente ya registrado para poder editarlo
+        listaPersonas.add(personasService.buscarPersona(inscripciones.getIdPersona()));
         modelo.put("inscripciones",inscripciones);
         modelo.put("listaPersonas", listaPersonas);
         modelo.put("titulo","Modificación de inscripción");

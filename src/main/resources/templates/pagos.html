@@ -85,23 +85,24 @@
                     <table class="min-w-full text-center">
                         <thead class="bg-gray-800 text-white text-center">
                         <tr class="divide-x">
-                            <th class="text-center text-white">ID</th>
                             <th class="text-center text-white">Fecha Pago</th>
-                            <th class="text-center text-white">Estado</th>
                             <th class="text-center text-white">Suscriptor</th>
                             <th class="text-center text-white">Forma de Pago</th>
                             <th class="text-center text-white">Monto ($)</th>
+                            <th class="text-center text-white">Estado</th>
                             <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
                         <tbody class="text-gray-700">
                         <tr th:each="pagos : ${listaPagos}">
-                            <td th:text="${pagos.idPago}"></td>
                             <td th:text="${pagos.fechaPago}"></td>
-                            <td th:text="${pagos.estadoPago}"></td>
                             <td th:text="${pagos.inscripciones.personas.nombre}+' '+${pagos.inscripciones.personas.apellidos}"></td>
                             <td th:text="${pagos.formaPago.nombre}"></td>
                             <td th:text="${pagos.valorp}"></td>
+                            <td th:if="${pagos.estadoPago == 'Pagado'}" class="font-bold text-green-500"
+                                th:text="${pagos.estadoPago}"></td>
+                            <td th:if="${pagos.estadoPago == 'Pendiente'}" class="font-bold text-red-500"
+                                th:text="${pagos.estadoPago}"></td>
                             <td>
                                 <a th:href="@{/gym/pagos/guardar/} + ${pagos.idPago}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm

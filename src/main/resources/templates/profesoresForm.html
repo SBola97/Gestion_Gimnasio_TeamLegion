@@ -15,8 +15,8 @@
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
             <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6"></h1>
-            <form th:action="@{/gym/personas/guardar}" th:object="${personas}" method="post">
-                <input type="hidden" th:field="*{idPersona}" th:value="${personas.idPersona}"/>
+            <form th:action="@{/gym/personas/guardarp}" th:object="${personas}" method="post">
+                <input type="hidden" th:field="*{idProfesor}" th:value="${personas.idProfesor}"/>
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
                         <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
@@ -39,36 +39,13 @@
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
                     </div>
                     <div>
-                        <label for="edad" class="block mb-2 text-sm font-medium text-gray-900">Edad</label>
-                        <input type="number" id="edad" th:field="*{edad}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
-                        <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></small>
-                    </div>
-                    <div>
                         <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900">Teléfono</label>
                         <input type="tel" id="telefono" th:field="*{telefono}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Número telefónico" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
                     </div>
-                    <div>
-                        <label for="peso" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
-                        <input type="number" step="0.1" min="30" max="250"  id="peso" th:field="*{peso}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Peso" required>
-                        <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('peso')}" th:errors="*{peso}"></small>
-                    </div>
-                    <div>
-                        <label for="estatura" class="block mb-2 text-sm font-medium text-gray-900">Estatura</label>
-                        <input type="number" step="0.1" min="120" max="210" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Estatura" required>
-                        <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}"></small>
-                    </div>
-                    <div class="mb-6">
-                        <label for="rol" class="block mb-2 text-sm font-medium text-gray-900">Rol</label>
-                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="rol" th:field="*{roles.idRol}" required>
-                            <th:block th:each="roles : ${listaRoles}">
-                                <option th:text="${roles.nombre}" th:value="${roles.idRol}"></option>
-                            </th:block>
-                        </select>
-                    </div>
                     <div class="mb-6">
                         <label for="disciplina" class="block mb-2 text-sm font-medium text-gray-900">Disciplina</label>
-                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="disciplina" th:field="*{disciplinas.idDisciplina}" required>
+                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="disciplina" th:field="*{idDisciplina}" required>
                             <th:block th:each="disciplinas : ${listaDisciplinas}">
                                 <option th:text="${disciplinas.nombre}" th:value="${disciplinas.idDisciplina}"></option>
                             </th:block>

@@ -56,7 +56,6 @@
           <table class="min-w-full text-center">
             <thead class="bg-gray-800 text-white">
             <tr class="divide-x">
-              <th class="text-center text-white">ID</th>
               <th class="text-center text-white">Nombre</th>
               <th class="text-center text-white">Fecha</th>
               <th class="text-center text-white">Ciudad</th>
@@ -66,7 +65,6 @@
             </thead>
             <tbody class="text-gray-700">
             <tr th:each="torneos : ${listaTorneos}">
-              <td th:text="${torneos.idTorneo}"></td>
               <td th:text="${torneos.nombre}"></td>
               <td th:text="${torneos.fecha}"></td>
               <td th:text="${torneos.ciudad}"></td>

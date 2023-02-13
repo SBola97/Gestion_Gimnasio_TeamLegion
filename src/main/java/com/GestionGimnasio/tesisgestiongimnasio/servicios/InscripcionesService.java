@@ -43,10 +43,10 @@ public class InscripcionesService implements iInscripcionesService{
         if(inscripcionesDTO.getIdInscripcion() == 0) {
             if(inscripcionesRepository.findInscripcionesByPersonas_IdPersona(idPer).isPresent())
             {
-                throw new RuntimeException("Esta persona ya cuenta con una suscripción registrada");
+                throw new RuntimeException("Esta persona ya cuenta con una inscripción registrada");
             }
             if (inscripcionesDTO.getFechaInicio().isBefore(fechaActual) || inscripcionesDTO.getFechaFin().isBefore(fechaActual)) {
-                throw new RuntimeException("Fecha no disponible para inscripción, ingrese una fecha válida, por favor");
+                throw new RuntimeException("Fecha no válida para inscripción");
             }
         }
         Inscripciones inscripciones = mapper.toInscripciones(inscripcionesDTO);
@@ -72,7 +72,7 @@ public class InscripcionesService implements iInscripcionesService{
     @Override
     public InscripcionesDTO buscarInscripcion(int idInscripcion) {
         return mapper.toInscripcionesDTO(inscripcionesRepository.findById(idInscripcion)
-                .orElseThrow(()-> new RuntimeException("Inscripcion no encontrada")));
+                .orElseThrow(()-> new RuntimeException("Inscripción no encontrada")));
     }
 
     @Override
@@ -115,5 +115,11 @@ public class InscripcionesService implements iInscripcionesService{
     public List<InscripcionesDTO> obtenerInscripcionesPorVencer()
     {
         return mapper.toInscripcionesDTO((List<Inscripciones>)inscripcionesRepository.findInscripcionesByFechaFin());
+    }
+
+    @Override
+    public List<InscripcionesDTO> obtenerInscripcionesSinPago()
+    {
+        return  mapper.toInscripcionesDTO((List<Inscripciones>)inscripcionesRepository.findInscripcionesNoPagadas());
     }
 }

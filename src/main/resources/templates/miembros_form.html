@@ -58,14 +58,6 @@
                         <input type="number" step="0.1" min="120" max="210" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Estatura" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}"></small>
                     </div>
-                    <div class="mb-6">
-                        <label for="rol" class="block mb-2 text-sm font-medium text-gray-900">Rol</label>
-                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="rol" th:field="*{roles.idRol}" required>
-                            <th:block th:each="roles : ${listaRoles}">
-                                <option th:text="${roles.nombre}" th:value="${roles.idRol}"></option>
-                            </th:block>
-                        </select>
-                    </div>
                 </div>
                 <button type="submit" class="text-white bg-green-500 hover:bg-green-600 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Registrar
                     <i class="fas fa-chevron-circle-right pl-2"></i>

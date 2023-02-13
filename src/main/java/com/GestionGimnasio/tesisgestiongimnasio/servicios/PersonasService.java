@@ -2,8 +2,6 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
-import com.GestionGimnasio.tesisgestiongimnasio.excepciones.gymexceptions;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.ClienteMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.PersonasMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.ProfesorMapper;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -41,40 +38,83 @@ public class PersonasService implements iPersonasService {
 
     @Autowired
     private ProfesorMapper mapperp;
+
     @Autowired
     private ClienteMapper mapperc;
 
     @Override
-    public PersonasDTO ingresarPersona(PersonasDTO personasDTO)
-    {
-
-        int idRol = personasDTO.getIdRol();
-        Personas personas = mapper.toPersonas(personasDTO);
-
-        Roles rolesR = rolesRepository.findById(idRol).orElseThrow(()-> new RuntimeException("No encontrado"));
-
-        personas.setRoles(rolesR);
-        if(validadorDeCedula(personas.getCedula())) {
-            personasRepository.save(personas);
-            return mapper.toPersonasDTO(personas);
-        }
-        else
-            throw new RuntimeException("Cédula no válida");
-    }
-
-    @Override
     @Transactional
-    public void registrarPersona(Personas personas) {
-        if(validadorDeCedula(personas.getCedula())) {
+    public PersonasDTO registrarPersona(PersonasDTO personasDTO) {
+
+        List<Personas> listC = personasRepository.findAll();
+
+        personasDTO.setIdRol(2);
+
+        if(personasDTO.getIdPersona() == 0) {
+            for (Personas value : listC) {
+                if (personasDTO.getCedula().equals(value.getCedula())) {
+                    throw new RuntimeException("Cédula repetida");
+                }
+                if (personasDTO.getEmail().equals(value.getEmail())) {
+                    throw new RuntimeException("Correo electrónico repetido");
+                }
+                if (personasDTO.getTelefono().equals(value.getTelefono())) {
+                    throw new RuntimeException("Teléfono repetido");
+                }
+
+            }
+        }
+
+        if(validadorDeCedula(personasDTO.getCedula())) {
             //Roles idRol = personas.getRoles();
             //rolesRepository.getById(idRol).orElseThrow(() -> new RuntimeException("No encontrado"));
             //personas.setRoles(idRol);
             //personas.setCompetidoresTorneo(createListaCompetidores(personas));
-
+            Personas personas = mapper.toPersonas(personasDTO);
             personasRepository.save(personas);
+            return mapper.toPersonasDTO(personas);
         }
         else{
-            throw new gymexceptions(HttpStatus.BAD_REQUEST,"Cédula no válida");
+            throw new RuntimeException("Cédula no válida");
+        }
+    }
+
+
+    @Override
+    @Transactional
+    public ProfesorDTO registrarProfesor(ProfesorDTO profesorDTO) {
+
+        List<Personas> listP = personasRepository.findAll();
+
+        profesorDTO.setIdRol(3);
+
+        if(profesorDTO.getIdProfesor() == 0) {
+            for (Personas value : listP) {
+                if (profesorDTO.getCedula().equals(value.getCedula())) {
+                    throw new RuntimeException("Cédula repetida");
+                }
+                if (profesorDTO.getEmail().equals(value.getEmail()))
+                {
+                    throw new RuntimeException("Correo electrónico repetido");
+                }
+                if (profesorDTO.getTelefono().equals(value.getTelefono()))
+                {
+                    throw new RuntimeException("Teléfono repetido");
+                }
+            }
+        }
+
+        if(validadorDeCedula(profesorDTO.getCedula())) {
+            //Roles idRol = personas.getRoles();
+            //rolesRepository.getById(idRol).orElseThrow(() -> new RuntimeException("No encontrado"));
+            //personas.setRoles(idRol);
+            //personas.setCompetidoresTorneo(createListaCompetidores(personas));
+            Personas personas = mapperp.toPersonas(profesorDTO);
+            personasRepository.save(personas);
+            return mapperp.toprofesorDTO(personas);
+        }
+        else{
+            throw new RuntimeException("Cédula no válida");
         }
     }
 
@@ -93,6 +133,13 @@ public class PersonasService implements iPersonasService {
         return mapper.toPersonasDTO(personasRepository.findById(idPersona)
                 .orElseThrow(()-> new RuntimeException("Persona no encontrada")));
     }
+
+    @Override
+    public ProfesorDTO buscarProfesor(int idPersona) {
+        return mapperp.toprofesorDTO(personasRepository.findById(idPersona)
+                .orElseThrow(()-> new RuntimeException("Profesor no encontrada")));
+    }
+
 
     public Personas findPersona(int idPersona)
     {
@@ -114,13 +161,13 @@ public class PersonasService implements iPersonasService {
     @Override
     public Page<Personas> obtenerClientes(int pageNumber) {
         Pageable pageable = PageRequest.of(pageNumber -1,5);
-        return personasRepository.findPersonasByRoles_Nombre("Cliente", pageable);
+        return personasRepository.getClientes(pageable);
     }
 
     @Override
     public Page<Personas> obtenerProfesores(int pageNumber) {
         Pageable pageable = PageRequest.of(pageNumber -1,5);
-        return personasRepository.findPersonasByRoles_Nombre("Profesor", pageable);
+        return personasRepository.getProfesores(pageable);
     }
 
 
@@ -131,6 +178,19 @@ public class PersonasService implements iPersonasService {
         Page<Personas> personas = personasRepository.findAll(pageable);
         return personas;
     }
+
+    @Override
+    public List<PersonasDTO> obtenerPersonasSinSuscripcion()
+    {
+        return mapper.toPersonasDTO((List<Personas>)personasRepository.findPersonasNoInscritas());
+    }
+
+    @Override
+    public List<PersonasDTO> obtenerPersonasSinUser()
+    {
+        return mapper.toPersonasDTO((List<Personas>)personasRepository.personasSinUser());
+    }
+
 
     static boolean validadorDeCedula(String cedula) {
         boolean cedulaCorrecta = false;

@@ -18,7 +18,8 @@ public interface ProfesorMapper {
             @Mapping(source = "apellidos", target = "apellidos"),
             @Mapping(source = "cedula", target = "cedula"),
             @Mapping(source = "email", target = "email"),
-            @Mapping(source = "disciplinas.idDisciplina", target = "disciplina"),
+            @Mapping(source = "roles.idRol", target="idRol"),
+            @Mapping(source = "disciplinas.idDisciplina", target = "idDisciplina"),
             @Mapping(source = "telefono", target = "telefono")
     })
     ProfesorDTO toprofesorDTO (Personas personas);
