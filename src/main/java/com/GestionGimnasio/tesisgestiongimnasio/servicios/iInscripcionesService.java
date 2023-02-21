@@ -14,6 +14,8 @@ public interface iInscripcionesService {
 
     InscripcionesDTO buscarInscripcion(int idInscripcion);
 
+    Inscripciones findInscripcion(int idInscripcion);
+
     void eliminarInscripcion(int idInscripcion);
 
     List<InscripcionesDTO> obtenerInscripcion();

@@ -15,57 +15,65 @@
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
             <h1 class="text-2xl text-gray-700 font-bold pb-2">Ficha de Competidor</h1>
-            <div class="flex flex-wrap mt-1">
-                <div class="w-full md:w-1/2 xl:w-1/2">
+            <div class="flex flex-wrap flex-col mt-1">
+                <div class="w-fit">
                     <!-- Modal body -->
-                    <div class="p-6 space-y-1 flex">
-                        <img class="flex border-2 border-gray-900 border-solid rounded-t-lg object-fill h-44 w-66"
-                             th:src="@{/svgs/competidores-fondo.png}" alt="competidores-fondo"/>
-                        <div class="grid grid-cols-1 ml-10">
-                            <div class="col-auto">
+                    <div class="p-6 space-y-1">
+                        <div class="flex w-full">
+                            <div class="w-1/6">
+                                <img class="border-2 border-gray-900 border-solid rounded-t-lg object-fill h-40 w-40"
+                                     th:src="@{/svgs/fighter.jpg}" alt="competidor"/>
+                            </div>
+                            <div class="ml-4 w-5/6">
                                 <ul class="max-w-md space-y-0 text-gray-900 list-inside">
                                     <li th:each="competidor : ${competidor}">
-                                                <span class="font-bold" th:object="${competidor}"
-                                                      th:text="'Competidor/a: '+${competidor.nombre}+' '+${competidor.apellidos}"></span>
+                                        <span class="font-bold">Competidor:</span>
+                                        <span th:object="${competidor}"
+                                              th:text="${competidor.nombre}+' '+${competidor.apellidos}"></span>
                                         <br>
-                                        <span th:text="'Edad: '+ ${competidor.edad} +' | '+'Estatura: '+ ${competidor.estatura}+' cm'"></span>
+                                        <span class="font-semibold">Edad:</span>
+                                        <span th:text="${competidor.edad}+' años'"></span>
+                                        <br>
+                                        <span class="font-semibold">Estatura:</span>
+                                        <span th:text="${competidor.estatura}+' cm'"></span>
                                     </li>
                                 </ul>
-                                <ol class="max-w-md space-y-1 text-gray-900 list-decimal list-inside">
-                                    <li th:each="fichaCompetidor : ${fichaCompetidor}">
-                                                    <span class="font-semibold" th:text="'Torneo: '+
-                                                    ${fichaCompetidor.nombret} +' ('+ ${fichaCompetidor.nombreD}+')'"></span>
-                                        <br>
-                                        <span th:text="'Fecha: '+ ${fichaCompetidor.fechat}"></span>
-                                        <br>
-                                        <span th:text="'Ciudad: '+ ${fichaCompetidor.ciudadt}"></span>
-                                        <br>
-                                        <span th:text="'Peso: '+ ${fichaCompetidor.pesoc}
-                                                    +' ('+${fichaCompetidor.categoriaPeso} +')'"></span>
-                                    </li>
-                                </ol>
                             </div>
-                            <div class="col-auto">
-
-                            </div>
-
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full mt-5 text-sm text-gray-300 text-center">
+                                <thead class="text-xs uppercase">
+                                <tr class="divide-x bg-gray-600 divide-teal-700">
+                                    <th scope="col" class="px-3 py-3">Torneo</th>
+                                    <th scope="col" class="px-3 py-3">Ciudad</th>
+                                    <th scope="col" class="px-3 py-3">Disciplina</th>
+                                    <th scope="col" class="px-4 py-3">Peso de competencia</th>
+                                    <th scope="col" class="px-3 py-3">Categoría</th>
+                                    <th scope="col" class="px-2 py-3">Fecha</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="divide-y divide-teal-600"
+                                    th:each="fichaCompetidor : ${fichaCompetidor}">
+                                    <td class="px-6 py-4 font-medium font-semibold text-gray-600"
+                                    th:text="${fichaCompetidor.nombret}"></td>
+                                    <td class="px-6 py-3 text-gray-700 " th:text="${fichaCompetidor.ciudadt}"></td>
+                                    <td class="px-6 py-3 text-gray-700 " th:text="${fichaCompetidor.nombreD}"></td>
+                                    <td class="px-4 py-3 text-gray-700 " th:text="${fichaCompetidor.pesoc} +' Kg'"></td>
+                                    <td class="px-6 py-3 text-gray-700 " th:text="${fichaCompetidor.categoriaPeso}"></td>
+                                    <td class="px-6 py-3 text-gray-700 " th:text="${fichaCompetidor.fechat}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <!-- Modal footer -->
-                    <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
-                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
-                                    focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5
-                                    items-center text-center">
-                            <i class="fas fa-print"></i>
-                            Imprimir
-                        </button>
-                    </div>
                 </div>
-            </div>
-    </main>
-    <footer th:replace="layout/layout :: footer"></footer>
 
-</div>
+            </div>
+        </main>
+        <footer th:replace="layout/layout :: footer"></footer>
+
+    </div>
 
 </div>
 

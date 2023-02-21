@@ -33,8 +33,9 @@ public class PagosDTO {
 
     private String apellidos;
 
-    private float valorp;
+    private float valorp; //valor a pagar
 
     private FormaPagoDTO formaspago;
 
+    private float valori; //valor de inscripción inicial
 }

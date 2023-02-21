@@ -62,10 +62,10 @@ public class PagosService implements iPagosService {
 
         if(pagosDTO.getFechaPago().isBefore(insc.getFechaInicio()))
         {
-            throw new RuntimeException("La fecha de pago no puede ser inferior a la fecha de inscripción");
+            throw new RuntimeException("La fecha de pago no puede ser inferior a la fecha de suscripción");
         }
 
-        float valorp = insc.getModalidades().getValor();
+        float valorp = insc.getModalidades().getValor() + pagosDTO.getValori();
 
         pagos.setValorp(valorp);
 
