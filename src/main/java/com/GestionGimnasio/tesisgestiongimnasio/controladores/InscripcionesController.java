@@ -10,6 +10,10 @@ import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.InscripcionesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.ModalidadesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
+import com.twilio.Twilio;
+import com.twilio.converter.Promoter;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -24,7 +28,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.Console;
 import java.sql.SQLOutput;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Controller
@@ -84,6 +91,40 @@ public class InscripcionesController {
         //modelo.addAttribute("personas",personas);
         modelo.addAttribute("listaInscripcionesPV",listaInscripcionesPV);
 
+        return "inscripcionesPorVencer";
+    }
+
+    @GetMapping("/notificar/{idInscripcion}")
+    public String sendMessage(@PathVariable(value = "idInscripcion") int idI, RedirectAttributes flash, Model modelo)
+    {
+        Inscripciones inscripcion = null;
+        //List<InscripcionesDTO> listaClientesNotificar = inscripcionesService.obtenerInscripcionesPorVencer();
+        String telef = "";
+        String name = "";
+        String fechaf = "";
+        if(idI>0)
+        {
+            inscripcion = inscripcionesService.findInscripcion(idI);
+            telef = inscripcion.getPersonas().getTelefono();
+            name = inscripcion.getPersonas().getNombre() +' '+ inscripcion.getPersonas().getApellidos();
+            fechaf = String.valueOf(inscripcion.getFechaFin().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+        }
+        List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
+
+        final String ACCOUNT_SID = "AC6b2e5744962cbc52c19f965447264b02";
+        final String AUTH_TOKEN = "9c554e988f7b980ef814fb5cb75f35b8";
+
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        Message message = Message.creator(
+                new PhoneNumber("+593"+telef),
+                "MGc55ae82b1c7f5ebe8232148a488d6f86",
+                "Estimado cliente, "+ name +", su suscripción del Gimnasio 'Team Legión' Riobamba vencerá el "
+                + fechaf + ". Por favor, mantenga sus pagos y suscripciones al día."
+        ).create();
+        String mensaje = "Notificación enviada con éxito";
+        flash.addFlashAttribute("success", mensaje);
+        modelo.addAttribute("listaInscripcionesPV",listaInscripcionesPV);
         return "inscripcionesPorVencer";
     }
     @GetMapping("/formulario")

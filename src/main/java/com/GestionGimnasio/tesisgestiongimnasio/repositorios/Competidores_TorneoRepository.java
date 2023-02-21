@@ -13,7 +13,7 @@ import java.util.Set;
 public interface Competidores_TorneoRepository extends JpaRepository<Competidores_Torneo, Integer> {
     @Query(value = "SELECT * FROM competidores_torneo AS ct INNER JOIN torneos " +
             "AS t ON ct.id_torneo = t.id_torneo INNER JOIN disciplinas AS d ON t.id_disciplina = d.id_disciplina " +
-            "WHERE ct.id_persona =:idPersona", nativeQuery = true)
+            "WHERE ct.id_persona =:idPersona LIMIT 3", nativeQuery = true)
     public List<Competidores_Torneo> findCompetidores_TorneoByPersonasIdPersona(@Param("idPersona") int idPersona);
 
     @Query(value = "SELECT count(DISTINCT ct.id_persona) from competidores_torneo as ct ",nativeQuery = true)

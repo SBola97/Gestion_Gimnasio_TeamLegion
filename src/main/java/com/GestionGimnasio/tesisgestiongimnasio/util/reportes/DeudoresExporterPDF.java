@@ -18,10 +18,11 @@ public class DeudoresExporterPDF {
         this.deudoresDTOList = deudoresDTOList;
     }
 
+
     private void escribirCabeceraTabla(PdfPTable tabla)
     {
         PdfPCell celda = new PdfPCell();
-        celda.setBackgroundColor(Color.BLUE);
+        celda.setBackgroundColor(new Color(12, 100, 214));
         celda.setPadding(5);
 
         Font fuente = FontFactory.getFont(FontFactory.HELVETICA);
@@ -55,11 +56,20 @@ public class DeudoresExporterPDF {
         Document documento = new Document(PageSize.A4);
         PdfWriter.getInstance(documento,response.getOutputStream());
         documento.open();
-        Font fuente = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+        Font fuente = FontFactory.getFont(FontFactory.HELVETICA);
+        Font fuenteh = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
         fuente.setColor(Color.BLACK);
-        fuente.setSize(18);
-        Paragraph titulo = new Paragraph("Lista de deudores",fuente);
+        fuenteh.setColor(Color.BLACK);
+        fuente.setSize(16);
+        fuenteh.setSize(20);
+        Paragraph header = new Paragraph("GIMNASIO 'TEAM LEGIÓN' RIOBAMBA", fuenteh);
+        Paragraph line = new Paragraph("--------------------------------------------------------------------");
+        Paragraph titulo = new Paragraph("Listado de deudores",fuente);
+        line.setAlignment(Paragraph.ALIGN_CENTER);
         titulo.setAlignment(Paragraph.ALIGN_CENTER);
+        header.setAlignment(Paragraph.ALIGN_CENTER);
+        documento.add(header);
+        documento.add(line);
         documento.add(titulo);
         PdfPTable tabla = new PdfPTable(4);
         tabla.setWidthPercentage(100);

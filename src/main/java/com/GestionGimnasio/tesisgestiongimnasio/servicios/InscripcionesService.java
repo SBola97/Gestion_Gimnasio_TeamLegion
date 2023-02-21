@@ -76,6 +76,13 @@ public class InscripcionesService implements iInscripcionesService{
     }
 
     @Override
+    public Inscripciones findInscripcion(int idInscripcion)
+    {
+        return inscripcionesRepository.findById(idInscripcion).orElseThrow(()-> new RuntimeException
+                ("Inscripción no encontrada"));
+    }
+
+    @Override
     public void eliminarInscripcion(int idInscripcion) {
         inscripcionesRepository.deleteById(idInscripcion);
     }
