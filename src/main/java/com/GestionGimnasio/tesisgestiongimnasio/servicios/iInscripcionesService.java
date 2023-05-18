@@ -22,6 +22,8 @@ public interface iInscripcionesService {
 
     Page<Inscripciones> obtenerInscripciones(int pageNumber);
 
+    Page<Inscripciones> obtenerInscripcionesSort(String campo, String direccion, int pageNumber);
+
     void verificarInscripcionesVencidas();
 
     List<InscripcionesDTO> obtenerInscripcionesPorVencer();

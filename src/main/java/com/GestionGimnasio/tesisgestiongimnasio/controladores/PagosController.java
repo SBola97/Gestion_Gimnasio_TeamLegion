@@ -1,6 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Pagos;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.FormasPagoService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.InscripcionesService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +65,22 @@ public class PagosController {
         modelo.addAttribute("currentPage",currentPage);
         modelo.addAttribute("totalPages",totalPages);
         modelo.addAttribute("totalItems",totalItems);
+        return "pagos";
+    }
+    @GetMapping("/listar/page/{pageNumber}/{campo}")
+    public String listarPagosOrd(@PathVariable("pageNumber") int currentPage, Model modelo, @PathVariable
+    String campo, @PathParam("sortDir") String sortDir)
+    {
+        Page<Pagos> page = pagosService.obtenerPagosSort(campo,sortDir, currentPage);
+        List<Pagos> pagos = page.getContent();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        modelo.addAttribute("listaPagos",pagos);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+        modelo.addAttribute("sortDir",sortDir);
+        modelo.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
         return "pagos";
     }
 

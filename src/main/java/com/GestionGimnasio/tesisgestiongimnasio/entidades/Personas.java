@@ -62,7 +62,7 @@ public class Personas {
     @JoinColumn(name = "idRol",referencedColumnName = "idRol")
     private Roles roles;
 
-    @OneToOne(mappedBy = "personas", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "personas", cascade = {CascadeType.REFRESH,CascadeType.REMOVE})
     //private Set<Inscripciones> Inscripciones = new HashSet<>();
     private Inscripciones inscripciones;
 
