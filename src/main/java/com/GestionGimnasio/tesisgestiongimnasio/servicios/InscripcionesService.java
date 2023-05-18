@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -99,6 +100,17 @@ public class InscripcionesService implements iInscripcionesService{
         Pageable pageable = PageRequest.of(pageNumber -1,5);
         Page<Inscripciones> inscripciones = inscripcionesRepository.findAll(pageable);
         return inscripciones;
+    }
+
+    @Override
+    public Page<Inscripciones> obtenerInscripcionesSort(String campo, String direccion, int pageNumber)
+    {
+        Sort sort = direccion.equalsIgnoreCase(Sort.Direction.ASC.name())?
+                Sort.by(campo).ascending(): Sort.by(campo).descending();
+
+        Pageable pageable = PageRequest.of(pageNumber-1,5, sort);
+
+        return inscripcionesRepository.findAll(pageable);
     }
 
     @Override

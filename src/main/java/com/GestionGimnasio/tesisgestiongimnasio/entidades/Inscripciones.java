@@ -28,7 +28,7 @@ public class Inscripciones {
     @NotNull
     private String estado;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "idPersona", referencedColumnName = "idPersona")
     private Personas personas;
 

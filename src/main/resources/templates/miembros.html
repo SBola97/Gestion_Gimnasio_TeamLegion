@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/layout :: head">
     <meta charset="UTF-8">
 </head>
@@ -55,22 +56,20 @@
                             <th class="text-center text-white">Apellidos</th>
                             <th class="text-center text-white">Cédula</th>
                             <th class="text-center text-white">Email</th>
-                            <th class="text-center text-white">Edad</th>
                             <th class="text-center text-white">Teléfono</th>
                             <th class="text-center text-white">Tipo</th>
                             <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
-                        <tbody class="text-gray-700">
+                        <tbody class="text-gray-700 divide-y">
                         <tr th:each="personas : ${listaPersonas}">
                             <td th:text="${personas.nombre}"></td>
                             <td th:text="${personas.apellidos}"></td>
                             <td th:text="${personas.cedula}"></td>
                             <td th:text="${personas.email}"></td>
-                            <td th:text="${personas.edad}"></td>
                             <td th:text="${personas.telefono}"></td>
                             <td th:text="${personas.roles.nombre}"></td>
-                            <td>
+                            <td sec:authorize="hasAuthority('Admin')" >
                                <a th:href="@{/gym/personas/eliminar/} + ${personas.idPersona}" onclick="return confirm('¿Deseas eliminar a este miembro del gimnasio?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
                             px-3 py-2 mr-2 mb-2 mt-2">

@@ -20,4 +20,6 @@ public interface iPagosService {
     List<PagosDTO> obtenerPagos();
 
     Page<Pagos> findPagos(int pageNumber);
+
+    Page<Pagos> obtenerPagosSort(String campo, String direccion, int pageNumber);
 }

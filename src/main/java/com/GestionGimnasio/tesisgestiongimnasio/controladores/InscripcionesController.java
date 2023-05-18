@@ -26,6 +26,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.io.Console;
 import java.sql.SQLOutput;
 import java.time.format.DateTimeFormatter;
@@ -82,6 +83,24 @@ public class InscripcionesController {
         return "inscripciones";
     }
 
+    @GetMapping("/listar/page/{pageNumber}/{campo}")
+    public String listarInscripcionesOrd(@PathVariable("pageNumber") int currentPage, Model modelo, @PathVariable
+                                    String campo, @PathParam("sortDir") String sortDir)
+    {
+        Page<Inscripciones> page = inscripcionesService.obtenerInscripcionesSort(campo,sortDir, currentPage);
+        List<Inscripciones> inscripciones = page.getContent();
+        inscripcionesService.verificarInscripcionesVencidas();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        modelo.addAttribute("listaInscripciones",inscripciones);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+        modelo.addAttribute("sortDir",sortDir);
+        modelo.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
+        return "inscripciones";
+    }
+
     @GetMapping("/porvencer")
     public String listarInscripcionesPV(Model modelo)
     {
@@ -107,7 +126,8 @@ public class InscripcionesController {
             inscripcion = inscripcionesService.findInscripcion(idI);
             telef = inscripcion.getPersonas().getTelefono();
             name = inscripcion.getPersonas().getNombre() +' '+ inscripcion.getPersonas().getApellidos();
-            fechaf = String.valueOf(inscripcion.getFechaFin().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
+            fechaf = String.valueOf(inscripcion.getFechaFin().format(DateTimeFormatter.
+                    ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale ("es","ES"))));
         }
         List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
 
@@ -122,10 +142,9 @@ public class InscripcionesController {
                 "Estimado cliente, "+ name +", su suscripción del Gimnasio 'Team Legión' Riobamba vencerá el "
                 + fechaf + ". Por favor, mantenga sus pagos y suscripciones al día."
         ).create();
-        String mensaje = "Notificación enviada con éxito";
-        flash.addFlashAttribute("success", mensaje);
         modelo.addAttribute("listaInscripcionesPV",listaInscripcionesPV);
-        return "inscripcionesPorVencer";
+        flash.addFlashAttribute("success", "SMS enviado con éxito");
+        return "redirect:/gym/inscripciones/porvencer";
     }
     @GetMapping("/formulario")
     public String mostrarFormularioInscripciones(Map<String,Object> modelo)
