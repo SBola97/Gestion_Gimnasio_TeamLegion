@@ -24,9 +24,11 @@ public interface iInscripcionesService {
 
     Page<Inscripciones> obtenerInscripcionesSort(String campo, String direccion, int pageNumber);
 
+    Page<Inscripciones> searchInscripciones(String keyword, int pageNumber);
+
     void verificarInscripcionesVencidas();
 
-    List<InscripcionesDTO> obtenerInscripcionesPorVencer();
+    Page<Inscripciones> obtenerInscripcionesPorVencer(int pageNumber);
 
     List<InscripcionesDTO> obtenerInscripcionesSinPago();
 }

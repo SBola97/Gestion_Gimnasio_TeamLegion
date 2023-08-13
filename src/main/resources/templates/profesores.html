@@ -16,15 +16,14 @@
   <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
     <main class="w-full flex-grow p-6">
       <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Profesores</h1>
-      <div class="flex justify-end">
-        <label for="table-search" class="sr-only">Buscar</label>
-        <div class="relative">
-          <div class="flex absolute inset-y-0 left-0 items-center pointer-events-none">
-            <svg class="w-5 h-5 text-gray-800" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-          </div>
-          <input type="text" id="table-search" class="block p-2 mx-10 w-60 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar miembro">
+      <form th:action="@{'/gym/personas/profesores/searchp/page/1'}" method="get" class="flex justify-end">
+        <label for="q" class="sr-only">Buscar</label>
+        <div class="relative flex">
+            <i class="fas fa-search mr-2 pt-2.5"></i>
+          <input type="search" id="q" name="q"
+                 class="block p-2 ml-2 mr-10 w-40 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar profesor">
         </div>
-      </div>
+      </form>
 
       <div class="w-full mt-8">
         <a sec:authorize="hasAuthority('Admin')" th:href="@{/gym/personas/formulariop}"><button type="button" class="text-white bg-green-500 hover:bg-green-500 hover:text-black
@@ -61,9 +60,11 @@
               <th class="text-center text-white">Nombre</th>
               <th class="text-center text-white">Apellidos</th>
               <th class="text-center text-white">Cédula</th>
-              <th class="text-center text-white">Teléfono</th>
+              <th class="text-center text-white">Teléfono(+593)</th>
               <th class="text-center text-white">Email</th>
               <th class="text-center text-white">Disciplinas</th>
+              <th class="text-center text-white">Cinturón BJJ</th>
+              <th class="text-center text-white">Cinturón KB</th>
               <th class="text-center text-white">Acciones</th>
             </tr>
             </thead>
@@ -75,6 +76,8 @@
               <td th:text="${personas.telefono}"></td>
               <td th:text="${personas.email}"></td>
               <td th:text="${personas.disciplinas.nombre}"></td>
+              <td th:text="${personas.cinturonbjj}"></td>
+              <td th:text="${personas.cinturonkb}"></td>
               <td sec:authorize="hasAuthority('Admin')">
                 <a th:href="@{/gym/personas/guardarp/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm

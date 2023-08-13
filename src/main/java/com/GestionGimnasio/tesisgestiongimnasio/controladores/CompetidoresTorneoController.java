@@ -1,10 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo_Key;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.*;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.FichaMapper;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.CompetidorTorneoService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
@@ -173,4 +170,19 @@ public class CompetidoresTorneoController {
         return "redirect:/gym/competidores/listar/page/1";
     }
 
+    @GetMapping("/search/page/{pageNumber}")
+    public String buscarCompetidores(@PathVariable("pageNumber") int currentPage, @RequestParam("nombre") String nombre,
+                                      CompetidoresTorneoDTO competidoresTorneoDTO, Model modelo)
+    {
+        Page<Competidores_Torneo> page = competidorTorneoService.searchCompetidores(nombre, currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Competidores_Torneo> competidores = page.getContent();
+        modelo.addAttribute("listaCompetidores",competidores);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
+        return "competidores";
+    }
 }

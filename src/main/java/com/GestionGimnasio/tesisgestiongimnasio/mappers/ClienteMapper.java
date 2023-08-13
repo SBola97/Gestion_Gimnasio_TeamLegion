@@ -22,7 +22,9 @@ public interface ClienteMapper {
             @Mapping(source = "edad", target = "edad"),
             @Mapping(source = "telefono", target = "telefono"),
             @Mapping(source = "peso", target = "peso"),
-            @Mapping(source = "estatura", target = "estatura")
+            @Mapping(source = "estatura", target = "estatura"),
+            @Mapping(source = "cinturonbjj", target = "cinturonbjj"),
+            @Mapping(source = "cinturonkb", target = "cinturonkb")
     })
     ClienteDTO toclienteDTO(Personas personas);
     List<ClienteDTO> toclienteDTO(List<Personas> personasList);

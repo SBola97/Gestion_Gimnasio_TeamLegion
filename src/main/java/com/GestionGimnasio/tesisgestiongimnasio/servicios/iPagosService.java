@@ -21,5 +21,7 @@ public interface iPagosService {
 
     Page<Pagos> findPagos(int pageNumber);
 
+    Page<Pagos> searchPagos(String keyword, int pageNumber);
+
     Page<Pagos> obtenerPagosSort(String campo, String direccion, int pageNumber);
 }

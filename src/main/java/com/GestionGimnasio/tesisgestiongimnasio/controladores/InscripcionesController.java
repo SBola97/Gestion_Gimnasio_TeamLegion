@@ -4,9 +4,11 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.InscripcionesDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.ModalidadesDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.TorneosDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.InscripcionesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.ModalidadesService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
@@ -64,6 +66,39 @@ public class InscripcionesController {
         return inscripcionesService.obtenerInscripcion();
     }
 
+
+    @GetMapping("/listar/page/{pageNumber}")
+    public String listarSuscripciones(@PathVariable("pageNumber") int currentPage,
+                                      @RequestParam(value = "sortDir", required = false) String sortDir,
+                                      @RequestParam(value = "campo", required = false, defaultValue = "default") String campo,
+                                      Model modelo)
+    {
+        Page<Inscripciones> page;
+
+        if ("default".equals(campo)) {
+            page = inscripcionesService.obtenerInscripciones(currentPage);
+        }
+        else {
+            page = inscripcionesService.obtenerInscripcionesSort(campo, sortDir, currentPage);
+        }
+        modelo.addAttribute("sortDir", sortDir);
+        modelo.addAttribute("campo", campo);
+        modelo.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        inscripcionesService.verificarInscripcionesVencidas();
+
+        List<Inscripciones> inscripciones = page.getContent();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+
+        modelo.addAttribute("listaInscripciones",inscripciones);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
+        return "inscripciones";
+    }
+    /*
     @GetMapping("/listar/page/{pageNumber}")
     public String listarInscripciones(@PathVariable("pageNumber") int currentPage,Model modelo)
     {
@@ -100,15 +135,21 @@ public class InscripcionesController {
         modelo.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
         return "inscripciones";
     }
-
-    @GetMapping("/porvencer")
-    public String listarInscripcionesPV(Model modelo)
+*/
+    @GetMapping("/porvencer/page/{pageNumber}")
+    public String listarInscripcionesPV(@PathVariable("pageNumber") int currentPage,Model modelo)
     {
-
+        Page<Inscripciones> page = inscripcionesService.obtenerInscripcionesPorVencer(currentPage);
+        List<Inscripciones> inscripcionespv = page.getContent();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
         //List<Inscripciones> listaInscripciones = mapper.toInscripciones((List<InscripcionesDTO>)inscripcionesService.obtenerInscripcion());
-        List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
+        //List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
         //modelo.addAttribute("personas",personas);
-        modelo.addAttribute("listaInscripcionesPV",listaInscripcionesPV);
+        modelo.addAttribute("listaInscripcionesPV",inscripcionespv);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
 
         return "inscripcionesPorVencer";
     }
@@ -129,7 +170,7 @@ public class InscripcionesController {
             fechaf = String.valueOf(inscripcion.getFechaFin().format(DateTimeFormatter.
                     ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale ("es","ES"))));
         }
-        List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
+        //List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
 
         final String ACCOUNT_SID = "AC6b2e5744962cbc52c19f965447264b02";
         final String AUTH_TOKEN = "9c554e988f7b980ef814fb5cb75f35b8";
@@ -142,10 +183,11 @@ public class InscripcionesController {
                 "Estimado cliente, "+ name +", su suscripción del Gimnasio 'Team Legión' Riobamba vencerá el "
                 + fechaf + ". Por favor, mantenga sus pagos y suscripciones al día."
         ).create();
-        modelo.addAttribute("listaInscripcionesPV",listaInscripcionesPV);
+        //modelo.addAttribute("listaInscripcionesPV",listaInscripcionesPV);
         flash.addFlashAttribute("success", "SMS enviado con éxito");
         return "redirect:/gym/inscripciones/porvencer";
     }
+
     @GetMapping("/formulario")
     public String mostrarFormularioInscripciones(Map<String,Object> modelo)
     {
@@ -174,7 +216,7 @@ public class InscripcionesController {
         modelo.addAttribute("inscripciones",inscripcionesDTO);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/inscripciones/listar/page/1";
+        return "redirect:/gym/inscripciones/listar/page/1?sortDir=null&campo=default";
     }
 
     @GetMapping("/guardar/{idInscripcion}")
@@ -212,7 +254,24 @@ public class InscripcionesController {
             inscripcionesService.eliminarInscripcion(idI);
             flash.addFlashAttribute("success","Inscripción eliminada con éxito");
         }
-        return "redirect:/gym/inscripciones/listar/page/1";
+        return "redirect:/gym/inscripciones/listar/page/1?sortDir=null&campo=default";
+    }
+
+    @GetMapping("/search/page/{pageNumber}")
+    public String buscarSuscripciones(@PathVariable("pageNumber") int currentPage, @RequestParam("nombre") String nombre,
+                                InscripcionesDTO inscripcionesDTO, Model modelo)
+    {
+        Page<Inscripciones> page = inscripcionesService.searchInscripciones(nombre, currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Inscripciones> inscripciones = page.getContent();
+        inscripcionesService.verificarInscripcionesVencidas();
+        modelo.addAttribute("listaInscripciones",inscripciones);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
+        return "inscripciones";
     }
 
 }

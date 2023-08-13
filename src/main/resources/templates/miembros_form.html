@@ -20,12 +20,14 @@
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
                     <div>
                         <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-                        <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese su nombre" required>
+                        <input type="text" id="nombre" th:field="*{nombre}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese su nombre" required
+                        pattern="^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$">
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
                     </div>
                     <div>
                         <label for="apellidos" class="block mb-2 text-sm font-medium text-gray-900">Apellidos</label>
-                        <input type="text" id="apellidos" th:field="*{apellidos}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese sus apellidos" required>
+                        <input type="text" id="apellidos" th:field="*{apellidos}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese sus apellidos" required
+                               pattern="^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$">
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"  th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></small>
                     </div>
                     <div>
@@ -45,8 +47,17 @@
                     </div>
                     <div>
                         <label for="telefono" class="block mb-2 text-sm font-medium text-gray-900">Teléfono</label>
-                        <input type="tel" id="telefono" th:field="*{telefono}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Número telefónico" required>
+                        <input type="tel" id="telefono" th:field="*{telefono}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Número telefónico (+593)" required
+                        maxlength="9">
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
+                        <script>
+                        const phoneInput = document.getElementById("telefono");
+                        phoneInput.addEventListener("input", function(event) {
+                            const inputValue = event.target.value;
+                            const formattedValue = inputValue.replace(/^0/, ""); // Remove leading zero
+                            event.target.value = formattedValue;
+                        });
+                        </script>
                     </div>
                     <div>
                         <label for="peso" class="block mb-2 text-sm font-medium text-gray-900">Peso</label>
@@ -57,6 +68,55 @@
                         <label for="estatura" class="block mb-2 text-sm font-medium text-gray-900">Estatura</label>
                         <input type="number" step="0.1" min="120" max="210" id="estatura" th:field="*{estatura}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Estatura" required>
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"   th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}"></small>
+                    </div>
+                    <!--Div y Select para cinturones de BJJ-->
+                    <div>
+                        <label for="cinturonbjj" class="block mb-2 text-sm font-medium text-gray-900">Cinturón BJJ</label>
+                        <div class="grid grid-cols-2">
+                        <select id="cinturonbjj" class="p-1.5 bg-gray-400 mb-4 mr-2 rounded-lg focus:border-blue-500 focus:outline-none w-full"
+                                th:field="*{cinturonbjj}">
+                            <option value="Blanco">Blanco</option>
+                            <option value="Gris blanco">Gris blanco</option>
+                            <option value="Gris">Gris</option>
+                            <option value="Gris negro">Gris negro</option>
+                            <option value="Amarillo blanco">Amarillo blanco</option>
+                            <option value="Amarillo">Amarillo</option>
+                            <option value="Amarillo negro">Amarillo negro</option>
+                            <option value="Naranja blanco">Naranja blanco</option>
+                            <option value="Naranja">Naranja</option>
+                            <option value="Naranja negro">Naranja negro</option>
+                            <option value="Verde blanco">Verde blanco</option>
+                            <option value="Verde">Verde</option>
+                            <option value="Verde negro">Verde negro</option>
+                            <option value="Azul">Azul</option>
+                            <option value="Púrpura">Púrpura</option>
+                            <option value="Marrón">Marrón</option>
+                            <option value="Negro">Negro</option>
+                        </select>
+                        <select id="gradosbjj" class="p-1.5 bg-gray-400 mb-4 ml-2 rounded-lg focus:border-blue-500 focus:outline-none w-full"
+                                th:field="*{gradosbjj}">
+                            <option value="">Sin grados</option>
+                            <option value="1 grado">1 grado</option>
+                            <option value="2 grados">2 grados</option>
+                            <option value="3 grados">3 grados</option>
+                            <option value="4 grados">4 grados</option>
+                        </select>
+                        </div>
+                    </div>
+                    <!--Div y Select para cinturones de KB-->
+                    <div>
+                        <label for="cinturonkb" class="block mb-2 text-sm font-medium text-gray-900">Cinturón KB</label>
+                        <select id="cinturonkb" class="p-1.5 bg-gray-400 mb-4 focus:border-blue-500 focus:outline-none w-full"
+                                th:field="*{cinturonkb}">
+                            <option value="Blanco">Blanco</option>
+                            <option value="Amarillo">Amarillo</option>
+                            <option value="Naranja">Naranja</option>
+                            <option value="Verde">Verde</option>
+                            <option value="Azul">Azul</option>
+                            <option value="Púrpura">Púrpura</option>
+                            <option value="Marrón">Marrón</option>
+                            <option value="Negro">Negro</option>
+                        </select>
                     </div>
                 </div>
                 <button type="submit" class="text-white bg-green-500 hover:bg-green-600 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Registrar

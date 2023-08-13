@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/64d16c7608.js" crossorigin="anonymous"></script>
+</head>
+<div class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat">
+    <div class="rounded-xl bg-gray-800 text-center bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
+        <div class="text-white flex items-center justify-center">
+            <img th:src="@{/svgs/no-found.png}" class="mx-4 mb-4 mt-2 h-24 w-24 items-center justify-center" alt="No encontrado"/>
+            El usuario al que desea realizar un cambio de contraseña no se ha encontrado.
+        </div>
+        <a class="text-gray-400 font-semibold text-md hover:text-blue-400" th:href="@{/login}">
+            Volver al inicio</a>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+</html>

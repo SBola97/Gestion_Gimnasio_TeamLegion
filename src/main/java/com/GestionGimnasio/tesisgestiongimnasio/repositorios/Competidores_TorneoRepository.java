@@ -2,6 +2,8 @@ package com.GestionGimnasio.tesisgestiongimnasio.repositorios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Competidores_Torneo_Key;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +20,7 @@ public interface Competidores_TorneoRepository extends JpaRepository<Competidore
 
     @Query(value = "SELECT count(DISTINCT ct.id_persona) from competidores_torneo as ct ",nativeQuery = true)
     public int countCompetidores();
+
+    @Query(value = "SELECT * FROM competidores_torneo as cp inner join personas as p on cp.id_persona = p.id_persona where (concat(p.nombre, ' ', p.apellidos) like %:keyword%)", nativeQuery = true)
+    Page<Competidores_Torneo> searchCompetidorByName(String keyword, Pageable pageable);
 }

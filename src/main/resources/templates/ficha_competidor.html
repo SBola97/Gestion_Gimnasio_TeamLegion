@@ -31,11 +31,17 @@
                                         <span th:object="${competidor}"
                                               th:text="${competidor.nombre}+' '+${competidor.apellidos}"></span>
                                         <br>
-                                        <span class="font-semibold">Edad:</span>
-                                        <span th:text="${competidor.edad}+' años'"></span>
+                                        <span th:if="${competidor.idRol == 2}" class="font-semibold">Edad:</span>
+                                        <span th:if="${competidor.idRol == 2}" th:text="${competidor.edad}+' años'"></span>
+                                        <br th:if="${competidor.idRol == 2}">
+                                        <span th:if="${competidor.idRol == 2}" class="font-semibold">Estatura:</span>
+                                        <span th:if="${competidor.idRol == 2}" th:text="${competidor.estatura}+' cm'"></span>
+                                        <br th:if="${competidor.idRol == 2}">
+                                        <span class="font-semibold">Cinturón BJJ:</span>
+                                        <span th:text="${competidor.cinturonbjj}"></span>
                                         <br>
-                                        <span class="font-semibold">Estatura:</span>
-                                        <span th:text="${competidor.estatura}+' cm'"></span>
+                                        <span class="font-semibold">Cinturón KB:</span>
+                                        <span th:text="${competidor.cinturonkb}"></span>
                                     </li>
                                 </ul>
                             </div>

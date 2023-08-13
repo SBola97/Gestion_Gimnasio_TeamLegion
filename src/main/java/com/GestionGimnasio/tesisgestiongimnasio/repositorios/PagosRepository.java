@@ -1,6 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.repositorios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Pagos;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,5 +38,7 @@ public interface PagosRepository extends JpaRepository<Pagos,Integer> {
 
     public Optional<Pagos> findPagosByInscripcionesIdInscripcion(int id);
 
+    @Query(value = "SELECT * FROM pagos as p inner join inscripciones as i on p.id_inscripcion = i.id_inscripcion INNER JOIN personas as pe on i.id_persona = pe.id_persona where (concat(pe.nombre, ' ', pe.apellidos) like %:keyword%)", nativeQuery = true)
+    Page<Pagos> searchPagosByNameOrLastName(String keyword, Pageable pageable);
 
 }

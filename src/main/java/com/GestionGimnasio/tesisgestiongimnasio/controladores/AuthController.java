@@ -2,6 +2,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.LoginDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.PersonasDTO;
+import com.GestionGimnasio.tesisgestiongimnasio.dto.ResetPasswordDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.UsuariosDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Usuarios;
 import com.GestionGimnasio.tesisgestiongimnasio.mappers.UsuarioMapper;
@@ -29,7 +30,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.security.SecureRandom;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
+import java.util.Base64;
+import java.util.Date;
 
 @Controller
 @CrossOrigin(origins = "*")
@@ -72,8 +79,25 @@ public class AuthController {
         return new ResponseEntity<>(usuariosService.ingresarUsuario(usuariosDTO), HttpStatus.CREATED);
     }
     @GetMapping("/login")
-    public String login()
+    public String login(Model model, HttpSession session)
     {
+        int cont = usuariosService.getIntentosDisponibles(session);
+        LocalDateTime lockout = usuariosService.getTime(session);
+
+        if(lockout != null && LocalDateTime.now().isAfter(lockout))
+        {
+            session.setAttribute("contIntentos",0);
+            session.removeAttribute("lockout");
+        }
+        
+        String lockoutf = lockout != null ? lockout.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) : null;
+
+        System.out.println("Intentos disponibles:"+ cont);
+        System.out.println("Tiempo penalizado:"+lockout);
+        System.out.println("Hora actual: "+LocalDateTime.now());
+
+        model.addAttribute("lockout",lockoutf);
+        model.addAttribute("contIntentos",cont);
         /*
         LoginDTO loginDTO = new LoginDTO();
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken
@@ -107,17 +131,20 @@ public class AuthController {
 
 
     @PostMapping("/autenticar")
-    public String autenticar(@Valid LoginDTO loginDTO, BindingResult result)
-    {
+    public String autenticar(@Valid LoginDTO loginDTO, BindingResult result, Model modelo, HttpSession session){
         if(result.hasErrors())
         {
             return "Error de logueo";
         }
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken
-                (loginDTO.getUsername(),loginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        usuariosService.verificarIntentos(loginDTO);
+        int intentos = usuariosService.getIntentosDisponibles(session);
+        modelo.addAttribute("intentos",intentos);
+            /*Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken
+                    (loginDTO.getUsername(), loginDTO.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);*/
         return "index";
     }
+
 
     @GetMapping("/logout")
     public String fetchSignoutSite(HttpServletRequest request, HttpServletResponse response) {
@@ -129,5 +156,25 @@ public class AuthController {
         return "redirect:/login?logout";
     }
 
+    @GetMapping("/forgotPassword")
+    public String forgotPassword(Model modelo)
+    {
+        UsuariosDTO usuariosDTO = new UsuariosDTO();
+        modelo.addAttribute("resetPassword", usuariosDTO);
+        return "forgotPassword";
+    }
 
+    @PostMapping("/resetPassword")
+    public String resetPassword(@Valid @ModelAttribute("resetPassword") UsuariosDTO usuariosDTO, Model modelo)
+    {
+        try {
+            modelo.addAttribute("resetPassword", usuariosDTO);
+            usuariosService.resetPassword(usuariosDTO.getNombreUsuario(), usuariosDTO.getContraseña());
+            return "redirect:/login";
+        }
+        catch(RuntimeException e)
+        {
+            return "usuarioNoEncontrado";
+        }
+    }
 }

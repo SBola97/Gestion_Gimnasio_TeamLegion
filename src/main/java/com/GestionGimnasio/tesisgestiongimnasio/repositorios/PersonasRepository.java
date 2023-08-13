@@ -37,4 +37,16 @@ public interface PersonasRepository extends JpaRepository<Personas,Integer> {
     nativeQuery = true)
     public List<Personas> personasSinUser();
 
+    //Page<Personas> findByNombreStartingWith(String nombre, Pageable page);
+    Page<Personas> findByNombreStartingWithAndApellidosStartingWith(String nombre, String apellidos, Pageable page);
+
+    @Query(value = "SELECT * FROM personas as p where p.id_rol = '2' and ((concat(p.nombre, ' ', p.apellidos) like %:keyword%))", nativeQuery = true)
+    Page<Personas> findClientesbyNameOrLastName(String keyword, Pageable page);
+
+    @Query(value = "SELECT * FROM personas as p where p.id_rol = '3' and ((concat(p.nombre, ' ', p.apellidos) like %:keyword%))", nativeQuery = true)
+    Page<Personas> findProfesoresbyNameOrLastName(String keyword, Pageable page);
+
+
+
+
 }

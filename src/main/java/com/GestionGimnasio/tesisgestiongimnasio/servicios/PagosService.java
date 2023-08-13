@@ -105,6 +105,13 @@ public class PagosService implements iPagosService {
         return pagos;
     }
 
+    @Override
+    public Page<Pagos> searchPagos(String keyword, int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber-1,5);
+        return pagosRepository.searchPagosByNameOrLastName(keyword,pageable);
+    }
+
 
     @Override
     public Page<Pagos> obtenerPagosSort(String campo, String direccion, int pageNumber)

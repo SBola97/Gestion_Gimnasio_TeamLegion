@@ -1,6 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Usuarios;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.UsuariosService;
@@ -123,5 +124,22 @@ public class UsuariosController {
             flash.addFlashAttribute("success","Usuario eliminado con éxito");
         }
         return "redirect:/gym/usuarios/listar/page/1";
+    }
+
+
+    @GetMapping("/search/page/{pageNumber}")
+    public String buscarUsuarios(@PathVariable("pageNumber") int currentPage, @RequestParam("nombre") String nombre,
+                                      UsuariosDTO usuariosDTO, Model modelo)
+    {
+        Page<Usuarios> page = usuariosService.searchUsuarios(nombre, currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Usuarios> usuarios = page.getContent();
+        modelo.addAttribute("listaUsuarios", usuarios);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
+        return "usuarios";
     }
 }

@@ -38,20 +38,25 @@
                         </thead>
                         <tbody class="text-gray-700 divide-y">
                         <tr th:each="inscripciones : ${listaInscripcionesPV}">
-                            <td th:text="${inscripciones.nombre} +' '+${inscripciones.apellidos}"></td>
+                            <td th:text="${inscripciones.personas.nombre} +' '+${inscripciones.personas.apellidos}"></td>
                             <td th:text="${inscripciones.fechaInicio}"></td>
-                            <td class="bg-red-300 font-semibold" th:text="${inscripciones.fechaFin}"></td>
-                            <td>
-                                <a sec:authorize="hasAuthority('Admin')" th:href="@{/gym/inscripciones/notificar/} + ${inscripciones.idInscripcion}"><button
-                                        type="button" class="text-black-alt text-center align-middle content-center bg-green-400 hover:bg-green-700 hover:text-white
-                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-md
-                            px-5 py-3 mr-2 mb-2 mt-2">
-                                    <i class="fas fa-2x fa-sms mr-2"></i>
-                                    Notificar</button></a>
+                            <td class="text-red-500 font-bold" th:text="${inscripciones.fechaFin}"></td>
+                            <td class="justify-center flex">
+                                <a sec:authorize="hasAuthority('Admin')" th:href="@{/gym/inscripciones/notificar/} + ${inscripciones.idInscripcion}">
+                                    <button
+                                        type="button" class="text-black-alt text-center align-middle content-center
+                                        bg-green-400 hover:bg-green-700 hover:text-white
+                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-semibold rounded-lg text-md
+                            px-5 py-3 mr-2 mb-2 mt-2 flex items-center">
+                                        <img class="w-10 h-10" th:src="@{/svgs/sms.png}"/>
+                                    Notificar
+                                    </button>
+                                </a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <nav th:replace="layout/pag-nav :: paginator"></nav>
                 </div>
             </div>
 

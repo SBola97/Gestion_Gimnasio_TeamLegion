@@ -124,4 +124,21 @@ public class TorneosController {
         return "redirect:/gym/torneos/listar/page/1";
     }
 
+    @GetMapping("/search/page/{pageNumber}")
+    public String buscarTorneos(@PathVariable("pageNumber") int currentPage, @RequestParam("nombre") String nombre,
+                                TorneosDTO torneosDTO,Model modelo)
+    {
+        Page<Torneos> page = torneosService.searchTorneos(nombre, currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Torneos> torneos = page.getContent();
+        modelo.addAttribute("listaTorneos",torneos);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
+        return "torneos";
+    }
+
+
 }

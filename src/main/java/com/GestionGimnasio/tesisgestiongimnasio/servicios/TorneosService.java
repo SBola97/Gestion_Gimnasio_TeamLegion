@@ -67,5 +67,10 @@ public class TorneosService implements iTorneosService {
         return torneos;
     }
 
-
+    @Override
+    public Page<Torneos> searchTorneos(String nombre, int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber-1,5);
+        return torneosRepository.findByNombreStartingWith(nombre,pageable);
+    }
 }

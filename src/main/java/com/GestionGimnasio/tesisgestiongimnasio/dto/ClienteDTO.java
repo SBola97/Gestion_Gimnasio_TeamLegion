@@ -22,19 +22,19 @@ public class ClienteDTO {
     @NotNull(message = "El campo cedula es requerido")
     private String cedula;
 
-
     @Email
     private String email;
-
 
     private int edad;
 
     @NotNull(message = "El campo telefono es requerido")
     private String telefono;
 
-
     private float peso;
 
-
     private float estatura;
+
+    private String cinturonbjj;
+
+    private String cinturonkb;
 }
