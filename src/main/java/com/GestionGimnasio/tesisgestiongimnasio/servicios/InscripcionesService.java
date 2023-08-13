@@ -114,6 +114,13 @@ public class InscripcionesService implements iInscripcionesService{
     }
 
     @Override
+    public Page<Inscripciones> searchInscripciones(String keyword, int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber-1,5);
+        return inscripcionesRepository.searchSuscripcionesByNameOrLastName(keyword,pageable);
+    }
+
+    @Override
     public void verificarInscripcionesVencidas()
     {
         List<Inscripciones> listI = inscripcionesRepository.findAll();
@@ -131,9 +138,10 @@ public class InscripcionesService implements iInscripcionesService{
     }
 
     @Override
-    public List<InscripcionesDTO> obtenerInscripcionesPorVencer()
+    public Page<Inscripciones> obtenerInscripcionesPorVencer(int pageNumber)
     {
-        return mapper.toInscripcionesDTO((List<Inscripciones>)inscripcionesRepository.findInscripcionesByFechaFin());
+        Pageable pageable = PageRequest.of(pageNumber -1,5);
+        return inscripcionesRepository.findInscripcionesByFechaFin(pageable);
     }
 
     @Override

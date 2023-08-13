@@ -20,7 +20,9 @@ public interface ProfesorMapper {
             @Mapping(source = "email", target = "email"),
             @Mapping(source = "roles.idRol", target="idRol"),
             @Mapping(source = "disciplinas.idDisciplina", target = "idDisciplina"),
-            @Mapping(source = "telefono", target = "telefono")
+            @Mapping(source = "telefono", target = "telefono"),
+            @Mapping(source = "cinturonbjj", target = "cinturonbjj"),
+            @Mapping(source = "cinturonkb", target = "cinturonkb")
     })
     ProfesorDTO toprofesorDTO (Personas personas);
     List<ProfesorDTO> toprofesorDTO(List<Personas> personasList);

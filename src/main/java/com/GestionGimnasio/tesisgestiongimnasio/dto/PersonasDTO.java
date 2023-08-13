@@ -22,10 +22,8 @@ public class PersonasDTO {
     @NotNull(message = "El campo cedula es requerido")
     private String cedula;
 
-
     @Email
     private String email;
-
 
     private int edad;
 
@@ -38,6 +36,10 @@ public class PersonasDTO {
 
     private int idRol;
 
+    private String cinturonbjj;
 
+    private String gradosbjj;
+
+    private String cinturonkb;
 
 }

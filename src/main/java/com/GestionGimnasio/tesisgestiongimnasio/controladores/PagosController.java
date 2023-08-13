@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.annotation.Nullable;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.util.List;
@@ -53,6 +54,39 @@ public class PagosController {
         return pagosService.obtenerPagos();
 
     }
+
+    @GetMapping("/listar/page/{pageNumber}")
+    public String listarPagos(@PathVariable("pageNumber") int currentPage,
+                              @RequestParam(value = "sortDir", required = false) String sortDir,
+                              @RequestParam(value = "campo", required = false, defaultValue = "default") String campo,
+                              Model modelo) {
+        Page<Pagos> page;
+
+        if ("default".equals(campo)) {
+            page = pagosService.findPagos(currentPage);
+        }
+        else {
+            page = pagosService.obtenerPagosSort(campo, sortDir, currentPage);
+        }
+
+        modelo.addAttribute("sortDir", sortDir);
+        modelo.addAttribute("campo", campo);
+        modelo.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        List<Pagos> pagos = page.getContent();
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+
+        modelo.addAttribute("listaPagos", pagos);
+        modelo.addAttribute("currentPage", currentPage);
+        modelo.addAttribute("totalPages", totalPages);
+        modelo.addAttribute("totalItems", totalItems);
+
+        return "pagos";
+    }
+
+
+    /*
     @GetMapping("/listar/page/{pageNumber}")
     public String listarPagos(@PathVariable("pageNumber") int currentPage, Model modelo)
     {
@@ -67,9 +101,10 @@ public class PagosController {
         modelo.addAttribute("totalItems",totalItems);
         return "pagos";
     }
+
     @GetMapping("/listar/page/{pageNumber}/{campo}")
-    public String listarPagosOrd(@PathVariable("pageNumber") int currentPage, Model modelo, @PathVariable
-    String campo, @PathParam("sortDir") String sortDir)
+    public String listarPagosOrd(@PathVariable("pageNumber") int currentPage, Model modelo,
+                                 @PathVariable String campo, @RequestParam("sortDir") String sortDir)
     {
         Page<Pagos> page = pagosService.obtenerPagosSort(campo,sortDir, currentPage);
         List<Pagos> pagos = page.getContent();
@@ -82,7 +117,7 @@ public class PagosController {
         modelo.addAttribute("sortDir",sortDir);
         modelo.addAttribute("reverseSortDir",sortDir.equals("asc")?"desc":"asc");
         return "pagos";
-    }
+    }*/
 
     @GetMapping("/formulario")
     public String mostrarFormularioPagos(Map<String,Object> modelo)
@@ -152,6 +187,22 @@ public class PagosController {
             flash.addFlashAttribute("success","Pago eliminado con éxito");
         }
         return "redirect:/gym/pagos/listar/page/1";
+    }
+
+    @GetMapping("/search/page/{pageNumber}")
+    public String buscarPagos(@PathVariable("pageNumber") int currentPage, @RequestParam("nombre") String nombre,
+                                      PagosDTO pagosDTO, Model modelo)
+    {
+        Page<Pagos> page = pagosService.searchPagos(nombre, currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Pagos> pagos = page.getContent();
+        modelo.addAttribute("listaPagos",pagos);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
+        return "pagos";
     }
 
 }

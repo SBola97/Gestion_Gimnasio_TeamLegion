@@ -33,4 +33,10 @@ public class ProfesorDTO {
     @NotNull(message = "El campo telefono es requerido")
     private String telefono;
 
+    private String cinturonbjj;
+
+    private String gradosbjj;
+
+    private String cinturonkb;
+
 }

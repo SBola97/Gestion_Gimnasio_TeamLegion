@@ -20,7 +20,8 @@
                 <div class="grid gap-6 mb-6 md:grid-cols-1">
                     <div>
                         <label for="nombreUsuario" class="block mb-2 text-sm font-medium text-gray-900">Nombre de Usuario</label>
-                        <input type="text" id="nombreUsuario" th:field="*{nombreUsuario}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 placeholder:text-gray-500" placeholder="Ingrese su nombre de usuario" required>
+                        <input type="text" id="nombreUsuario" th:field="*{nombreUsuario}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 placeholder:text-gray-500" placeholder="Ingrese su nombre de usuario" required
+                        pattern="^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$">
                         <small class="bg-red-300 p-2.5 mb-4 rounded-lg"    th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></small>
                     </div>
                     <div>

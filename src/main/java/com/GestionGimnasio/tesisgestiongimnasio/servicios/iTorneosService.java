@@ -3,6 +3,7 @@ package com.GestionGimnasio.tesisgestiongimnasio.servicios;
 import com.GestionGimnasio.tesisgestiongimnasio.dto.TorneosDTO;
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Torneos;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface iTorneosService {
     List<TorneosDTO> obtenerTorneos();
 
     Page<Torneos> listarTorneos(int pageNumber);
+
+    Page<Torneos> searchTorneos(String nombre, int page);
 }

@@ -4,40 +4,46 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <nav th:fragment="paginator">
-        <ul class="inline-flex space-x-2.5 p-2 bg-gray-300">
-            <li>
-                <a class="hover:text-blue-600 hover:font-semibold hover:underline" th:if="${currentPage > 1}" th:href="@{1}">Primera</a>
-                <span th:unless="${currentPage > 1}">Primera</span>
-            </li>
-            <li>
-                <a class="hover:text-blue-600 hover:font-semibold hover:underline"  th:if="${currentPage > 1}" th:href="@{${currentPage - 1}}">
-                    <i class="fas fa-angle-double-left"></i>
-                </a>
-                <span th:unless="${currentPage > 1}">
+<nav th:fragment="paginator">
+    <ul class="inline-flex space-x-2.5 p-2 bg-gray-300">
+        <li>
+            <a class="hover:text-blue-600 hover:font-semibold hover:underline" th:if="${currentPage > 1}"
+               th:href="@{|1?sortDir=${sortDir}&campo=${campo}|}">Primera</a>
+            <span th:unless="${currentPage > 1}">Primera</span>
+        </li>
+        <li>
+            <a class="hover:text-blue-600 hover:font-semibold hover:underline"  th:if="${currentPage > 1}"
+               th:href="@{|${currentPage - 1}?sortDir=${sortDir}&campo=${campo}|}">
+                <i class="fas fa-angle-double-left"></i>
+            </a>
+            <span th:unless="${currentPage > 1}">
                     <i class="fas fa-angle-double-left"></i>
                 </span>
-            </li>
-            <li>
+        </li>
+        <li>
                 <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <a class="hover:text-blue-700 hover:font-semibold hover:underline"  th:if="${i != currentPage}" th:href="@{${i}}">[[${i}]]</a>
+                    <a class="hover:text-blue-700 hover:font-semibold hover:underline"
+                       th:if="${i != currentPage}"
+                       th:href="@{|${i}?sortDir=${sortDir}&campo=${campo}|}">[[${i}]]</a>
                     <span th:unless="${i != currentPage}">[[${i}]]</span>
                 </span>
-            </li>
-            <li>
-                <a class="hover:text-blue-600 hover:font-semibold hover:underline"  th:if="${currentPage < totalPages}" th:href="@{${currentPage + 1}}">
-                    <i class="fas fa-angle-double-right"></i>
-                </a>
-                <span th:unless="${currentPage < totalPages}">
+        </li>
+        <li>
+            <a class="hover:text-blue-600 hover:font-semibold hover:underline"  th:if="${currentPage < totalPages}"
+               th:href="@{|${currentPage + 1}?sortDir=${sortDir}&campo=${campo}|}">
+                <i class="fas fa-angle-double-right"></i>
+            </a>
+            <span th:unless="${currentPage < totalPages}">
                     <i class="fas fa-angle-double-right"></i>
                 </span>
-            </li>
-            <li>
-                <a class="hover:text-blue-600 hover:font-semibold hover:underline" th:if="${currentPage < totalPages}" th:href="@{${totalPages}}">Última</a>
-                <span th:unless="${currentPage < totalPages}">Última</span>
-            </li>
-        </ul>
-    </nav>
+        </li>
+        <li>
+            <a class="hover:text-blue-600 hover:font-semibold hover:underline" th:if="${currentPage < totalPages}"
+               th:href="@{|${totalPages}?sortDir=${sortDir}&campo=${campo}|}">Última</a>
+            <span th:unless="${currentPage < totalPages}">Última</span>
+        </li>
+    </ul>
+</nav>
 </body>
 
 </html>

@@ -139,6 +139,13 @@ public class ReporteService {
         }
         return reporteGanancias;
         }
+    public String getMonthName(int mes) {
+        String[] months = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        if (mes >= 1 && mes <= 12) {
+            return months[mes - 1];
+        }
+        return "Desconocido";
+    }
 
     }
 

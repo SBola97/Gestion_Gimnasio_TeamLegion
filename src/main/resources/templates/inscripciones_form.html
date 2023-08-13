@@ -14,7 +14,7 @@
 
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6">Registro de inscripción</h1>
+            <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6">Registro de suscripción</h1>
             <form th:action="@{/gym/inscripciones/guardar}" th:object="${inscripciones}" method="post">
                 <input type="hidden" th:field="*{idInscripcion}" th:value="${inscripciones.idInscripcion}"/>
                 <div class="grid gap-6 mb-6 mx-20 md:grid-cols-1">
@@ -29,13 +29,6 @@
                         <small th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}"></small>
                     </div>
                     <div>
-                        <label for="estado" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
-                         <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" th:field="*{estado}" id="estado">
-                             <option value="Activa">Activa</option>
-                             <option value="Vencida">Vencida</option>
-                         </select>
-                    </div>
-                    <div>
                         <label for="suscriptor" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor/a</label>
                         <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idPersona}" required>
                             <th:block th:each="personas : ${listaPersonas}">
@@ -43,12 +36,19 @@
                             </th:block>
                         </select>
                     </div>
-                    <div class="mb-6">
+                    <div>
                         <label for="modalidad" class="block mb-2 text-sm font-medium text-gray-900">Modalidad</label>
                         <select class="p-1.5 w-full bg-gray-400 focus:border-blue-500 focus:outline-none" id="modalidad" th:field="*{modalidades.idModalidad}" required>
                             <th:block th:each="modalidades : ${listaModalidades}">
                                 <option th:text="${modalidades.nombre} +' ('+${modalidades.tipo} +')'" th:value="${modalidades.idModalidad}"></option>
                             </th:block>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="estado" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
+                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" th:field="*{estado}" id="estado">
+                            <option value="Activa">Activa</option>
+                            <option value="Vencida">Vencida</option>
                         </select>
                     </div>
                 </div>

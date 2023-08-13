@@ -26,4 +26,6 @@ public interface iCompetidoresTorneoService {
 
 
     Page<Competidores_Torneo> listarCompetidoresTorneo(int pageNumber);
+
+    Page<Competidores_Torneo> searchCompetidores(String keyword, int pageNumber);
 }

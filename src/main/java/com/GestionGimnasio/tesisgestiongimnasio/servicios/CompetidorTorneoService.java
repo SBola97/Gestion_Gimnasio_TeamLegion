@@ -94,4 +94,11 @@ public class CompetidorTorneoService implements iCompetidoresTorneoService{
         Page<Competidores_Torneo> competidores_torneo = competidores_torneoRepository.findAll(pageable);
         return competidores_torneo;
     }
+
+    @Override
+    public Page<Competidores_Torneo> searchCompetidores(String keyword, int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber-1,5);
+        return competidores_torneoRepository.searchCompetidorByName(keyword,pageable);
+    }
 }

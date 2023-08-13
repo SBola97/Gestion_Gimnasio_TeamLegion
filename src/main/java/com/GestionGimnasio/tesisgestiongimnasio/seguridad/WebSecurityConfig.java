@@ -26,6 +26,9 @@ public class WebSecurityConfig{
     @Autowired
     private CustomUserService userDetailService;
 
+    @Autowired
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
@@ -52,16 +55,37 @@ public class WebSecurityConfig{
         return http.build();
 
          */
-
+        /* Correcta, conservar
         http
                 .authorizeRequests().antMatchers("/*.css", "/*.js", "/svgs/**").permitAll()
                 .and()
                 .authorizeRequests().anyRequest().authenticated()
-                .and().formLogin()
+                .and()
+                .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/autenticar")
                 .usernameParameter("name").passwordParameter("contraseña")
                 .defaultSuccessUrl("/index",true).permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID");
+        return http.build();
+        */
+        http
+                .authorizeRequests().antMatchers("/*.css", "/*.js", "/svgs/**").permitAll()
+                .and()
+                .authorizeRequests().antMatchers("/forgotPassword","/resetPassword").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/autenticar")
+                .usernameParameter("name").passwordParameter("contraseña")
+                .defaultSuccessUrl("/index",true).permitAll()
+                .failureHandler(authenticationFailureHandler)
                 .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")

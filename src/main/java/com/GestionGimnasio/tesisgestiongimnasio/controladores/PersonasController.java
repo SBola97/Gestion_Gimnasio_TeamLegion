@@ -1,10 +1,7 @@
 package com.GestionGimnasio.tesisgestiongimnasio.controladores;
 
 import com.GestionGimnasio.tesisgestiongimnasio.dto.*;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Disciplinas;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Personas;
-import com.GestionGimnasio.tesisgestiongimnasio.entidades.Roles;
+import com.GestionGimnasio.tesisgestiongimnasio.entidades.*;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.DisciplinasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.PersonasService;
 import com.GestionGimnasio.tesisgestiongimnasio.servicios.RolesService;
@@ -87,6 +84,24 @@ public class PersonasController {
         return "miembros";
     }
 
+    @GetMapping("/search/page/{pageNumber}")
+    public String buscarMiembros(@PathVariable("pageNumber") int currentPage, @RequestParam("q") String searchTerm,
+                                PersonasDTO personasDTO,Model modelo)
+    {
+        Page<Personas> page = personasService.searchPersonas(searchTerm,currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Personas> personas = page.getContent();
+        modelo.addAttribute("listaPersonas",personas);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
+        return "miembros";
+    }
+
+
+
     @GetMapping("/clientes/page/{pageNumber}")
     public String listarClientes(@PathVariable("pageNumber") int currentPage, Model modelo)
     {
@@ -98,6 +113,23 @@ public class PersonasController {
         modelo.addAttribute("currentPage",currentPage);
         modelo.addAttribute("totalPages",totalPages);
         modelo.addAttribute("totalItems",totalItems);
+        return "clientes";
+    }
+
+
+    @GetMapping("/clientes/searchc/page/{pageNumber}")
+    public String buscarClientes(@PathVariable("pageNumber") int currentPage, @RequestParam("q") String searchTerm,
+                                 PersonasDTO personasDTO,Model modelo)
+    {
+        Page<Personas> page = personasService.searchClientes(searchTerm,currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Personas> personas = page.getContent();
+        modelo.addAttribute("listaClientes",personas);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
         return "clientes";
     }
 
@@ -116,15 +148,31 @@ public class PersonasController {
         return "profesores";
     }
 
+    @GetMapping("/profesores/searchp/page/{pageNumber}")
+    public String buscarProfesores(@PathVariable("pageNumber") int currentPage, @RequestParam("q") String searchTerm,
+                                 PersonasDTO personasDTO,Model modelo)
+    {
+        Page<Personas> page = personasService.searchProfesores(searchTerm,currentPage);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<Personas> personas = page.getContent();
+        modelo.addAttribute("listaProfesores",personas);
+        modelo.addAttribute("currentPage",currentPage);
+        modelo.addAttribute("totalPages",totalPages);
+        modelo.addAttribute("totalItems",totalItems);
+
+        return "profesores";
+    }
+
 
     @GetMapping("/formulario")
     public String mostrarFormularioPersonas(Map<String,Object> modelo)
     {
-        Personas personas = new Personas();
+        PersonasDTO personas = new PersonasDTO();
         List<Roles> listaRoles = rolesService.getRoles();
         modelo.put("personas",personas);
         modelo.put("listaRoles",listaRoles);
-        modelo.put("titulo","Registro para integrantes del gimnasio");
+        modelo.put("titulo","Registro para clientes");
         return "miembros_form";
     }
 
@@ -138,7 +186,7 @@ public class PersonasController {
         modelo.put("personas",profesorDTO);
         modelo.put("listaRoles",listaRoles);
         modelo.put("listaDisciplinas",listaDisciplinas);
-        modelo.put("titulo","Registro para profesores del gimnasio");
+        modelo.put("titulo","Registro para profesores");
         return "profesoresForm";
     }
     @PostMapping("/guardar")
@@ -152,6 +200,7 @@ public class PersonasController {
         }
         String mensaje = "Cliente registrado con éxito";
         personasService.registrarPersona(personas);
+        modelo.addAttribute("personas", personas);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
         return "redirect:/gym/personas/clientes/page/1";
@@ -177,9 +226,9 @@ public class PersonasController {
     public String editarPersona(@PathVariable(value = "idPersona") int idP, Map<String,Object> modelo,
                                 RedirectAttributes flash)
     {
-        Personas personas = null;
+        PersonasDTO personas = null;
         if(idP>0) {
-            personas = personasService.findPersona(idP);
+            personas = personasService.buscarPersona(idP);
             if (personas == null) {
                 flash.addFlashAttribute("error", "Persona no encontrada en la Base de Datos");
                 return "redirect:/gym/personas/listar";

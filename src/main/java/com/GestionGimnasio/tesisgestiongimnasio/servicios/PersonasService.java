@@ -50,6 +50,13 @@ public class PersonasService implements iPersonasService {
 
         personasDTO.setIdRol(2);
 
+        String cinturonbjj = personasDTO.getCinturonbjj();
+        String gradosbjj = personasDTO.getGradosbjj();
+
+        String cinturonbjjConcatenado = cinturonbjj + " " + gradosbjj;
+
+        personasDTO.setCinturonbjj(cinturonbjjConcatenado);
+
         if(personasDTO.getIdPersona() == 0) {
             for (Personas value : listC) {
                 if (personasDTO.getCedula().equals(value.getCedula())) {
@@ -87,6 +94,13 @@ public class PersonasService implements iPersonasService {
         List<Personas> listP = personasRepository.findAll();
 
         profesorDTO.setIdRol(3);
+
+        String cinturonbjj = profesorDTO.getCinturonbjj();
+        String gradosbjj = profesorDTO.getGradosbjj();
+
+        String cinturonbjjConcatenado = cinturonbjj + " " + gradosbjj;
+
+        profesorDTO.setCinturonbjj(cinturonbjjConcatenado);
 
         if(profesorDTO.getIdProfesor() == 0) {
             for (Personas value : listP) {
@@ -137,7 +151,7 @@ public class PersonasService implements iPersonasService {
     @Override
     public ProfesorDTO buscarProfesor(int idPersona) {
         return mapperp.toprofesorDTO(personasRepository.findById(idPersona)
-                .orElseThrow(()-> new RuntimeException("Profesor no encontrada")));
+                .orElseThrow(()-> new RuntimeException("Profesor no encontrado")));
     }
 
 
@@ -178,6 +192,32 @@ public class PersonasService implements iPersonasService {
         Page<Personas> personas = personasRepository.findAll(pageable);
         return personas;
     }
+
+
+    @Override
+    public Page<Personas> searchPersonas(String searchTerm, int pageNumber)
+    {
+        String[] nameAndLastName = searchTerm.split(" ");
+        String nombre = nameAndLastName[0];
+        String apellido = nameAndLastName.length > 1 ? nameAndLastName[1] : "";
+        Pageable pageable = PageRequest.of(pageNumber-1,5);
+        return personasRepository.findByNombreStartingWithAndApellidosStartingWith(nombre,apellido,pageable);
+    }
+
+    @Override
+    public Page<Personas> searchClientes(String searchTerm, int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber-1,5);
+        return personasRepository.findClientesbyNameOrLastName(searchTerm, pageable);
+    }
+
+    @Override
+    public Page<Personas> searchProfesores(String searchTerm, int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber-1,5);
+        return personasRepository.findProfesoresbyNameOrLastName(searchTerm, pageable);
+    }
+
 
     @Override
     public List<PersonasDTO> obtenerPersonasSinSuscripcion()

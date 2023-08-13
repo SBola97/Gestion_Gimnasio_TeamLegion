@@ -47,6 +47,12 @@ public class Personas {
 
     private float estatura;
 
+    @Column(length = 25)
+    private String cinturonbjj;
+
+    @Column(length = 25)
+    private String cinturonkb;
+
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "idDisciplina", referencedColumnName = "idDisciplina")
     private Disciplinas disciplinas;

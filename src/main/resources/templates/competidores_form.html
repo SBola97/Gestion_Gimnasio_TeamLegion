@@ -44,7 +44,8 @@
             <label for="categoriaPeso" class="block mb-2 text-sm font-medium text-gray-900">Categoría de Peso</label>
             <input type="text" id="categoriaPeso" th:value="${competidores_torneo.categoriaPeso}" th:field="*{categoriaPeso}"
                    class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 placeholder:text-gray-500"
-                   placeholder="Ingrese la categoría de peso" required>
+                   placeholder="Ingrese la categoría de peso" required
+            pattern="^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$">
           </div>
         </div>
 

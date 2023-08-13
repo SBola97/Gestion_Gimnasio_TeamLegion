@@ -19,22 +19,22 @@
                 <div class="w-full md:w-1/2 xl:w-1/2">
                     <!-- Modal body -->
                     <div class="p-6 space-y-1 flex">
-                        <img class="flex border-2 border-gray-900 border-solid rounded-t-lg object-fill h-44 w-66"
-                             th:src="@{/svgs/competidores-fondo.png}" alt="competidores-fondo"/>
+                        <img class="flex object-fill h-48 w-48"
+                             th:src="@{/svgs/administrador.png}" alt="competidores-fondo"/>
                         <div class="grid grid-cols-1 ml-10">
-                            <div class="col-auto">
-                                <span class="font-semibold">Nombre de Usuario: </span>
-                                <span th:text="${usuario}"></span>
+                            <div class="col-auto leading-10">
+                                <span class="font-bold text-lg">Nombre de Usuario: </span>
+                                <span class="text-lg" th:text="${usuario}"></span>
                                 <br>
-                                <span class="font-semibold">Suscriptor: </span>
-                                <span th:text="${personas.nombre}+' '
+                                <span class="font-bold text-lg">Suscriptor: </span>
+                                <span class="text-lg" th:text="${personas.nombre}+' '
                                 +${personas.apellidos}"></span>
                                 <br>
-                                <span class="font-semibold">Correo electrónico: </span>
-                                <span th:text="${personas.email}"></span>
+                                <span class="font-bold text-lg">Correo electrónico: </span>
+                                <span class="text-lg" th:text="${personas.email}"></span>
                                 <br>
-                                <span class="font-semibold">Teléfono: </span>
-                                <span th:text="${personas.telefono}"></span>
+                                <span class="font-bold text-lg">Teléfono: </span>
+                                <span class="text-lg" th:text="${personas.telefono}"></span>
                                 <span></span>
                             </div>
                         </div>

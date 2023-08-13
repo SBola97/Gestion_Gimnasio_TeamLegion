@@ -15,10 +15,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
@@ -69,7 +71,7 @@ public class ReportesController {
     }
     @PostMapping("/mesd")
     public String buscarMes(@Valid @ModelAttribute("reporteDeudores") ReporteDeudoresDTO reporteDeudoresDTO,
-                            Model modelo ,BindingResult result) {
+                            Model modelo ,BindingResult result, HttpSession session) {
         List<ReporteDeudoresDTO> listaDeudores = reporteService.obtenerDeudoresMes(reporteDeudoresDTO);
         if(result.hasErrors())
         {
@@ -79,13 +81,16 @@ public class ReportesController {
 
         modelo.addAttribute("reporteDeudores",reporteDeudoresDTO);
         modelo.addAttribute("listaDeudores",listaDeudores);
+
+        session.setAttribute("selectedMonth",reporteDeudoresDTO.getMes());
+
         return "reporteDeudores";
     }
 
 
     @PostMapping("/mes")
     public String buscarMesG(@Valid @ModelAttribute("reporteGanacias") ReporteGananciasDTO reporteGananciasDTO,
-                            Model modelo ,BindingResult result)
+                             Model modelo , BindingResult result, HttpSession session)
     {
         if(result.hasErrors())
         {
@@ -95,61 +100,85 @@ public class ReportesController {
         modelo.addAttribute("reporteGanancias",reporteGananciasDTO);
         modelo.addAttribute("listaPagosM",reporteService.obtenerPagosMes(reporteGananciasDTO));
         reporteService.obtenerGanancias(reporteGananciasDTO);
+
+        session.setAttribute("selectedMonth",reporteGananciasDTO.getMes());
+
         return "reporteGananciasM";
     }
 
     @GetMapping("/pdf")
-    public void exportarDeudores(HttpServletResponse response, ReporteDeudoresDTO deudoresDTO) throws IOException {
-        response.setContentType("application/pdf");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String fechaactual = dateFormat.format(new Date());
+    public void exportarDeudores(HttpServletResponse response, ReporteDeudoresDTO deudoresDTO, HttpSession session)
+            throws IOException {
 
-        String cabecera = "Content-Disposition";
+        Integer selectedMonth = (Integer) session.getAttribute("selectedMonth");
 
-        String valor = "attachment; filename=Deudores_"+ fechaactual+".pdf";
+        if(selectedMonth != null) {
+            response.setContentType("application/pdf");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+            //String fechaactual = dateFormat.format(new Date());
+            String mes = reporteService.getMonthName(selectedMonth);
+            int anio = LocalDate.now().getYear();
+            String cabecera = "Content-Disposition";
 
-        response.setHeader(cabecera,valor);
-        deudoresDTO.setMes(LocalDate.now().getMonth().getValue());
-        List<ReporteDeudoresDTO> listaDeudores = reporteService.obtenerDeudoresMes(deudoresDTO);
-        DeudoresExporterPDF exporter = new DeudoresExporterPDF(listaDeudores);
-        exporter.exportar(response);
+            String valor = "attachment; filename=Deudores_" + mes + "_" + anio + ".pdf";
+
+            response.setHeader(cabecera, valor);
+            deudoresDTO.setMes(selectedMonth);
+            List<ReporteDeudoresDTO> listaDeudores = reporteService.obtenerDeudoresMes(deudoresDTO);
+            DeudoresExporterPDF exporter = new DeudoresExporterPDF(listaDeudores,mes,anio);
+            exporter.exportar(response);
+        }
+        else{
+            deudoresDTO.setMes(LocalDate.now().getMonth().getValue());
+        }
     }
 
     @GetMapping("/pdfg")
-    public void exportarGanancias(HttpServletResponse response, ReporteGananciasDTO reporteGananciasDTO) throws IOException {
-        response.setContentType("application/pdf");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String fechaactual = dateFormat.format(new Date());
+    public void exportarGanancias(HttpServletResponse response, ReporteGananciasDTO reporteGananciasDTO,HttpSession session)
+            throws IOException {
 
-        String cabecera = "Content-Disposition";
+        Integer selectedMonth = (Integer) session.getAttribute("selectedMonth");
 
-        String valor = "attachment; filename=GananciasMensuales_"+ fechaactual+".pdf";
+        if(selectedMonth != null) {
+            response.setContentType("application/pdf");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+            String mes = reporteService.getMonthName(selectedMonth);
+            int anio = LocalDate.now().getYear();
 
-        response.setHeader(cabecera,valor);
-        reporteGananciasDTO.setMes(LocalDate.now().getMonth().getValue());
-        BigDecimal ganancias = reporteService.obtenerGanancias(reporteGananciasDTO);
-        reporteGananciasDTO.setTotal(ganancias);
-        List<ReporteGananciasDTO> listaGanancias = reporteService.obtenerPagosMes(reporteGananciasDTO);
+            String cabecera = "Content-Disposition";
 
-        GananciasExporterPDF exporter = new GananciasExporterPDF(listaGanancias, ganancias);
-        exporter.exportar(response);
+            String valor = "attachment; filename=GananciasMensuales_" + mes + "_" + anio + ".pdf";
+
+            response.setHeader(cabecera, valor);
+            reporteGananciasDTO.setMes(selectedMonth);
+            BigDecimal ganancias = reporteService.obtenerGanancias(reporteGananciasDTO);
+            reporteGananciasDTO.setTotal(ganancias);
+            System.out.println("Ganancias totales: "+ ganancias);
+            List<ReporteGananciasDTO> listaGanancias = reporteService.obtenerPagosMes(reporteGananciasDTO);
+
+            GananciasExporterPDF exporter = new GananciasExporterPDF(listaGanancias, ganancias, mes, anio);
+            exporter.exportar(response);
+        }
+        else{
+            reporteGananciasDTO.setMes(LocalDate.now().getMonth().getValue());
+        }
     }
 
     @GetMapping("/pdfa")
     public void exportarGananciasA(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String fechaactual = dateFormat.format(new Date());
+        int anio = LocalDate.now().getYear();
 
         String cabecera = "Content-Disposition";
 
-        String valor = "attachment; filename=GananciasAño_"+ fechaactual+".pdf";
+        String valor = "attachment; filename=GananciasAnuales_" + anio + ".pdf";
 
         response.setHeader(cabecera,valor);
         List<ReporteAnualDTO> listaGananciasA = reporteService.obtenerGananciasAnio();
 
 
-        GananciasAExporterPDF exporter = new GananciasAExporterPDF(listaGananciasA);
+        GananciasAExporterPDF exporter = new GananciasAExporterPDF(listaGananciasA, anio);
         exporter.exportar(response);
     }
 

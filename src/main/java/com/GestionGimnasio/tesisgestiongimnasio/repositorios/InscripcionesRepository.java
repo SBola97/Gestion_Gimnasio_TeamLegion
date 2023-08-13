@@ -1,6 +1,8 @@
 package com.GestionGimnasio.tesisgestiongimnasio.repositorios;
 
 import com.GestionGimnasio.tesisgestiongimnasio.entidades.Inscripciones;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,9 +18,9 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones,Int
     public int countMensualidadesPorVencer(); // número de mensualidades por vencer
 
     @Query(value="SELECT * from inscripciones as i " +
-            "inner join personas as p on i.id_persona = p.id_persona where datediff(i.fecha_fin,CURRENT_DATE) <= 3 " +
+            "inner join personas as p on i.id_persona = p.id_persona where datediff(i.fecha_fin,CURRENT_DATE) <= 5 " +
             "and datediff(i.fecha_fin,CURRENT_DATE) > 0", nativeQuery = true)
-    public List<Inscripciones> findInscripcionesByFechaFin();
+    public Page<Inscripciones> findInscripcionesByFechaFin(Pageable pageable);
 
 /*    @Query(value="SELECT datediff(:fecha,CURRENT_DATE) from inscripciones as i " +
             "where datediff(:fecha,CURRENT_DATE) <= 0",nativeQuery = true)
@@ -29,4 +31,8 @@ public interface InscripcionesRepository extends JpaRepository<Inscripciones,Int
     @Query(value="select * from inscripciones as i left join pagos as p  on p.id_inscripcion = i.id_inscripcion where p.id_inscripcion is NULL",
             nativeQuery = true)
     public List<Inscripciones> findInscripcionesNoPagadas();
+
+
+    @Query(value = "SELECT * from inscripciones as i inner join personas as p on i.id_persona = p.id_persona where (concat(p.nombre, ' ', p.apellidos) like %:keyword%)", nativeQuery = true)
+    Page<Inscripciones> searchSuscripcionesByNameOrLastName(String keyword, Pageable pageable);
 }

@@ -42,6 +42,12 @@ public interface iPersonasService {
 
     Page<Personas> obtenerSuscriptores(int pageNumber);
 
+    Page<Personas> searchPersonas(String nombre, int pageNumber);
+
+    Page<Personas> searchClientes(String searchTerm, int pageNumber);
+
+    Page<Personas> searchProfesores(String searchTerm, int pageNumber);
+
     List<PersonasDTO> obtenerPersonasSinSuscripcion();
 
     List<PersonasDTO> obtenerPersonasSinUser();
