@@ -15,26 +15,24 @@
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
             <h1 class="text-2xl text-gray-700 font-bold pb-2">Ficha Personal</h1>
-            <div class="flex flex-wrap mt-1">
-                <div class="w-full md:w-1/2 xl:w-1/2">
-                    <!-- Modal body -->
-                    <div class="p-6 space-y-1 flex">
-                        <img class="flex object-fill h-48 w-48"
+            <div class="flex mt-1">
+                <div class="w-full">
+                    <div class="p-6 space-x-4 flex">
+                        <img class="object-fill h-48 w-48"
                              th:src="@{/svgs/administrador.png}" alt="competidores-fondo"/>
-                        <div class="grid grid-cols-1 ml-10">
-                            <div class="col-auto leading-10">
-                                <span class="font-bold text-lg">Nombre de Usuario: </span>
-                                <span class="text-lg" th:text="${usuario}"></span>
+                        <div class="leading-8">
+                                <span class="font-bold text-base">Nombre de Usuario: </span>
+                                <span class="text-base" th:text="${usuario}"></span>
                                 <br>
-                                <span class="font-bold text-lg">Suscriptor: </span>
-                                <span class="text-lg" th:text="${personas.nombre}+' '
+                                <span class="font-bold text-base">Suscriptor: </span>
+                                <span class="text-base" th:text="${personas.nombre}+' '
                                 +${personas.apellidos}"></span>
                                 <br>
-                                <span class="font-bold text-lg">Correo electrónico: </span>
-                                <span class="text-lg" th:text="${personas.email}"></span>
+                                <span class="font-bold text-base">Correo electrónico: </span>
+                                <span class="text-base" th:text="${personas.email}"></span>
                                 <br>
-                                <span class="font-bold text-lg">Teléfono: </span>
-                                <span class="text-lg" th:text="${personas.telefono}"></span>
+                                <span class="font-bold text-base">Teléfono: </span>
+                                <span class="text-base" th:text="${personas.telefono}"></span>
                                 <span></span>
                             </div>
                         </div>

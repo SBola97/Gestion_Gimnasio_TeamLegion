@@ -61,10 +61,10 @@
                         </thead>
                         <tbody class="text-gray-700">
                         <tr th:each="reporteDeudores : ${listaDeudores}">
-                            <td class="text-lg" th:text="${reporteDeudores.nombrePersona} +' '+${reporteDeudores.apellidos}"></td>
-                            <td class="text-lg" th:text="${reporteDeudores.fechaInicio}"></td>
-                            <td class="text-lg" th:text="${reporteDeudores.fechaFin}"></td>
-                            <td class="text-lg" th:text="${reporteDeudores.valorp}"></td>
+                            <td class="text-base" th:text="${reporteDeudores.nombrePersona} +' '+${reporteDeudores.apellidos}"></td>
+                            <td class="text-base" th:text="${reporteDeudores.fechaInicio}"></td>
+                            <td class="text-base" th:text="${reporteDeudores.fechaFin}"></td>
+                            <td class="text-base" th:text="${reporteDeudores.valorp}"></td>
                         </tr>
                         </tbody>
                     </table>
