@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PagosRepository extends JpaRepository<Pagos,Integer> {
-    @Query(value="SELECT sum(valorp) FROM pagos WHERE MONTH(fecha_pago) =:mes AND pagos.estado_pago = 'Pagado'",nativeQuery = true)
+    @Query(value="SELECT sum(valorp) FROM pagos WHERE YEAR(CURRENT_DATE) = year(fecha_pago) and MONTH(fecha_pago) =:mes AND pagos.estado_pago = 'Pagado'",nativeQuery = true)
     public BigDecimal sumValorpByFechaPago(@Param("mes") int mes);
 
     @Query(value="SELECT sum(valorp) FROM pagos WHERE DAY(fecha_pago) =:dia AND pagos.estado_pago = 'Pagado'",nativeQuery = true)
@@ -21,7 +21,7 @@ public interface PagosRepository extends JpaRepository<Pagos,Integer> {
 
     @Query(value="SELECT pe.nombre,pe.apellidos,pa.fecha_pago, pa.valorp from pagos as pa inner join inscripciones as i" +
             " on i.id_inscripcion = pa.id_inscripcion inner join personas as pe " +
-            "on i.id_persona = pe.id_persona where month(pa.fecha_pago) =:mes AND pa.estado_pago = 'Pagado'",nativeQuery = true)
+            "on i.id_persona = pe.id_persona where YEAR(CURRENT_DATE) = year(pa.fecha_pago) and month(pa.fecha_pago) =:mes AND pa.estado_pago = 'Pagado'",nativeQuery = true)
     public List<Object> findPagosByFechaPago(@Param("mes") int mes);
 
 

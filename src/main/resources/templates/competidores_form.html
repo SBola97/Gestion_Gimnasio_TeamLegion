@@ -17,33 +17,34 @@
       <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6"></h1>
       <form th:action="@{/gym/competidores/guardar}" th:object="${competidores_torneo}" method="post">
         <input type="hidden" th:field="*{idCompetidorTorneo}" th:value="${competidores_torneo.idCompetidorTorneo}"/>
-        <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div class="grid gap-4 md:gap-6 mb-6">
           <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Competidor</label>
-            <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" th:field="*{idPersona}" required>
+            <label class="block mb-2 text-sm md:text-base font-medium text-gray-900">Competidor</label>
+            <select class="p-2.5 bg-gray-400 focus:border-blue-500 focus:outline-none rounded-lg w-full" th:field="*{idPersona}" required>
               <th:block th:each="personas : ${listaPersonas}">
                 <option th:text="${personas.nombre}+' '+${personas.apellidos}" th:value="${personas.idPersona}"></option>
               </th:block>
             </select>
           </div>
           <div>
-            <label class="block mb-2 text-sm font-medium text-gray-900">Torneo</label>
-            <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="idTorneo" th:field="*{idTorneo}" required>
+            <label class="block mb-2 text-sm md:text-base font-medium text-gray-900">Torneo</label>
+            <select class="p-2.5 bg-gray-400 focus:border-blue-500 focus:outline-none rounded-lg w-full" id="idTorneo" th:field="*{idTorneo}" required>
               <th:block th:each="torneos : ${listaTorneos}">
                 <option th:text="${torneos.nombre}+' ('+${torneos.ciudad}+')'"  th:value="${torneos.idTorneo}"></option>
               </th:block>
             </select>
           </div>
           <div>
-            <label for="pesoc" class="block mb-2 text-sm font-medium text-gray-900">Peso de competencia</label>
+            <label for="pesoc" class="block mb-2 text-sm md:text-base font-medium text-gray-900">Peso de competencia</label>
             <input type="number" step="0.1" min="30" max="250" id="pesoc" th:field="*{pesoc}"
-                   class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                   class="bg-gray-400 border border-gray-300 text-gray-900 text-sm md:text-base rounded-lg focus:ring-blue-500
                    focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500" placeholder="Ingrese el peso de competencia" required>
           </div>
           <div class="mb-6">
-            <label for="categoriaPeso" class="block mb-2 text-sm font-medium text-gray-900">Categoría de Peso</label>
+            <label for="categoriaPeso" class="block mb-2 text-sm md:text-base font-medium text-gray-900">Categoría de Peso</label>
             <input type="text" id="categoriaPeso" th:value="${competidores_torneo.categoriaPeso}" th:field="*{categoriaPeso}"
-                   class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 placeholder:text-gray-500"
+                   class="bg-gray-400 border border-gray-300 text-gray-900 text-sm md:text-base rounded-lg
+                   focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder:text-gray-500"
                    placeholder="Ingrese la categoría de peso" required
             pattern="^([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+)(\s+([A-Za-zÑñÁáÉéÍíÓóÚú]+['\-]{0,1}[A-Za-zÑñÁáÉéÍíÓóÚú]+))*$">
           </div>

@@ -14,13 +14,13 @@
 
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Reporte de ganancias mensuales</h1>
-            <div class="w-full mt-8">
+            <h1 class="text-xl sm:text-2xl text-gray-700 pb-6 font-bold">Reporte de ganancias mensuales</h1>
+            <div class="w-full mt-4 md:mt-8">
                 <form th:action="@{/gym/reportes/mes}" th:object="${reporteGanancias}" method="post">
-                <div class="text-center items-center justify-center">
+                <div class="text-center items-center justify-center mb-4 md:mb-2">
                     <div class="flex items-center text-center justify-center">
                         <img class="w-8 h-8 mr-2" th:src="@{/svgs/calendario.png}"/>
-                    <select id="mes" class="p-1.5 bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none w-1/5"
+                    <select id="mes" class="p-1.5 bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none w-auto"
                             th:field="*{mes}">
                         <option value="1">Enero</option>
                         <option value="2">Febrero</option>
@@ -36,37 +36,37 @@
                         <option value="12">Diciembre</option>
                     </select>
                     <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 hover:text-black
-                    focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm w-full
-                    sm:w-auto px-5 py-2.5 ml-2 text-center">Generar reporte
-                        <i class="fas fa-chevron-circle-right pl-2"></i>
+                    focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm w-auto
+                    px-2 md:px-5 py-2 ml-2 text-center">Generar reporte
+                        <i class="fas fa-chevron-circle-right md:pl-2"></i>
                     </button>
                     </div>
                 </div>
                 </form>
                 <a th:href="@{/gym/reportes/pdfg}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
-                            px-5 py-2.5 mr-2 mb-2 mt-2">
+                            px-2 md:px-5 py-2 mr-2 mb-2 mt-2">
                     Imprimir reporte
                     <i class="fas fa-print ml-2"></i>
                 </button></a>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="min-w-full text-center">
+                    <table class="min-w-full table-auto text-center">
                         <thead class="bg-gray-800 text-white text-center">
-                        <tr class="divide-x">
+                        <tr class="divide-x text-sm md:text-base">
                             <th class="text-center text-white">Suscriptor</th>
                             <th class="text-center text-white">Fecha del Pago</th>
-                            <th class="text-center text-white">Valor($)</th>
+                            <th class="text-center text-white">Valor ($)</th>
                         </tr>
                         </thead>
-                        <tbody class="text-gray-700">
+                        <tbody class="text-gray-700 text-sm md:text-base">
                         <tr th:each="reporteGanancias : ${listaPagosM}">
-                            <td class="text-base" th:text="${reporteGanancias.nombrePersona} +' '+${reporteGanancias.apellidos}"></td>
-                            <td class="text-base" th:text="${reporteGanancias.fecha}"></td>
-                            <td class="text-base" th:text="${reporteGanancias.valorp}"></td>
+                            <td th:text="${reporteGanancias.nombrePersona} +' '+${reporteGanancias.apellidos}"></td>
+                            <td class="capitalize" th:text="${#dates.format(reporteGanancias.fecha,'MMMM dd, yyyy')}"></td>
+                            <td th:text="${reporteGanancias.valorp}"></td>
                         </tr>
                         </tbody>
                     </table>
-                    <span th:if="${listaPagosM != null}" class="font-semibold text-xl"
+                    <span th:if="${listaPagosM != null}" class="font-semibold flex mt-4 justify-end text-sm md:text-lg"
                           th:text="'Total del mes: '+ ${reporteGanancias.total} +' $'"></span>
                     <span th:unless="${listaPagosM == null}"></span>
                 </div>

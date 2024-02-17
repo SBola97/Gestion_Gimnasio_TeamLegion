@@ -148,7 +148,7 @@ public class PagosController {
         modelo.addAttribute("pagos",pagosDTO);
         status.setComplete();
         flash.addFlashAttribute("success", mensaje);
-        return "redirect:/gym/pagos/listar/page/1";
+        return "redirect:/gym/pagos/listar/page/1?sortDir=null&campo=default";
     }
     @GetMapping("/guardar/{idPago}")
     public String editarPago(@PathVariable(value = "idPago") int idP, Map<String,Object> modelo,RedirectAttributes flash)
@@ -161,7 +161,7 @@ public class PagosController {
             pagosDTO = pagosService.buscarPago(idP);
             if (pagosDTO == null) {
                 flash.addFlashAttribute("error", "Pago no encontrado en la Base de Datos");
-                return "redirect:/gym/pagos/listar";
+                return "redirect:/gym/pagos/listar/page/1?sortDir=null&campo=default";
             }
         }
         else
@@ -186,7 +186,7 @@ public class PagosController {
             pagosService.eliminarPago(idP);
             flash.addFlashAttribute("success","Pago eliminado con éxito");
         }
-        return "redirect:/gym/pagos/listar/page/1";
+        return "redirect:/gym/pagos/listar/page/1?sortDir=null&campo=default";
     }
 
     @GetMapping("/search/page/{pageNumber}")

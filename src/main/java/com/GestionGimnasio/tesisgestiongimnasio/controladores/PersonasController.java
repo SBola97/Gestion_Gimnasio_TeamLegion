@@ -240,7 +240,7 @@ public class PersonasController {
             return "redirect:/gym/personas/listar";
         }
         modelo.put("personas",personas);
-        modelo.put("titulo","Modificación de integrante del gimnasio");
+        modelo.put("titulo","Modificación de cliente del gimnasio");
         return "miembros_form";
     }
 

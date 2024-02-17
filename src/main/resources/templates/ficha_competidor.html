@@ -18,10 +18,10 @@
             <div class="flex flex-wrap flex-col mt-1">
                 <div class="w-fit">
                     <!-- Modal body -->
-                    <div class="p-6 space-y-1">
+                    <div class="p-2 md:p-6 space-y-1">
                         <div class="flex w-full">
                             <div class="w-1/6">
-                                <img class="border-2 border-gray-900 border-solid rounded-t-lg object-fill h-40 w-40"
+                                <img class="border-2 border-gray-900 border-solid rounded-t-lg object-fill w-20 h-20 md:h-40 md:w-40"
                                      th:src="@{/svgs/fighter.jpg}" alt="competidor"/>
                             </div>
                             <div class="ml-4 w-5/6">
@@ -47,27 +47,42 @@
                             </div>
                         </div>
                         <div class="overflow-x-auto">
-                            <table class="w-full mt-5 text-sm text-gray-300 text-center">
+                            <table class="w-full mt-5 table-auto text-sm text-gray-300 text-center">
                                 <thead class="text-xs uppercase">
                                 <tr class="divide-x bg-gray-600 divide-teal-700">
-                                    <th scope="col" class="px-3 py-3">Torneo</th>
-                                    <th scope="col" class="px-3 py-3">Ciudad</th>
-                                    <th scope="col" class="px-3 py-3">Disciplina</th>
-                                    <th scope="col" class="px-4 py-3">Peso de competencia</th>
-                                    <th scope="col" class="px-3 py-3">Categoría</th>
-                                    <th scope="col" class="px-2 py-3">Fecha</th>
+                                    <th scope="col" class="px-2 py-2 md:py-3">Torneo</th>
+                                    <th scope="col" class="px-2 py-2 md:py-3 hidden md:table-cell">Ciudad</th>
+                                    <th scope="col" class="px-2 py-2 md:py-3">Disciplina</th>
+                                    <th scope="col" class="px-2 py-2 md:py-3">Peso</th>
+                                    <th scope="col" class="px-2 py-2 md:py-3 hidden sm:table-cell">Categoría</th>
+                                    <th scope="col" class="px-2 py-2 md:py-3 hidden md:table-cell">Fecha</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr class="divide-y divide-teal-600"
                                     th:each="fichaCompetidor : ${fichaCompetidor}">
-                                    <td class="px-6 py-4 font-medium font-semibold text-gray-600"
-                                    th:text="${fichaCompetidor.nombret}"></td>
-                                    <td class="px-6 py-3 text-gray-700 " th:text="${fichaCompetidor.ciudadt}"></td>
-                                    <td class="px-6 py-3 text-gray-700 " th:text="${fichaCompetidor.nombreD}"></td>
-                                    <td class="px-4 py-3 text-gray-700 " th:text="${fichaCompetidor.pesoc} +' Kg'"></td>
-                                    <td class="px-6 py-3 text-gray-700 " th:text="${fichaCompetidor.categoriaPeso}"></td>
-                                    <td class="px-6 py-3 text-gray-700 " th:text="${fichaCompetidor.fechat}"></td>
+                                    <td class="px-6 py-4 font-medium md:font-normal text-gray-600"
+                                    th:inline="text">[[${fichaCompetidor.nombret}]]
+                                        <dl class="md:hidden font-normal text-gray-600">
+                                            <dt class="sr-only">Ciudad</dt>
+                                            <dd class="capitalize" th:text="${fichaCompetidor.ciudadt}"></dd>
+                                            <dt class="sr-only">Fecha</dt>
+                                            <dd class="capitalize" th:text="${#temporals.format(fichaCompetidor.fechat,'MMMM dd, yyyy')}"></dd>
+                                        </dl>
+                                    </td>
+                                    <td class="px-3 md:px-6 py-2 md:py-3 text-gray-700 capitalize hidden md:table-cell" th:text="${fichaCompetidor.ciudadt}"></td>
+                                    <td class="px-3 md:px-6 py-2 md:py-3 text-gray-700" th:text="${fichaCompetidor.nombreD}"></td>
+                                    <td class="px-2 md:px-4 py-2 md:py-3 text-gray-700" th:inline="text">
+                                        [[${fichaCompetidor.pesoc} +' Kg']]
+                                        <dl class="sm:hidden font-normal text-gray-600">
+                                            <dt class="sr-only">Categoría</dt>
+                                            <dd class="capitalize" th:text="${fichaCompetidor.categoriaPeso}"></dd>
+                                        </dl>
+                                    </td>
+                                    <td class="px-2 md:px-4 py-2 md:py-3 text-gray-700 capitalize hidden sm:table-cell"
+                                        th:text="${fichaCompetidor.categoriaPeso}"></td>
+                                    <td class="px-6 py-3 text-gray-700 capitalize hidden md:table-cell"
+                                        th:text="${#temporals.format(fichaCompetidor.fechat,'MMMM dd, yyyy')}"></td>
                                 </tr>
                                 </tbody>
                             </table>

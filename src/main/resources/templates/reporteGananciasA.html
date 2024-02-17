@@ -14,26 +14,26 @@
 
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Reporte de ganancias anuales</h1>
-            <div class="w-full mt-8">
+            <h1 class="text-xl sm:text-2xl text-gray-700 pb-6 font-bold">Reporte de ganancias anuales</h1>
+            <div class="w-full mt-4 md:mt-8">
                 <a th:href="@{/gym/reportes/pdfa}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
-                            px-5 py-2.5 mr-2 mb-2 mt-2">
+                            px-2 md:px-5 py-2 mr-2 mb-2 mt-2">
                     Imprimir reporte
                     <i class="fas fa-print ml-2"></i>
                 </button></a>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="min-w-full text-center">
+                    <table class="min-w-full table-auto text-center">
                         <thead class="bg-gray-800 text-white text-center">
-                        <tr class="divide-x">
+                        <tr class="divide-x text-sm md:text-base">
                             <th class="text-center text-white">Mes</th>
                             <th class="text-center text-white">Total ($)</th>
                         </tr>
                         </thead>
-                        <tbody class="text-gray-700">
+                        <tbody class="text-gray-700 text-sm md:text-base">
                         <tr th:each="reporteGananciasA : ${listaAnual}">
-                            <td class="text-base" th:text="${reporteGananciasA.mes}"></td>
-                            <td class="text-base" th:text="${reporteGananciasA.total}"></td>
+                            <td th:text="${reporteGananciasA.mes}"></td>
+                            <td th:text="${reporteGananciasA.total}"></td>
                         </tr>
                         </tbody>
                     </table>

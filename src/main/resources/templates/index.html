@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout/layout :: head">
-    <meta charset="UTF-8">
 </head>
 <body class="bg-gray-300 font-sans flex overflow-y-hidden">
 
-<nav th:replace="layout/layout :: navbar"></nav>
+<aside th:replace="layout/layout :: navbar"></aside>
 
 <!--Contenedor-->
 <div class="w-full flex flex-col h-screen overflow-y-hidden">
@@ -24,7 +23,7 @@
                                 <img class="w-14 h-14" th:src="@{/svgs/dinero.png}"/>
                             </div>
                         </div>
-                        <div class="flex-1 text-center">
+                        <div class="flex-1 text-right md:text-center">
                             <h5 class="font-bold uppercase text-lg text-white">Ingresos del día</h5>
                             <h3 th:if="${gananciaDiaria>=0}" class="font-bold text-3xl text-white" th:text="${gananciaDiaria}+' $'"></h3>
                             <h3 th:unless="${gananciaDiaria>0}" class="font-bold text-3xl text-white" th:text="0 +'$'"></h3>

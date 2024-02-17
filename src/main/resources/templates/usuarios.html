@@ -16,17 +16,19 @@
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
             <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Usuarios</h1>
-            <form th:action="@{'/gym/usuarios/search/page/1'}" method="get" class="flex justify-end">
+            <form th:action="@{'/gym/usuarios/search/page/1'}" method="get" class="flex md:justify-end">
                 <label for="nombre" class="sr-only">Buscar</label>
                 <div class="relative flex">
-                        <i class="fas fa-search mr-2 pt-2.5"></i>
+                    <i class="fas fa-search fa-inverse absolute left-3 top-1/2 transform -translate-y-1/2"></i>
                     <input type="search" id="nombre" name="nombre"
-                           class="block p-2 ml-2 mr-10 w-40 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar suscriptor">
+                           class="block p-2 pl-10 w-42 text-sm text-white bg-gray-800 rounded-lg
+                               border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                           placeholder="Buscar suscriptor">
                 </div>
             </form>
             <div class="w-full mt-8">
                 <a sec:authorize="hasAuthority('Admin')"  th:href="@{/gym/usuarios/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
-                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
+                            font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-2 mt-2">
                     Agregar usuario
                     <i class="fas fa-plus pl-2"></i>
@@ -53,31 +55,36 @@
                     </button>
                 </div>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="min-w-full text-center">
+                    <table class="min-w-full table-auto text-center">
                         <thead class="bg-gray-800 text-white">
-                        <tr class="divide-x">
+                        <tr class="divide-x text-sm md:text-base">
                             <th class="text-center text-white">Nombre de Usuario</th>
-                            <th class="text-center text-white">Suscriptor</th>
-                            <th class="text-center text-white">Email</th>
+                            <th class="text-center text-white hidden md:table-cell">Suscriptor</th>
+                            <th class="text-center text-white hidden md:table-cell">Email</th>
                             <th class="text-center text-white">Rol</th>
                             <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
-                        <tbody class="text-gray-700 divide-y">
+                        <tbody class="text-gray-700 divide-y text-sm md:text-base">
                         <tr th:each="usuarios : ${listaUsuarios}">
-                            <td th:text="${usuarios.nombreUsuario}"></td>
-                            <td th:text="${usuarios.personas.nombre}+' '+${usuarios.personas.apellidos}"></td>
-                            <td th:text="${usuarios.personas.email}"></td>
+                            <td class="font-medium md:font-normal" th:inline="text">[[${usuarios.nombreUsuario}]]
+                                <dl class="md:hidden font-normal text-gray-600">
+                                    <dt class="sr-only">Nombre</dt>
+                                    <dd th:text="${usuarios.personas.nombre}+' '+${usuarios.personas.apellidos}"></dd>
+                                </dl>
+                            </td>
+                            <td class="hidden md:table-cell" th:text="${usuarios.personas.nombre}+' '+${usuarios.personas.apellidos}"></td>
+                            <td class="hidden md:table-cell" th:text="${usuarios.personas.email}"></td>
                             <td th:text="${usuarios.personas.roles.nombre}"></td>
                             <td sec:authorize="hasAuthority('Admin')">
                                 <a th:href="@{/gym/usuarios/guardar/} + ${usuarios.idUsuario}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
-                            px-3 py-2 mr-2 mb-2 mt-2">
+                            px-2 md:px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="far fa-edit"></i>
                                     Editar</button></a>
                                 <a th:href="@{/gym/usuarios/eliminar/} + ${usuarios.idUsuario}" onclick="return confirm('¿Deseas eliminar este usuario?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
-                            px-3 py-2 mr-2 mb-2 mt-2">
+                            px-2 md:px-3 py-2 mr-2 mb-2 mt-2">
                                     <i class="fas fa-trash-alt"></i>
                                     Eliminar</button></a>
                             </td>

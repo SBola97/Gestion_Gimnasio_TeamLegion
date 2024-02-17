@@ -15,7 +15,7 @@
 
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Mensualidades por Vencer</h1>
+            <h1 class="text-xl md:text-2xl text-gray-700 pb-6 font-bold">Mensualidades por Vencer</h1>
             <div class="w-full mt-8">
                 <div th:if="${success}" id="alert-4" class="flex p-4 mb-4 bg-green-200 rounded-lg" role="alert">
                     <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5 text-green-700" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
@@ -27,28 +27,28 @@
                     </button>
                 </div>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="min-w-full text-center">
+                    <table class="min-w-full table-auto text-center">
                         <thead class="bg-gray-800 text-white text-center">
-                        <tr class="divide-x">
+                        <tr class="divide-x text-sm md:text-base">
                             <th class="text-center text-white">Suscriptor</th>
                             <th class="text-center text-white">Fecha de Inicio</th>
                             <th class="text-center text-white">Fecha de Fin</th>
                             <th class="text-center text-white">Acción</th>
                         </tr>
                         </thead>
-                        <tbody class="text-gray-700 divide-y">
+                        <tbody class="text-gray-700 divide-y text-sm md:text-base">
                         <tr th:each="inscripciones : ${listaInscripcionesPV}">
                             <td th:text="${inscripciones.personas.nombre} +' '+${inscripciones.personas.apellidos}"></td>
-                            <td th:text="${inscripciones.fechaInicio}"></td>
-                            <td class="text-red-500 font-bold" th:text="${inscripciones.fechaFin}"></td>
+                            <td class="capitalize" th:text="${#temporals.format(inscripciones.fechaInicio,'MMMM dd, yyyy')}"></td>
+                            <td class="text-red-500 font-bold capitalize" th:text="${#temporals.format(inscripciones.fechaFin,'MMMM dd, yyyy')}"></td>
                             <td class="justify-center flex">
                                 <a sec:authorize="hasAuthority('Admin')" th:href="@{/gym/inscripciones/notificar/} + ${inscripciones.idInscripcion}">
                                     <button
-                                        type="button" class="text-black-alt text-center align-middle content-center
+                                        type="button" class="text-black-alt text-center
                                         bg-green-400 hover:bg-green-700 hover:text-white
-                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-semibold rounded-lg text-md
-                            px-5 py-3 mr-2 mb-2 mt-2 flex items-center">
-                                        <img class="w-10 h-10" th:src="@{/svgs/sms.png}"/>
+                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-semibold rounded-lg text-sm md:text-md
+                            px-2 md:px-5 py-2 md:py-3 mr-2 mb-2 mt-2 md:flex items-center justify-center">
+                                        <img class="w-8 h-8 mx-4 md:mx-2 md:w-10 md:h-10" th:src="@{/svgs/sms.png}"/>
                                     Notificar
                                     </button>
                                 </a>

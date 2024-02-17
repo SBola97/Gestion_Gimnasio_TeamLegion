@@ -172,14 +172,14 @@ public class InscripcionesController {
         }
         //List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
 
-        final String ACCOUNT_SID = "AC6b2e5744962cbc52c19f965447264b02";
-        final String AUTH_TOKEN = "9c554e988f7b980ef814fb5cb75f35b8";
+        final String ACCOUNT_SID = "";
+        final String AUTH_TOKEN = "";
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         Message message = Message.creator(
                 new PhoneNumber("+593"+telef),
-                "MGc55ae82b1c7f5ebe8232148a488d6f86",
+                "",
                 "Estimado cliente, "+ name +", su suscripción del Gimnasio 'Team Legión' Riobamba vencerá el "
                 + fechaf + ". Por favor, mantenga sus pagos y suscripciones al día."
         ).create();
@@ -196,7 +196,7 @@ public class InscripcionesController {
         //List<PersonasDTO> listaPersonasi = personasService.obtenerPersona();
         List<PersonasDTO> listaPersonasi = personasService.obtenerPersonasSinSuscripcion();
         List<ModalidadesDTO> listaModalidades = modalidadesService.obtenerModalidades();
-        modelo.put("titulo","Registro de inscripciones");
+        modelo.put("titulo","Registro de suscripciones");
         modelo.put("inscripciones",inscripcionesDTO);
         modelo.put("listaPersonas",listaPersonasi);
         modelo.put("listaModalidades",listaModalidades);
@@ -211,7 +211,7 @@ public class InscripcionesController {
             System.out.println("Errores:"+result.toString());
             return "inscripciones_form";
         }
-        String mensaje = "Inscripción registrada con éxito";
+        String mensaje = "Suscripción registrada con éxito";
         inscripcionesService.ingresarInscripcion(inscripcionesDTO);
         modelo.addAttribute("inscripciones",inscripcionesDTO);
         status.setComplete();
@@ -241,7 +241,7 @@ public class InscripcionesController {
         listaPersonas.add(personasService.buscarPersona(inscripciones.getIdPersona()));
         modelo.put("inscripciones",inscripciones);
         modelo.put("listaPersonas", listaPersonas);
-        modelo.put("titulo","Modificación de inscripción");
+        modelo.put("titulo","Modificación de suscripción");
         modelo.put("listaModalidades",listaModalidades);
         return "inscripciones_form";
     }
@@ -252,7 +252,7 @@ public class InscripcionesController {
         if(idI > 0)
         {
             inscripcionesService.eliminarInscripcion(idI);
-            flash.addFlashAttribute("success","Inscripción eliminada con éxito");
+            flash.addFlashAttribute("success","Suscripción eliminada con éxito");
         }
         return "redirect:/gym/inscripciones/listar/page/1?sortDir=null&campo=default";
     }

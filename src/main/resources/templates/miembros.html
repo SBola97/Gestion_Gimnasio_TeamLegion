@@ -16,12 +16,14 @@
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
             <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Comunidad</h1>
-            <form th:action="@{'/gym/personas/search/page/1'}" method="get" class="flex justify-end">
+            <form th:action="@{'/gym/personas/search/page/1'}" method="get" class="flex md:justify-end">
                 <label for="q" class="sr-only">Buscar</label>
                 <div class="relative flex">
-                        <i class="fas fa-search mr-2 pt-2.5"></i>
+                    <i class="fas fa-search fa-inverse absolute left-3 top-1/2 transform -translate-y-1/2"></i>
                     <input type="search" id="q" name="q"
-                           class="block p-2 ml-2 mr-10 w-40 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar suscriptor">
+                           class="block p-2 pl-10 w-42 text-sm text-white bg-gray-800 rounded-lg
+                               border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                           placeholder="Buscar suscriptor">
                 </div>
             </form>
 
@@ -48,26 +50,31 @@
                     </button>
                 </div>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="min-w-full text-center">
+                    <table class="min-w-full table-auto text-center">
                         <thead class="bg-gray-800 text-white">
-                        <tr class="divide-x">
+                        <tr class="divide-x text-sm md:text-base">
                             <th class="text-center text-white">Nombre</th>
-                            <th class="text-center text-white">Apellidos</th>
                             <th class="text-center text-white">Cédula</th>
-                            <th class="text-center text-white">Email</th>
-                            <th class="text-center text-white">Teléfono</th>
-                            <th class="text-center text-white">Tipo</th>
+                            <th class="text-center text-white hidden md:table-cell">Email</th>
+                            <th class="hidden md:table-cell text-center text-white">Teléfono</th>
+                            <th class="hidden md:table-cell text-center text-white">Tipo</th>
                             <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
-                        <tbody class="text-gray-700 divide-y">
+                        <tbody class="text-gray-700 divide-y text-sm md:text-base">
                         <tr th:each="personas : ${listaPersonas}">
-                            <td th:text="${personas.nombre}"></td>
-                            <td th:text="${personas.apellidos}"></td>
+                            <td class="font-medium md:font-normal" th:inline="text">[[${personas.nombre}+' '+${personas.apellidos}]]
+                                <dl class="md:hidden font-normal text-gray-600">
+                                    <dt class="sr-only">Teléfono</dt>
+                                    <dd th:text="${personas.telefono}"></dd>
+                                    <dt class="sr-only">Rol</dt>
+                                    <dd th:text="${personas.roles.nombre}"></dd>
+                                </dl>
+                            </td>
                             <td th:text="${personas.cedula}"></td>
-                            <td th:text="${personas.email}"></td>
-                            <td th:text="${personas.telefono}"></td>
-                            <td th:text="${personas.roles.nombre}"></td>
+                            <td class="hidden md:table-cell" th:text="${personas.email}"></td>
+                            <td class="hidden md:table-cell" th:text="${personas.telefono}"></td>
+                            <td class="hidden md:table-cell" th:text="${personas.roles.nombre}"></td>
                             <td sec:authorize="hasAuthority('Admin')" >
                                <a th:if="${personas.roles.nombre != 'Admin'}" th:href="@{/gym/personas/eliminar/} + ${personas.idPersona}" onclick="return confirm('¿Deseas eliminar a este miembro del gimnasio?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm

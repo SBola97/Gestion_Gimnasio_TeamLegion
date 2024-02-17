@@ -4,7 +4,7 @@
 <head th:replace="layout/layout :: head">
     <meta charset="UTF-8">
 </head>
-<body class="bg-gray-300 font-sans flex overflow-y-hidden">
+<body class="bg-gray-300 font-sans flex overflow-y-hidden overflow-x-hidden">
 
 <nav th:replace="layout/layout :: navbar"></nav>
 
@@ -15,13 +15,15 @@
 
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Clientes</h1>
-            <form th:action="@{'/gym/personas/clientes/searchc/page/1'}" method="get" class="flex justify-end">
+            <h1 class="text-xl sm:text-2xl text-gray-700 pb-6 font-bold">Módulo de Clientes</h1>
+            <form th:action="@{'/gym/personas/clientes/searchc/page/1'}" method="get" class="flex md:justify-end">
                 <label for="q" class="sr-only">Buscar</label>
                 <div class="relative flex">
-                        <i class="fas fa-search mr-2 pt-2.5"></i>
+                    <i class="fas fa-search fa-inverse absolute left-3 top-1/2 transform -translate-y-1/2"></i>
                     <input type="search" id="q" name="q"
-                           class="block p-2 ml-2 mr-10 w-40 text-sm text-white bg-gray-800 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Buscar cliente">
+                           class="block p-2 pl-10 w-42 text-sm text-white bg-gray-800 rounded-lg
+                               border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                           placeholder="Buscar cliente">
                 </div>
             </form>
 
@@ -54,41 +56,50 @@
                     </button>
                 </div>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="min-w-full text-center">
-                        <thead class="bg-gray-800 text-white">
-                        <tr class="divide-x">
+                    <table class="w-full table-auto text-center">
+                        <thead class="bg-gray-800 text-white text-center">
+                        <tr class="divide-x text-sm md:text-base">
                             <th class="text-center text-white">Nombre</th>
-                            <th class="text-center text-white">Apellidos</th>
-                            <th class="text-center text-white">Cédula</th>
-                            <th class="text-center text-white">Telefono(+593)</th>
-                            <th class="text-center text-white">Edad</th>
-                            <th class="text-center text-white">Peso (Kg)</th>
-                            <th class="text-center text-white">Estatura (cm)</th>
+                            <th class="hidden md:table-cell text-center text-white">Cédula</th>
+                            <th class="hidden md:table-cell text-center text-white">Teléfono (+593)</th>
+                            <th class="hidden md:table-cell text-center text-white">Edad</th>
+                            <th class="hidden md:table-cell text-center text-white">Peso (Kg)</th>
+                            <th class="hidden md:table-cell text-center text-white">Estatura (cm)</th>
                             <th class="text-center text-white">Cinturón BJJ</th>
                             <th class="text-center text-white">Cinturón KB</th>
                             <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
-                        <tbody class="text-gray-700 divide-y" >
+                        <tbody class="text-gray-700 divide-y text-sm md:text-base">
                         <tr th:each="personas : ${listaClientes}">
-                            <td th:text="${personas.nombre}"></td>
-                            <td th:text="${personas.apellidos}"></td>
-                            <td th:text="${personas.cedula}"></td>
-                            <td th:text="${personas.telefono}"></td>
-                            <td th:text="${personas.edad}"></td>
-                            <td th:text="${personas.peso}"></td>
-                            <td th:text="${personas.estatura}"></td>
+                            <td class="font-medium md:font-normal" th:inline="text">[[${personas.nombre}+' '+${personas.apellidos}]]
+                                <dl class="md:hidden font-normal text-gray-600">
+                                    <dt class="sr-only">Peso</dt>
+                                    <dd th:text = "${personas.peso} + ' kg'"></dd>
+                                    <dt class="sr-only">Estatura</dt>
+                                    <dd th:text="${personas.estatura} +' cm'"></dd>
+                                    <dt class="sr-only">Teléfono</dt>
+                                    <dd th:text="${personas.telefono}"></dd>
+                                </dl>
+                            </td>
+                            <td class="hidden md:table-cell" th:text="${personas.cedula}"></td>
+                            <td class="hidden md:table-cell" th:text="${personas.telefono}"></td>
+                            <td class="hidden md:table-cell" th:text="${personas.edad}"></td>
+                            <td class="hidden md:table-cell" th:text="${personas.peso}"></td>
+                            <td class="hidden md:table-cell" th:text="${personas.estatura}"></td>
                             <td th:text="${personas.cinturonbjj}"></td>
                             <td th:text="${personas.cinturonkb}"></td>
                             <td sec:authorize="hasAuthority('Admin')">
                                 <a th:href="@{/gym/personas/guardar/} + ${personas.idPersona}"><button type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
-                            px-3 py-2 mr-2 mb-2 mt-2">
+                            px-2 py-2 mr-2 mb-2 mt-2 sm:px-3">
                                     <i class="far fa-edit"></i>
                                     Editar</button></a>
-                                <a th:href="@{/gym/personas/eliminar/} + ${personas.idPersona}" onclick="return confirm('¿Deseas eliminar a este cliente del gimnasio?')"><button type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
-                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
-                            px-3 py-2 mr-2 mb-2 mt-2">
+                                <a th:href="@{/gym/personas/eliminar/} + ${personas.idPersona}"
+                                   onclick="return confirm('¿Deseas eliminar a este cliente del gimnasio?')">
+                                    <button type="button" class="text-black-alt bg-red-400 hover:bg-red-700
+                                    hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium
+                                    rounded-lg text-sm px-2 py-2 mr-2 mb-2 mt-2 sm:px-3">
                                     <i class="fas fa-trash-alt"></i>
                                     Eliminar</button></a>
                             </td>

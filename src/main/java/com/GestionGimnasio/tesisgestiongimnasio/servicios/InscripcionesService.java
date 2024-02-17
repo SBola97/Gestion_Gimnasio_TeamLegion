@@ -44,10 +44,10 @@ public class InscripcionesService implements iInscripcionesService{
         if(inscripcionesDTO.getIdInscripcion() == 0) {
             if(inscripcionesRepository.findInscripcionesByPersonas_IdPersona(idPer).isPresent())
             {
-                throw new RuntimeException("Esta persona ya cuenta con una inscripción registrada");
+                throw new RuntimeException("Esta persona ya cuenta con una suscripción registrada");
             }
             if (inscripcionesDTO.getFechaInicio().isBefore(fechaActual) || inscripcionesDTO.getFechaFin().isBefore(fechaActual)) {
-                throw new RuntimeException("Fecha no válida para inscripción");
+                throw new RuntimeException("Fecha no válida para suscripción");
             }
         }
         Inscripciones inscripciones = mapper.toInscripciones(inscripcionesDTO);

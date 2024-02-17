@@ -4,7 +4,7 @@
 <head th:replace="layout/layout :: head">
     <meta charset="UTF-8">
 </head>
-<body class="bg-gray-300 font-sans flex overflow-y-hidden">
+<body class="bg-gray-300 font-sans flex overflow-y-hidden overflow-x-hidden">
 
 <nav th:replace="layout/layout :: navbar"></nav>
 
@@ -15,16 +15,16 @@
 
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 class="text-2xl text-gray-700 pb-6 font-bold">Módulo de Suscripciones</h1>
+            <h1 class="text-xl sm:text-2xl text-gray-700 pb-6 font-bold">Módulo de Suscripciones</h1>
             <!-- Div para filtrar y buscar-->
-            <div class="flex justify-between">
-                <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" class="inline-flex items-center text-white bg-gray-800 border border-gray-300 focus:outline-none hover:bg-gray-700 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5" type="button">
+            <div class="flex flex-column flex-wrap sm:flex-row space-y-4 sm:space-y-0 items-center justify-between">
+                <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" class="inline-flex items-center text-white bg-gray-800 hover:bg-gray-700 font-medium rounded-lg text-sm px-3 py-1.5" type="button">
                     <svg class="mr-2 w-4 h-4 text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
                     Ordenar
                     <svg class="ml-2 w-3 h-3" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <!-- Despliegue de filtros -->
-                <div id="dropdownRadio" class="hidden w-30 bg-gray-400 rounded">
+                <div id="dropdownRadio" class="hidden z-10 w-30 bg-gray-400 rounded">
                     <ul class="p-3 space-y-1 text-sm text-gray-700" aria-labelledby="dropdownRadioButton">
                         <li>
                             <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
@@ -46,21 +46,20 @@
                 </div>
                 <form th:action="@{'/gym/inscripciones/search/page/1'}" method="get" class="flex justify-end">
                     <label for="nombre" class="sr-only">Buscar</label>
-                    <div class="relative flex">
-                 <!--      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800
-                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
-                            px-3 py-2">Buscar</button>-->
-                        <i class="fas fa-search mr-2 pt-2.5"></i>
+                    <div class="relative items-center">
+                        <i class="fas fa-search fa-inverse absolute left-3 top-1/2 transform -translate-y-1/2"></i>
                         <input type="search" id="nombre" name="nombre"
-                               class="block p-2 ml-2 mr-10 w-40 text-sm text-white bg-gray-800 rounded-lg
+                               class="block p-2 pl-10 w-42 text-sm text-white bg-gray-800 rounded-lg
                                border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                placeholder="Buscar suscriptor">
                     </div>
                 </form>
-            </div> <!--Fin Div para Filtrar y Buscar-->
+            </div>
+            <!--Fin Div para Filtrar y Buscar-->
             <div class="w-full mt-12">
-                <a sec:authorize="hasAnyAuthority('Admin','Profesor')" th:href="@{/gym/inscripciones/formulario}"><button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
-                            focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
+                <a sec:authorize="hasAnyAuthority('Admin','Profesor')" th:href="@{/gym/inscripciones/formulario}">
+                    <button type="button" class="text-white bg-green-500 hover:bg-green-600 hover:text-black
+                             font-medium rounded-lg text-sm
                             px-5 py-2.5 mr-2 mb-2 mt-2">
                     Agregar suscripción
                     <i class="fas fa-plus pl-2"></i>
@@ -87,41 +86,47 @@
                     </button>
                 </div>
                 <div class="bg-gray-300 overflow-auto">
-                    <table class="w-full p-5 text-gray-300 text-center">
+                    <table class="w-full table-auto text-gray-300 text-center">
                         <thead class="bg-gray-800 text-white">
-                        <tr class="divide-x">
-                            <th class="text-center text-white">
-                                <a th:href="@{'/gym/inscripciones/listar/page/' + ${currentPage} + '/fechaInicio?sortDir='+ ${reverseSortDir}}">
-                                Fecha Inicio</a></th>
-                            <th class="text-center text-white">Fecha Fin</th>
+                        <tr class="divide-x text-sm md:text-base">
                             <th class="text-center text-white">Suscriptor</th>
+                            <th class="hidden md:table-cell text-center text-white">Fecha Inicio</th>
+                            <th class="hidden md:table-cell text-center text-white">Fecha Fin</th>
                             <th class="text-center text-white">Modalidad</th>
                             <th class="text-center text-white">Estado</th>
                             <th class="text-center text-white">Acciones</th>
                         </tr>
                         </thead>
 
-                        <tbody class="text-gray-700 divide-y">
+                        <tbody class="text-gray-700 divide-y text-sm md:text-base">
                         <tr th:each="inscripciones : ${listaInscripciones}">
-                            <td th:text="${inscripciones.fechaInicio}"></td>
-                            <td th:text="${inscripciones.fechaFin}"></td>
-                            <td th:text="${inscripciones.personas.nombre} +' '+ ${inscripciones.personas.apellidos}"></td>
+                            <td class="font-medium md:font-normal" th:inline="text">[[${inscripciones.personas.nombre} +' '+
+                                ${inscripciones.personas.apellidos}]]
+                                <dl class="md:hidden font-normal text-gray-600">
+                                    <dt class="sr-only">Fecha inicio</dt>
+                                    <dd class="capitalize" th:text="${#temporals.format(inscripciones.fechaInicio,'MMMM dd, yyyy')}"></dd>
+                                    <dt class="sr-only">Fecha fin</dt>
+                                    <dd class="capitalize" th:text="${#temporals.format(inscripciones.fechaFin,'MMMM dd, yyyy')}"></dd>
+                                </dl>
+                            </td>
+                            <td class="hidden md:table-cell capitalize"  th:text="${#temporals.format(inscripciones.fechaInicio,'MMMM dd, yyyy')}"></td>
+                            <td class="hidden md:table-cell capitalize" th:text="${#temporals.format(inscripciones.fechaFin,'MMMM dd, yyyy')}"></td>
                             <td th:text="${inscripciones.modalidades.nombre}+' ('+${inscripciones.modalidades.tipo}+')'"></td>
                             <td th:if="${inscripciones.estado == 'Vencida'}" class="font-bold text-red-500"
                                 th:text="${inscripciones.estado}"></td>
                             <td th:unless="${inscripciones.estado == 'Vencida'}" class="font-bold text-green-500 "
                                 th:text="${inscripciones.estado}"></td>
-                            <td sec:authorize="hasAnyAuthority('Admin','Profesor')">
+                            <td class="flex-1" sec:authorize="hasAnyAuthority('Admin','Profesor')">
                                 <a th:href="@{/gym/inscripciones/guardar/} + ${inscripciones.idInscripcion}"><button
                                         type="button" class="text-black-alt bg-blue-400 hover:bg-blue-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-white font-medium rounded-lg text-sm
-                            px-3 py-2 mr-2 mb-2 mt-2"><i class="far fa-edit"></i>
+                            px-2 py-2 mr-2 mb-2 mt-2 md:px-3"><i class="far fa-edit"></i>
                                     Editar</button></a>
                                 <a th:href="@{/gym/inscripciones/eliminar/} + ${inscripciones.idInscripcion}"
                                    onclick="return confirm('¿Deseas eliminar esta suscripción?')"><button
                                         type="button" class="text-black-alt bg-red-400 hover:bg-red-700 hover:text-white
                             focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm
-                            px-3 py-2 mr-2 mb-2 mt-2">
+                            px-2 py-2 mr-2 mb-2 mt-2 sm:px-3">
                                     <i class="fas fa-trash-alt"></i>
                                     Eliminar</button></a>
                             </td>

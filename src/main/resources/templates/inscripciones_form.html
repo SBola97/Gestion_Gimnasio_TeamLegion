@@ -14,45 +14,45 @@
 
     <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
         <main class="w-full flex-grow p-6">
-            <h1 th:text="${titulo}" class="text-2xl dark:text-white text-black-alt font-bold pb-6">Registro de suscripción</h1>
+            <h1 th:text="${titulo}" class="text-xl sm:text-2xl dark:text-white text-black-alt font-bold pb-6">Registro de suscripción</h1>
             <form th:action="@{/gym/inscripciones/guardar}" th:object="${inscripciones}" method="post">
                 <input type="hidden" th:field="*{idInscripcion}" th:value="${inscripciones.idInscripcion}"/>
-                <div class="grid gap-6 mb-6 mx-20 md:grid-cols-1">
+                <div class="grid gap-6 mb-6 md:grid-cols-1">
                     <div>
-                        <label for="fechaInicio" class="block mb-2 text-sm font-medium text-gray-900">Fecha de Inicio</label>
+                        <label for="fechaInicio" class="block mb-2 text-sm sm:text-base font-medium text-gray-900">Fecha de Inicio</label>
                         <input type="date" id="fechaInicio" th:value="${inscripciones.fechaInicio}" th:field="*{fechaInicio}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" placeholder="Fecha de Inicio" required>
                         <small th:if="${#fields.hasErrors('fechaInicio')}" th:errors="*{fechaInicio}"></small>
                     </div>
                     <div>
-                        <label for="fechaFin" class="block mb-2 text-sm font-medium text-gray-900">Fecha de Fin</label>
+                        <label for="fechaFin" class="block mb-2 text-sm sm:text-base font-medium text-gray-900">Fecha de Fin</label>
                         <input type="date" id="fechaFin" th:value="${inscripciones.fechaFin}" th:field="*{fechaFin}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5" placeholder="Fecha Fin" required>
                         <small th:if="${#fields.hasErrors('fechaFin')}" th:errors="*{fechaFin}"></small>
                     </div>
                     <div>
-                        <label for="suscriptor" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor/a</label>
-                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idPersona}" required>
+                        <label for="suscriptor" class="block mb-2 text-sm sm:text-base font-medium text-gray-900">Suscriptor/a</label>
+                        <select class="p-1.5 bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idPersona}" required>
                             <th:block th:each="personas : ${listaPersonas}">
                                 <option th:text="${personas.nombre}+' '+${personas.apellidos}" th:value="${personas.idPersona}"></option>
                             </th:block>
                         </select>
                     </div>
                     <div>
-                        <label for="modalidad" class="block mb-2 text-sm font-medium text-gray-900">Modalidad</label>
-                        <select class="p-1.5 w-full bg-gray-400 focus:border-blue-500 focus:outline-none" id="modalidad" th:field="*{modalidades.idModalidad}" required>
+                        <label for="modalidad" class="block mb-2 text-sm sm:text-base font-medium text-gray-900">Modalidad</label>
+                        <select class="p-1.5 w-full bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none" id="modalidad" th:field="*{modalidades.idModalidad}" required>
                             <th:block th:each="modalidades : ${listaModalidades}">
                                 <option th:text="${modalidades.nombre} +' ('+${modalidades.tipo} +')'" th:value="${modalidades.idModalidad}"></option>
                             </th:block>
                         </select>
                     </div>
                     <div class="mb-4">
-                        <label for="estado" class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
-                        <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" th:field="*{estado}" id="estado">
+                        <label for="estado" class="block mb-2 text-sm sm:text-base font-medium text-gray-900">Estado</label>
+                        <select class="p-1.5 bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none w-full" th:field="*{estado}" id="estado">
                             <option value="Activa">Activa</option>
                             <option value="Vencida">Vencida</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="text-white bg-green-400 mx-20 hover:bg-green-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center">Registrar</button>
+                <button type="submit" class="text-white bg-green-400 hover:bg-green-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center">Registrar</button>
             </form>
         </main>
         <footer th:replace="layout/layout :: footer"></footer>
