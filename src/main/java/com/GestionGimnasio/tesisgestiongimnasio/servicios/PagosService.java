@@ -36,8 +36,6 @@ public class PagosService implements iPagosService {
         //int idFormaP = pagosDTO.getIdFormaPago();
         int idInsc = pagosDTO.getIdInscripcion();
 
-
-
         Pagos pagos = mapper.toPagos(pagosDTO);
 
 /*
@@ -66,7 +64,7 @@ public class PagosService implements iPagosService {
             throw new RuntimeException("La fecha de pago no puede ser inferior a la fecha de suscripción");
         }
 
-        float valorp = insc.getModalidades().getValor() + pagosDTO.getValori();
+        float valorp = insc.getModalidades().getValor() * calcularOferta(pagosDTO) + pagosDTO.getValori();
 
         pagos.setValorp(valorp);
 
@@ -74,6 +72,8 @@ public class PagosService implements iPagosService {
         pagosRepository.save(pagos);
         return mapper.toPagosDTO(pagos);
     }
+
+
 
     @Override
     public PagosDTO modificarPago(int idPago, PagosDTO pagosDTO) {
@@ -96,6 +96,21 @@ public class PagosService implements iPagosService {
     public List<PagosDTO> obtenerPagos() {
         return mapper.toPagosDTO((List<Pagos>)pagosRepository.findAll());
     }
+
+    @Override
+    public float calcularOferta(PagosDTO pagosDTO) {
+        String oferta = pagosDTO.getOferta();
+        if (oferta.equals("2x1")){
+            return 0;
+        }
+        else if(oferta.equals("50%")){
+            return 0.5f;
+        }
+        else {
+            return 1;
+        }
+    }
+
 
     @Override
     public Page<Pagos> findPagos(int pageNumber)

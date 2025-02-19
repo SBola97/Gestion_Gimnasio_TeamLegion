@@ -19,6 +19,8 @@ public interface iPagosService {
 
     List<PagosDTO> obtenerPagos();
 
+    float calcularOferta(PagosDTO pagosDTO);
+
     Page<Pagos> findPagos(int pageNumber);
 
     Page<Pagos> searchPagos(String keyword, int pageNumber);

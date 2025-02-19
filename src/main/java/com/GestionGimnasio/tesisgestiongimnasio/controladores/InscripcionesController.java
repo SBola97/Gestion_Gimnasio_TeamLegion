@@ -54,15 +54,13 @@ public class InscripcionesController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<InscripcionesDTO> ingresarInscripcion(@RequestBody @Valid InscripcionesDTO inscripcionesDTO)
-    {
+    public ResponseEntity<InscripcionesDTO> ingresarInscripcion(@RequestBody @Valid InscripcionesDTO inscripcionesDTO) {
         return new ResponseEntity<>(inscripcionesService.ingresarInscripcion(inscripcionesDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
     @ResponseBody
-    public List<InscripcionesDTO> getInscripciones()
-    {
+    public List<InscripcionesDTO> getInscripciones() {
         return inscripcionesService.obtenerInscripcion();
     }
 
@@ -71,8 +69,7 @@ public class InscripcionesController {
     public String listarSuscripciones(@PathVariable("pageNumber") int currentPage,
                                       @RequestParam(value = "sortDir", required = false) String sortDir,
                                       @RequestParam(value = "campo", required = false, defaultValue = "default") String campo,
-                                      Model modelo)
-    {
+                                      Model modelo) {
         Page<Inscripciones> page;
 
         if ("default".equals(campo)) {
@@ -137,15 +134,12 @@ public class InscripcionesController {
     }
 */
     @GetMapping("/porvencer/page/{pageNumber}")
-    public String listarInscripcionesPV(@PathVariable("pageNumber") int currentPage,Model modelo)
-    {
+    public String listarInscripcionesPV(@PathVariable("pageNumber") int currentPage,Model modelo) {
         Page<Inscripciones> page = inscripcionesService.obtenerInscripcionesPorVencer(currentPage);
         List<Inscripciones> inscripcionespv = page.getContent();
         int totalPages = page.getTotalPages();
         long totalItems = page.getTotalElements();
-        //List<Inscripciones> listaInscripciones = mapper.toInscripciones((List<InscripcionesDTO>)inscripcionesService.obtenerInscripcion());
-        //List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
-        //modelo.addAttribute("personas",personas);
+
         modelo.addAttribute("listaInscripcionesPV",inscripcionespv);
         modelo.addAttribute("currentPage",currentPage);
         modelo.addAttribute("totalPages",totalPages);
@@ -158,7 +152,6 @@ public class InscripcionesController {
     public String sendMessage(@PathVariable(value = "idInscripcion") int idI, RedirectAttributes flash, Model modelo)
     {
         Inscripciones inscripcion = null;
-        //List<InscripcionesDTO> listaClientesNotificar = inscripcionesService.obtenerInscripcionesPorVencer();
         String telef = "";
         String name = "";
         String fechaf = "";
@@ -170,7 +163,6 @@ public class InscripcionesController {
             fechaf = String.valueOf(inscripcion.getFechaFin().format(DateTimeFormatter.
                     ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale ("es","ES"))));
         }
-        //List<InscripcionesDTO> listaInscripcionesPV = inscripcionesService.obtenerInscripcionesPorVencer();
 
         final String ACCOUNT_SID = "";
         final String AUTH_TOKEN = "";
@@ -179,21 +171,18 @@ public class InscripcionesController {
 
         Message message = Message.creator(
                 new PhoneNumber("+593"+telef),
-                "",
+                "MGc55ae82b1c7f5ebe8232148a488d6f86",
                 "Estimado cliente, "+ name +", su suscripción del Gimnasio 'Team Legión' Riobamba vencerá el "
-                + fechaf + ". Por favor, mantenga sus pagos y suscripciones al día."
+                        + fechaf + ". Por favor, mantenga sus pagos y suscripciones al día."
         ).create();
-        //modelo.addAttribute("listaInscripcionesPV",listaInscripcionesPV);
+
         flash.addFlashAttribute("success", "SMS enviado con éxito");
         return "redirect:/gym/inscripciones/porvencer";
     }
 
     @GetMapping("/formulario")
-    public String mostrarFormularioInscripciones(Map<String,Object> modelo)
-    {
+    public String mostrarFormularioInscripciones(Map<String,Object> modelo) {
         InscripcionesDTO inscripcionesDTO = new InscripcionesDTO();
-        //PersonasDTO personas = new PersonasDTO();
-        //List<PersonasDTO> listaPersonasi = personasService.obtenerPersona();
         List<PersonasDTO> listaPersonasi = personasService.obtenerPersonasSinSuscripcion();
         List<ModalidadesDTO> listaModalidades = modalidadesService.obtenerModalidades();
         modelo.put("titulo","Registro de suscripciones");
@@ -203,10 +192,12 @@ public class InscripcionesController {
         return "inscripciones_form";
     }
     @PostMapping("/guardar")
-    public String guardarInscripciones(@Valid @ModelAttribute("inscripciones") InscripcionesDTO inscripcionesDTO, BindingResult result, Model modelo, RedirectAttributes flash, SessionStatus status)
-    {
-        if(result.hasErrors())
-        {
+    public String guardarInscripciones(@Valid @ModelAttribute("inscripciones") InscripcionesDTO inscripcionesDTO,
+                                       BindingResult result,
+                                       Model modelo,
+                                       RedirectAttributes flash,
+                                       SessionStatus status) {
+        if(result.hasErrors()) {
             modelo.addAttribute("titulo","Registro de suscripción al gimnasio");
             System.out.println("Errores:"+result.toString());
             return "inscripciones_form";
@@ -220,8 +211,9 @@ public class InscripcionesController {
     }
 
     @GetMapping("/guardar/{idInscripcion}")
-    public String editarInscripcion(@PathVariable(value = "idInscripcion") int idI, Map<String,Object> modelo,RedirectAttributes flash)
-    {
+    public String editarInscripcion(@PathVariable(value = "idInscripcion") int idI,
+                                    Map<String,Object> modelo,
+                                    RedirectAttributes flash) {
         InscripcionesDTO inscripciones = null;
         List<PersonasDTO> listaPersonas = personasService.obtenerPersonasSinSuscripcion();
         List<ModalidadesDTO> listaModalidades = modalidadesService.obtenerModalidades();
@@ -232,8 +224,7 @@ public class InscripcionesController {
                 return "redirect:/gym/inscripciones/listar";
             }
         }
-        else
-        {
+        else {
             flash.addFlashAttribute("error","Id de la inscripción no puede ser 0");
             return "redirect:/gym/inscripciones/listar";
         }
@@ -247,10 +238,8 @@ public class InscripcionesController {
     }
 
     @GetMapping("/eliminar/{idInscripcion}")
-    public String eliminarInscripcion(@PathVariable(value ="idInscripcion") int idI, RedirectAttributes flash)
-    {
-        if(idI > 0)
-        {
+    public String eliminarInscripcion(@PathVariable(value ="idInscripcion") int idI, RedirectAttributes flash) {
+        if(idI > 0) {
             inscripcionesService.eliminarInscripcion(idI);
             flash.addFlashAttribute("success","Suscripción eliminada con éxito");
         }
@@ -259,8 +248,7 @@ public class InscripcionesController {
 
     @GetMapping("/search/page/{pageNumber}")
     public String buscarSuscripciones(@PathVariable("pageNumber") int currentPage, @RequestParam("nombre") String nombre,
-                                InscripcionesDTO inscripcionesDTO, Model modelo)
-    {
+                                InscripcionesDTO inscripcionesDTO, Model modelo) {
         Page<Inscripciones> page = inscripcionesService.searchInscripciones(nombre, currentPage);
         int totalPages = page.getTotalPages();
         long totalItems = page.getTotalElements();

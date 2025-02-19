@@ -20,37 +20,49 @@
         <div class="grid gap-6 mb-6 md:grid-cols-2">
           <div>
             <label for="fechaPago" class="block mb-2 text-sm font-medium text-gray-900">Fecha de Pago</label>
-            <input type="date" id="fechaPago" th:value="${pagos.fechaPago}" th:field="*{fechaPago}" class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5">
+            <input type="date" id="fechaPago" th:value="${pagos.fechaPago}" th:field="*{fechaPago}"
+                   class="bg-gray-400 border border-gray-300 text-gray-900 text-sm rounded-lg
+                   focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5">
           </div>
           <div>
             <label for="inscripcion" class="block mb-2 text-sm font-medium text-gray-900">Inscripción inicial</label>
-            <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" th:field="*{valori}" id="inscripcion">
+            <select class="p-1.5 bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none w-full" th:field="*{valori}" id="inscripcion">
               <option value="5">5 $</option>
               <option value="10">10 $</option>
-              <option value="0">No</option>
+              <option selected value="0">No</option>
             </select>
           </div>
           <div>
             <label for="estado" class="block mb-2 text-sm font-medium text-gray-900">Estado de Pago</label>
-            <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" th:field="*{estadoPago}" id="estado">
+            <select class="p-1.5 bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none w-full" th:field="*{estadoPago}" id="estado">
               <option value="Pagado">Pagado</option>
               <option value="Pendiente">Pendiente</option>
             </select>
           </div>
           <div>
             <label for="suscriptor" class="block mb-2 text-sm font-medium text-gray-900">Suscriptor/a</label>
-            <select class="p-1.5 bg-gray-400 focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idInscripcion}" required>
+            <select class="p-1.5 bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none w-full" id="suscriptor" th:field="*{idInscripcion}" required>
               <th:block th:each="inscripciones : ${listaInscripciones}">
-                <option th:text="${inscripciones.nombre}+' '+${inscripciones.apellidos}+' ('+${inscripciones.fechaInicio}+')'" th:value="${inscripciones.idInscripcion}"></option>
+                <option th:text="${inscripciones.nombre}+' '+${inscripciones.apellidos}+' ('+${inscripciones.fechaInicio}+')'"
+                        th:value="${inscripciones.idInscripcion}"></option>
+              </th:block>
+            </select>
+          </div>
+          <div>
+            <label for="formaPago" class="block mb-2 text-sm font-medium text-gray-900">Forma de Pago</label>
+            <select class="p-1.5 w-full bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none" id="formaPago" th:field="*{formaspago.idFormaPago}" required>
+              <th:block th:each="formaPago : ${listaFormaPago}">
+                <option th:text="${formaPago.nombre}" th:value="${formaPago.idFormaPago}"></option>
               </th:block>
             </select>
           </div>
           <div class="mb-6">
-            <label for="formaPago" class="block mb-2 text-sm font-medium text-gray-900">Forma de Pago</label>
-            <select class="p-1.5 w-full bg-gray-400 focus:border-blue-500 focus:outline-none" id="formaPago" th:field="*{formaspago.idFormaPago}" required>
-              <th:block th:each="formaPago : ${listaFormaPago}">
-                <option th:text="${formaPago.nombre}" th:value="${formaPago.idFormaPago}"></option>
-              </th:block>
+            <label for="oferta" class="block mb-2 text-sm font-medium text-gray-900">Oferta</label>
+            <select class="p-1.5 bg-gray-400 rounded-lg focus:border-blue-500 focus:outline-none w-full" id="oferta"
+                    th:field="*{oferta}">
+              <option selected value="Ninguna">Ninguna</option>
+              <option value="2x1">2x1</option>
+              <option value="50%">50 %</option>
             </select>
           </div>
         </div>
